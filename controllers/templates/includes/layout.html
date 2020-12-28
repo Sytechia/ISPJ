@@ -6,24 +6,23 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <!-- <link rel="stylesheet" href="../../static/css/style.css"> -->
     <link rel="stylesheet" href="../../static/css/main.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+{% block extra_css %}
 
-  {% block extra_css %}
-  {% endblock %}
+{% endblock %}
 
 
 {% include "includes/navbar.html" %}
 
 
-<div class="container1">
+<div>
     {% block content %}
     {% endblock %}
 </div>
@@ -32,10 +31,54 @@
 
 {% block scripts %}
 
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3 footers-two">
+                <h5>Contact Information</h5>
+                <ul class="list-unstyled">
+                    <div><h6>Address</h6></div>
+                    <div style="color: white">
+                        STORE ADDRESS:
+                        545 Orchard Road,
+                        Far East Shopping Centre #05-11,
+                        Singapore 238882
+                        12PM to 8PM daily
+                    </div>
+                    <div ><h6>Phone Number</h6></div>
+                    <div style="color: white">
+                        Phone: +65 3159 3099
+                        10am to 12am daily
+                    </div>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 footers-three">
+                <h5>Customer Care </h5>
+                <ul class="list-unstyled">
+                    <li><a href="/" style="color: white">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 footers-four">
+                <h5>Accepted Payments</h5>
+                <ul class="list-unstyled">
+                    <li><img src="https://usa.visa.com/dam/VCOM/regional/lac/ENG/Default/Partner%20With%20Us/Payment%20Technology/visapos/full-color-800x450.jpg" alt="" style="height: 30px;"></li>
+                    <li style="padding-top: 15px;"><img src="https://cdn.vox-cdn.com/thumbor/UKSLdttYoIK2bv1gd231rqL4eiQ=/1400x788/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/13674554/Mastercard_logo.jpg" alt="" style="height: 30px;"></li>
+                    <li style="padding-top: 15px;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" alt="" style="height: 40px;"></li>
+
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 footers-five">
+                <h5>About Us</h5>
+                <ul class="list-unstyled">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>      
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
  <!-- Template Main Javascript File -->
  <script src="../../static/js/account.js"></script>
@@ -48,7 +91,7 @@
               type: "GET",
               url: `/lock_timer`,
               success: function(data){
-                document.querySelector('#submit').disabled = true 
+                document.querySelector('#submit').disabled = true
             setTimeout(()=> {
               location.href = '/login'
           }, parseInt(data)*1000)
@@ -64,7 +107,7 @@
 
 
 
-    
+
  </script>
 {% endblock %}
 
