@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar template</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="../../static/css/admin.css">
+  <link rel="stylesheet" href="../../static/css/main.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a href="#">Admin</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">John
+            <strong>Smith</strong>
+          </span>
+          <span class="user-role">Administrator</span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          
+          <li>
+            <a href="/admin">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+              
+            </a>
+          </li>
+          <li>
+            <a href="/productList">
+              <i class="fa fa-shopping-cart"></i>
+              <span>E-commerce</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/adminAnalytics">
+              <i class="fa fa-chart-line"></i>
+              <span>Data</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/listUser">
+              <i class="fa fa-globe"></i>
+              <span>Users</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/Calendar">
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+         
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <!-- <div class="sidebar-footer">
+      <a href="#">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">3</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <a href="#">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div> -->
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    
+    <h1>Add Stock for {{data.prod_name}}</h1>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <defs>
+        <symbol id="arrow" viewBox="0 0 100 100">
+          <path d="M12.5 45.83h64.58v8.33H12.5z"/>
+            <path d="M59.17 77.92l-5.84-5.84L75.43 50l-22.1-22.08 5.84-5.84L87.07 50z"/>
+        </symbol>
+      </defs>
+    </svg>
+    
+    
+      
+      <div class="content">
+        
+        <a href="/productList" class="button">
+          Add Stock For Other Products
+          <span>
+            <svg>
+              <use xlink:href="#arrow" href="#arrow"></use>
+            </svg>
+          </span>
+        </a>
+        
+      </div>
+    Current Count: <span class="current">{{data.stock}}</span>
+    <div class="row">
+        <div class="col-sm-3">
+            <form method="POST">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                  <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                      <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                    </span>
+                    <input type="text" name="quant[1]" class="form-control input-number" value="0" min="1" max="10">
+                    <span class="input-group-btn">
+                  <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    </span>
+                </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js'></script>
+<script src="../../static/js/admin.js"></script>
+<script>
+    $('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+});
+$('.input-number').focusin(function(){
+   $(this).data('oldValue', $(this).val());
+});
+$('.input-number').change(function() {
+    
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+    
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    
+    
+});
+$(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+    let org = parseInt(document.querySelector('.current').innerHTML)
+
+    $(".input-number").change(function (e) {
+        let val = org
+       val += parseInt(e.target.value)
+       document.querySelector('.current').innerText = val
+    });
+
+</script>
+</body>
+</html>

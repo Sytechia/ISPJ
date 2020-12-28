@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i%7CPoppins:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
+
+    <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel="stylesheet" href="../../static/css/form.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style>
+    
+      label{
+        color:white
+      }
+      #email{
+        background:black;
+        color:#d4af37;
+      }
+      .form-control{
+        background-color: black!important;
+        /* border-bottom: 1px solid #d4af37; */
+        color: #d4af37;
+        outline: none!important;
+        border-bottom: none;
+      }
+      .is-invalid{
+        color: #d4af37;
+      }
+      input[type="password"]:focus{
+        outline: none!important;
+        font-family: "Poppins" sans-serif;
+        
+      }
+      input:focus{
+        border-bottom: 1px solid #d4af37!important;
+      }
+
+      input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #d4af37 !important;
+}
+    </style>
+    <title>Reset Password</title>
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+  <!-- multistep form -->
+  <form id="msform" method="POST" action="">
+    {{ form.hidden_tag() }}
+  <!-- fieldsets -->
+    <fieldset>
+      <h2 class="fs-title">Reset Password</h2>
+      <label for="password" class="float-left"><i class="fa fa-lock"></i> Password</label>
+                                    
+      {% if form.password.errors %}
+      {{ form.password(class="form-control form-control-lg is-invalid") }}
+      <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+              <span>{{ error }}</span>
+          {% endfor %}
+      </div>
+  {% else %}
+      {{ form.password(placeholder="Password", id="password") }}
+  {% endif %}
+  <meter max="4" id="password-strength-meter" style="display:none"></meter>
+  <p id="password-strength-text" style="display:none"></p>
+
+  <label for="password" class="float-left"><i class="fa fa-lock"></i> Confirm Password</label>
+        {% if form.confirm_password.errors %}
+        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.confirm_password.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.confirm_password(placeholder="Confirm Password") }}
+        {% endif %}
+      <!-- <input type="password" class="form-control form-control-lg is-invalid" name="pass" placeholder="Password" /> -->
+      {{ form.submit(class="next action-button reset", disabled=true) }}
+     
+      <input type="button" name="next" class="next1 action-button btnRegister" value="Cancel" />
+    </fieldset>
+  </form>
+
+  <script src="../../static/js/account.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>  
+  <script>
+  var strength = {
+  0: "Worst",     //0 - 0.19
+  1: "Bad",      //0.2 - 0.43
+  2: "average", //0.44 - 0.6
+  3: "Good",   //0.61 - 0.8
+  4: "Strong" //0.81 - 1
+};
+    let btn1 = document.querySelector('.next1')
+    btn1.addEventListener('click', e => {
+      window.location.href = '/login'
+    })
+
+    var password = document.getElementById('password');
+var meter = document.getElementById('password-strength-meter');
+var text = document.getElementById('password-strength-text');
+var regsiterbtn = document.querySelector('.reset');
+  password.addEventListener('keyup', function() {
+    meter.style.display = 'block'
+    text.style.display = 'block'
+    meter.value = ''
+    var val = password.value;
+    // const common = Array("123456","password","12345678","123456789","1234","pussy","12345","dragon","qwerty","696969","mustang","letmein","baseball","master","michael","football","shadow","monkey","abc123","pass","6969","jordan","harley","ranger","iwantu","jennifer","hunter","2000","test","batman","trustno1","thomas","tigger","robert","access","love","buster","1234567","soccer","hockey","killer","george","sexy","andrew","charlie","superman","asshole","dallas","jessica","panties","pepper","1111","austin","william","daniel","golfer","summer","heather","hammer","yankees","joshua","maggie","biteme","enter","ashley","thunder","cowboy","silver","richard","orange","merlin","michelle","corvette","bigdog","cheese","matthew","121212","patrick","martin","freedom","ginger","blowjob","nicole","sparky","yellow","camaro","secret","dick","falcon","taylor","111111","131313","123123","bitch","hello","scooter","please","","porsche","guitar","chelsea","black","diamond","nascar","jackson","cameron","654321","computer","amanda","wizard","xxxxxxxx","money","phoenix","mickey","bailey","knight","iceman","tigers","purple","andrea","horny","dakota","aaaaaa","player","sunshine","morgan","starwars","boomer","cowboys","edward","charles","girls","booboo","coffee","xxxxxx","bulldog","ncc1701","rabbit","peanut","john","johnny","gandalf","spanky","winter","brandy","compaq","carlos","tennis","james","mike","brandon","fender","anthony","blowme","ferrari","cookie","chicken","maverick","chicago","joseph","diablo","sexsex","hardcore","666666","willie","welcome","chris","panther","yamaha","justin","banana","driver","marine","angels","fishing","david","maddog","hooters","wilson","butthead","dennis","captain","bigdick","chester","smokey","xavier","steven","viking","snoopy","blue","eagles","winner","samantha","house","miller","flower","jack","firebird","butter","united","turtle","steelers","tiffany","zxcvbn","tomcat","golf","bond007","bear","tiger","doctor","gateway","gators","angel","junior","thx1138","porno","badboy","debbie","spider","melissa","booger","1212","flyers","fish","porn","matrix","teens","scooby","jason","walter","cumshot","boston","braves","yankee","lover","barney","victor","tucker","princess","mercedes","5150","doggie","zzzzzz","gunner","horney","bubba","2112","fred","johnson","xxxxx","tits","member","boobs","donald","bigdaddy","bronco","penis","voyager","rangers","birdie","trouble","white","topgun","bigtits","bitches","green","super","qazwsx","magic","lakers","rachel","slayer","scott","2222","asdf","video","london","7777","marlboro","srinivas","internet","action","carter","jasper","monster","teresa","jeremy","11111111","bill","crystal","peter","pussies","cock","beer","rocket","theman","oliver","prince","beach","amateur","7777777","muffin","redsox","star","testing","shannon","murphy","frank","hannah","dave","eagle1","11111","mother","nathan","raiders","steve","forever","angela","viper","ou812","jake","lovers","suckit","gregory","buddy","whatever","young","nicholas","lucky","helpme","jackie","monica","midnight","college","baby","brian","mark","startrek","sierra","leather","232323","4444","beavis","bigcock","happy","sophie","ladies","naughty","giants","booty","blonde","golden","0","fire","sandra","pookie","packers","einstein","dolphins","0","chevy","winston","warrior","sammy","slut","8675309","zxcvbnm","nipples","power","victoria","asdfgh","vagina","toyota","travis","hotdog","paris","rock","xxxx","extreme","redskins","erotic","dirty","ford","freddy","arsenal","access14","wolf","nipple","iloveyou","alex","florida","eric","legend","movie","success","rosebud","jaguar","great","cool","cooper","1313","scorpio","mountain","madison","987654","brazil","lauren","japan","naked","squirt","stars","apple","alexis","aaaa","bonnie","peaches","jasmine","kevin","matt","qwertyui","danielle","beaver","4321","4128","runner","swimming","dolphin","gordon","casper","stupid","shit","saturn","gemini","apples","august","3333","canada","blazer","cumming","hunting","kitty","rainbow","112233","arthur","cream","calvin","shaved","surfer","samson","kelly","paul","mine","king","racing","5555","eagle","hentai","newyork","little","redwings","smith","sticky","cocacola","animal","broncos","private","skippy","marvin","blondes","enjoy","girl","apollo","parker","qwert","time","sydney","women","voodoo","magnum","juice","abgrtyu","777777","dreams","maxwell","music","rush2112","russia","scorpion","rebecca","tester","mistress","phantom","billy","6666","albert");
+    // Update the password strength meter
+    console.log(val)
+    let meter_value; 
+    $.ajax({
+      type: "GET",
+      url: `/checkPassword?pass=${escape(val)}`, 
+      success:function(data){
+        let parsed= JSON.parse(data)
+        console.log(val)
+        console.log(parsed)
+        if (parseFloat(parsed['data'][0]) < 0.20 && parseFloat(parsed['data'][0]) >= 0){
+          meter_value = 0
+        } 
+        else if (parseFloat(parsed['data'][0]) < 0.44 && parseFloat(parsed['data'][0]) >= 0.20){
+          meter_value = 1
+        }
+        else if (parseFloat(parsed['data'][0]) < 0.61 && parseFloat(parsed['data'][0]) >= 0.44){
+          meter_value = 2
+        }
+        else if (parseFloat(parsed['data'][0]) < 0.8 && parseFloat(parsed['data'][0]) >= 0.61){
+          meter_value = 3
+        } else{
+          meter_value = 4
+        }
+        let requirements = eval(parsed['data'][1])
+        console.log(requirements.length)
+        if(requirements.length != 0){
+          meter_value = 1;
+          regsiterbtn.disabled = true
+        } 
+        else if (meter_value < 2){
+          regsiterbtn.disabled = true
+        }
+        else{
+          regsiterbtn.disabled = false
+        }
+        meter.value = meter_value
+        if (val !== "") {
+          text.innerHTML = "Strength: " + strength[meter_value]; 
+          requirements.forEach(ele => {
+            if(ele == "Length(8)"){
+              text.innerHTML += "<br><span style=color:red>Minimum length of 8 required</span>"
+            }
+            if (ele == "Uppercase(2)"){
+              text.innerHTML += "<br><span style=color:red>Minimum of two uppercases characters requried</span>"
+            }
+            if (ele == "Numbers(2)"){
+              text.innerHTML += "<br><span style=color:red>Minimum of two numbers requried</span>"
+            }
+            if (ele == "Special(2)"){
+              text.innerHTML += "<br><span style=color:red>Minimum of two special characters requried</span>"
+            }
+            if (ele == "Nonletters(2)"){
+              text.innerHTML += "<br><span style=color:red>Minimum of two non-letters characters requried</span>"
+            }
+          })
+        } else {
+          text.innerHTML = "";
+        }
+      }
+    })
+    // Update the text indicator
+  });
+
+  </script>
+</body>
+</html>

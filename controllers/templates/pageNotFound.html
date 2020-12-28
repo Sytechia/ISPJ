@@ -1,0 +1,37 @@
+{% extends "includes/layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<main id="mainContent">
+    <section id="facts">
+        <div class="container wow fadeIn">
+            <div class="section-header">
+              <p class="error-message">ERROR 404: Page Not Found</p>
+              <br>
+            </div>
+            <img src="../static/img/profile_pic/errorImg.png" height="400px" width="400px" alt="..." class="aboutUsPic" style="opacity: 0.5;">
+            <div class="aboutUsContent">
+                <br><br><br><br>
+                <h3>The page you tried to access has either been removed or does not exist</h3>
+                <p>Try these links instead:<br><br><a href="/">Home</a><br><a href="{{ url_for('shop') }}">Shop</a><br><a href="{{ url_for('about') }}">About</a><br><a href="{{ url_for('contactUs') }}">Contact</a></p>
+               <br><br><br><br><br><br><br><br><br>
+            </div>
+        </div>
+
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+        <footer id="footer">
+            <div class="footer-top">
+              <div class="container">
+        
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="copyright">
+                &copy; Copyright <strong>Arcrus</strong>. All Rights Reserved
+              </div>
+            </div>
+        </footer><!-- #footer -->
+    </div>
+{% endblock %}

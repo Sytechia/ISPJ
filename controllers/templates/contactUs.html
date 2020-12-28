@@ -1,0 +1,41 @@
+{% extends "includes/layout.html" %}
+{% block title %}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="../../static/css/contact_us.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block content %}
+<div class="container1">
+    <main id="mainContent">
+        <section id="facts">
+            <div class="section-header col-md-6">
+                <h1 class="form-header">Contact Us!</h1>
+                <br>
+                <div class="columnRegister">
+                    <form>
+                        <div class="form-group">
+                            <label><span><i class="fa fa-user"></i></span>&nbsp;Full Name:</label>
+                            <input type="text" class="form-control" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa fa-envelope"></i>&nbsp;Email:</label>
+                            <input type="text" class="form-control" placeholder="example@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa fa-comment"></i>&nbsp;Message:</label>
+                            <textarea class="form-control" placeholder="Type your message here....." rows="5"></textarea>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn">Submit</button>
+                        </div>
+                    </form>
+                </div>                    
+                <br><br>
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}

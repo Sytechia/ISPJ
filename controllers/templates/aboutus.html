@@ -1,0 +1,118 @@
+{% extends "includes/layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="modal fade mx-auto" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body-1">
+                <div class="shopping-cart mx-auto " id="shopping-cart">
+                    <div class="title text-center ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button><span>Cart</span>
+                    </div>
+
+                    <span class="active1" style="display: none;">{{current}}</span>
+                <div class="products">
+                    
+                    <!--Single Product layout template displayed on cart -->
+                    {% for product in cartItems %}
+                    <div class="item">
+                        <div class="image">
+                            <img src="{{ product[5] }}" height="80px">
+                        </div>
+                        <div class="description">
+                            <span >{{ product[2] }}</span>
+                        </div>
+                        <div class="quantity">
+                            <input type="text" name="name" class="quan" id="quantity" value="{{ product[1] }}" placeholder="Amount">
+                        </div>
+                        <div class="total-price">${{ product[3] }}</div>
+                        <div class="remove-product">
+                            <a href="#"><i class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                     <!--End of Single Product layout template displayed on cart -->
+
+                    <div class="Subtotal">
+                        <span>Subtotal:</span>
+                        <span class='totalPrice'>$0</span><br>
+                        <span>Total Quantity:</span>
+                        <span class='totalQuantity'>0</span>
+                    </div>
+                </div>
+                    <div class="checkout mx-auto">
+                        <a href="/checkout" class="checkout-button">Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main id="mainContent">
+    <section id="facts">
+        <div class="container wow fadeIn">
+            <div class="section-header">
+              <p class="section-title">A SPARKLING STORY</p>
+              <br><br>
+            </div>
+            <img src="https://www.antonyjewelers.com/media/catalog/items/29ddd408-ee8d-4388-8899-a1032dfa395a.jpg.800x800_q85_background.jpg" height="400px" width="400px" alt="..." class="aboutUsPic">
+            <div class="aboutUsContent">
+                <h3><strong> ABOUT PRESTIGIUM</strong> </h3>
+                <p style="max-width:1000px">Prestigium Jewellery offers a wide range of jewellery to customers. From medallions to pendants, our sophisticated  jewellery has been worn by many generations.</p><br><br><br><br><br><br><br><br><br>
+            </div>
+            <a href="/terms">Read more about our terms!</a>
+        </div>
+        <!-- <div class="container-fluid"> 
+        <div class="slideshow-container">
+          <div class="section-header">
+            <p class="section-title">Featured Reviews</p>
+            <br><br>
+          {% for data in data %}
+          <div class="mySlides fade2">
+            <img src="{{ data.img }}" style="width:100%" width="400px" height="600px" class="slideImg">
+            <div class="text4">{{ data.comment }}<br>
+              {% for x in range(data.rating) %}
+              <span id="slideStars">&#9733</span>
+              {% endfor %}
+              <br><a href="{{ url_for('shop') }}" class="btn btn-primary">SHOP NOW</a></div>
+          </div>
+          {% endfor %}
+          
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+          
+          </div>
+          <br>
+          
+          <div style="text-align:center">
+            <span class="dot" onclick="currentSlides(1)"></span> 
+            <span class="dot" onclick="currentSlides(2)"></span> 
+            <span class="dot" onclick="currentSlides(3)"></span> 
+          </div>
+      </div>
+    </div> -->
+      </section><!-- #facts -->
+      
+    </main>
+
+    </div>
+  
+        <footer id="footer">
+            <div class="footer-top">
+              <div class="container">
+        
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="copyright">
+                &copy; Copyright <strong>Prestigium</strong>. All Rights Reserved
+              </div>
+            </div>
+        </footer><!-- #footer -->
+    </div>
+{% endblock %}

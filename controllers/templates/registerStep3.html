@@ -1,0 +1,126 @@
+{% extends "includes/layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+<div class="container1">
+    <main id="mainContent">
+        <section id="facts">
+            <div class="section-header">
+                <!-- <p class="section-title">Welcome</p>
+                <p class="more-steps">Complete a few more steps or &nbsp;<a href="/login"><strong>Skip This</strong></a></p>
+                <div class="containerProgress">
+                    <ul class="progressbar">
+                        <li><a href="/registerStep2">Billing Address</a></li>
+                        <li class="active"><a href="">Credit Card Details</a></li>
+                    </ul> -->
+                </div>
+                <div class="rowRegister">
+                    <div class="col-75">
+                        <div class="containerRegister">
+                            <form method="POST" action="">
+                                {{ form.hidden_tag() }}
+                                <div class="rowRegister">
+                                <div class="col-50">
+                                    <h2>Add Card Details</h2>
+                                    
+                                    <h3>Payment Information</h3>
+
+
+                                    
+                                    
+                                    <!-- {% if form.name.errors %}
+                                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.name.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.name(placeholder="Benjamin Keng", value= data.card_name) }}
+                                    {% endif %} -->
+                                    <label for="ccnum">Credit card number       <i class="fa fa-cc-visa" style="color:rgb(255, 255, 255); font-size:1.5em;"></i>       <i class="fa fa-cc-mastercard" style="color:rgb(255, 255, 255);font-size:1.5em;"></i></label>
+                                 
+                                    
+                                    {% if form.cardno.errors %}
+                                            {{ form.cardno(class="form-control form-control-lg is-invalid fixed") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.cardno.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.cardno(placeholder="4111222233334444", value=data.cardno, class="fixed") }}
+                                    {% endif %}
+                                    <label for="cname">Name on Card</label>
+                                    {% if form.name.errors %}
+                                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.name.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.name(placeholder="Benjamin Keng", value= data.card_name) }}
+                                    {% endif %}
+
+                                    <div class="rowRegister">
+                                        <div class="col-50">
+                                    <label for="expmonth">Exp Month</label>
+                                    
+                                    {% if form.exp.errors %}
+                                            {{ form.exp(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.exp.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.exp(placeholder="9", value=data.exp) }}
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="col-50">
+                                    <label for="expyear">Exp Year</label>
+                                        
+                                        {% if form.year.errors %}
+                                            {{ form.year(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.year.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.year(placeholder="2021", value=data.year) }}
+                                        {% endif %}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="rowRegister">
+                                    <div class="col-50">
+                                {{ form.submit(class="btnRegister") }}
+                                </div>
+                                <div class="col-50">
+                                    <button type='button' style="background-color: #ff3333; width:80%;" class="btnRegister cancel_add">Cancel</button>
+                                </div>
+                                </div>                                <!-- <input type="submit" value="COMPLETE REGISTRATION" class="btnRegister"> -->
+                            </form>
+                        </div>
+                    </div>
+                </div>                    
+                <br><br>
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}

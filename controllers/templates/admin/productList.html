@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar template</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
+  <link rel="stylesheet" href="../../static/css/admin.css">
+  <link rel="stylesheet" href="../../static/css/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style>
+    i{
+      font-size: 1em;
+    }
+    td {
+      font-family: 'Lato', sans-serif!important;
+      font-size: 1.5em!important;
+    }
+    td:nth-child(4), td:nth-child(5){
+    padding-left:2%!important;
+    }
+    
+  </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a href="#">Admin</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">John
+            <strong>Smith</strong>
+          </span>
+          <span class="user-role">Administrator</span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          
+          <li>
+            <a href="/admin">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+              
+            </a>
+          </li>
+        
+          <li>
+            <a href="/productList">
+              <i class="fa fa-shopping-cart"></i>
+              <span>E-commerce</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/adminAnalytics">
+              <i class="fa fa-chart-line"></i>
+              <span>Data</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/listUser">
+              <i class="fa fa-globe"></i>
+              <span>Users</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/Calendar">
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/Logs">
+              <i class="fa fa-calendar"></i>
+              <span>Logs</span>
+            </a>
+         </li>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <!-- <div class="sidebar-footer">
+      <a href="#">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">3</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <a href="#">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div> -->
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content" >
+    <h1   style="color: white;">Products List</h1>
+    <h2><a style="font-size: 25px;" href="/adminAddproduct">Add New Product <i class="fas fa-plus"></i></a></h2>
+
+    <table class="table table-striped">
+        <!--Table head-->
+        <thead>
+            <tr style="color:white">
+                <th>#</th>
+                <th>Image</th>
+                <th>Item Name</th>
+                <th>Item Price</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Tools</th>
+            </tr>
+        </thead>
+        <!--Table head-->
+        <!--Table body-->
+        <tbody>
+            {% for data in data %}
+            <tr style="color: white;">
+                <th scope="row">{{data.id}}</th>
+                <td><img src="{{data.prod_img}}" width="150px"></td>
+                <td>{{data.prod_name}}</td>
+                <td>${{data.prod_price}}</td>
+                <td>{{data.stock}}</td>
+                <td>{% if data.stock != 0 %}<span class="badge badge-success">In Stock</span> {% else %} <span class="badge badge-danger">Out Of Stock</span> {% endif %}</td>
+                <td>
+                  <li><a style="text-decoration: none;   font-size: 20px;" href="/adminViewproduct?id={{data.id}}"><i class="fas fa-eye"></i> </a></li>
+                  <li><a style="text-decoration: none;   font-size: 20px;"href="/delete?id={{data.id}}"><i class="fas fa-trash"></i> </a></li>
+                  <li><a style="text-decoration: none;   font-size: 20px;"href="/adminUpdateproduct?id={{data.id}}"><i class="fas fa-edit"></i> </a></li>
+                  <li> <a style="text-decoration: none;  font-size: 20px;"href="/addStock?id={{data.id}}"><i class="fas fa-plus"></i> </a></li>
+                </td>
+            </tr>
+           {% endfor %}
+        </tbody>
+        <!--Table body-->
+    </table>
+
+    </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js'></script>
+<script  src="../../static/js/admin.js"></script>
+
+
+</body>
+</html>

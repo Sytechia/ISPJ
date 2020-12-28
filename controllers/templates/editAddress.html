@@ -1,0 +1,102 @@
+{% extends "includes/layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+<div class="container1">
+    <main id="mainContent">
+        <section id="facts">
+            <div class="section-header">
+               
+                </div>
+                <div class="rowRegister">
+                    <div class="col-75">
+                        <div class="containerRegister">
+                            <form method="POST" action="">
+                                {{ form.hidden_tag() }}
+                                <div class="col-50">
+                                    <h2>Edit Billing Address</h2>
+                                    <h3>Billing Address</h3>
+                                    <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                                    
+                                        {% if form.address.errors %}
+                                            {{ form.address(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.address.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.address(placeholder="542 W. 15th Street", value= data.address) }}
+                                        {% endif %}
+                                    
+                                    <label for="country"><i class="fa fa-institution"></i> Country</label>
+                                    
+                                    {% if form.country.errors %}
+                                            {{ form.country(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.country.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.country(placeholder="United States", selected=data.country) }}
+                                    {% endif %}
+                        
+                                    <div class="rowRegister">
+                                    <div class="col-50">
+                                        <label for="state">State</label>
+                                        {% if form.state.errors %}
+                                            {{ form.state(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.state.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.state(placeholder="NY", value=data.state) }}
+                                    {% endif %}
+                                    </div>
+                                    <div class="col-50">
+                                        <label for="zip">Postal Code</label>
+                                        
+                                    {% if form.postal.errors %}
+                                            {{ form.postal(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.postal.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                        {{ form.postal(placeholder="569830", value=data.postal) }}
+                                    {% endif %}
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="rowRegister">
+                                        <div class="col-50">
+                                    {{ form.submit(class="btnRegister") }}
+                                    </div>
+                                    <div class="col-50">
+                                        <button type='button' style="background-color: #ff3333; width:80%;" class="btnRegister cancel_add">Cancel</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>                    
+                <br><br>
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/global.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        
+        
+
+        .otp-wrapper {
+      text-align: center;
+      margin-top: 60px;
+    }
+    
+    .otp-container {
+      display: inline-block;
+    }
+    .otp-container .otp-number-input {
+      width: 26px;
+      height: 33px;
+      margin: 0 2px;
+      border: none;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+      padding: 0;
+      color: rgba(0, 0, 0, 0.7);
+      margin-bottom: 0;
+      padding-bottom: 0;
+      font-size: 30px;
+      box-shadow: none;
+      text-align: center;
+      background-color: none;
+      font-weight: 600;
+      border-radius: 0;
+      outline: 0;
+      transition: border .3s ease;
+    }
+    .otp-container .otp-number-input:focus {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+    .otp-container .otp-number-input.otp-filled-active {
+      border-color: #00bb09;
+    }
+    
+    .otp-submit {
+      background: #42b549;
+      border: 0;
+      color: #fff;
+      margin-top: 30px;
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .otp-submit[disabled] {
+      opacity: 0.6;
+      cursor: default;
+    }
+        </style>
+</head>
+<body>
+
+    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" style='text-align:center'>An OTP has been sent to your email!</h5>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                <div class="otp-wrapper otp-event">
+                                  <div class="otp-container">
+                                    <input type="tel" id="otp-number-input-1" class="otp-number-input" maxlength="1" autocomplete="off">
+                                    <input type="tel" id="otp-number-input-2" class="otp-number-input" maxlength="1" autocomplete="off">
+                                    <input type="tel" id="otp-number-input-3" class="otp-number-input" maxlength="1" autocomplete="off">
+                                    <input type="tel" id="otp-number-input-4" class="otp-number-input" maxlength="1" autocomplete="off">
+                                    <input type="tel" id="otp-number-input-5" class="otp-number-input" maxlength="1" autocomplete="off">
+                                    <input type="tel" id="otp-number-input-6" class="otp-number-input" maxlength="1" autocomplete="off">
+                                  </div>
+                            <div>
+                            <button id="confirm" type="button" class="otp-submit" disabled>Verify</button> 
+                            </div>
+                          <p><div id=timer></div><span style="display: none;" class="hidden1"><a href="#">Get New OTP</a></span></p>
+                          
+                          
+                          
+                            
+                          </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+ 
+
+      window.onbeforeunload = function() {
+        console.log('fired')
+        $.ajax({
+          type:'GET',
+          url:'/checkout',
+          success:function(data){
+            location.reload()
+            change()
+          }
+        });
+    };
+    
+    function handlePasteOTP(e) {
+	var clipboardData = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
+	var pastedData = clipboardData.getData('Text');
+	var arrayOfText = pastedData.toString().split('');
+	/* for number only */
+	if (isNaN(parseInt(pastedData, 10))) {
+		e.preventDefault();
+		return;
+	}
+	for (var i = 0; i < arrayOfText.length; i++) { 
+		if (i >= 0) {
+			document.getElementById('otp-number-input-' + (i + 1)).value = arrayOfText[i];
+		} else {
+			return;
+		}
+	}
+	e.preventDefault();
+}
+
+$(document).ready(function() {
+	$('.otp-event').each(function(){
+	 var $input = $(this).find('.otp-number-input');
+	 var $submit = $(this).find('.otp-submit');
+	 $input.keydown(function(ev) {
+		otp_val = $(this).val();
+		if (ev.keyCode == 37) {
+			$(this).prev().focus();
+			ev.preventDefault();
+		} else if (ev.keyCode == 39) {
+			$(this).next().focus();
+			ev.preventDefault();
+		} else if (otp_val.length == 1 && ev.keyCode != 8 && ev.keyCode != 46) {
+			otp_next_number = $(this).next();
+			if (otp_next_number.length == 1 && otp_next_number.val().length == 0) {
+				otp_next_number.focus();
+			}
+		} else if (otp_val.length == 0 && ev.keyCode == 8) {
+			$(this).prev().val("");
+			$(this).prev().focus();
+		} else if (otp_val.length == 1 && ev.keyCode == 8) {
+			$(this).val("");
+		} else if (otp_val.length == 0 && ev.keyCode == 46) {
+			next_input = $(this).next();
+			next_input.val("");
+			while (next_input.next().length > 0) {
+				next_input.val(next_input.next().val());
+				next_input = next_input.next();
+				if (next_input.next().length == 0) {
+					next_input.val("");
+					break;
+				}
+			}
+		}
+		
+	}).focus(function() {
+		$(this).select();
+		var otp_val = $(this).prev().val();
+		if (otp_val === "") {
+			$(this).prev().focus(); 
+		}else if($(this).next().val()){
+			 $(this).next().focus();  
+		}
+	}).keyup(function(ev) {
+		otpCodeTemp = "";
+		$input.each(function(i) {
+			if ($(this).val().length != 0) {
+				$(this).addClass('otp-filled-active');
+			} else {
+				$(this).removeClass('otp-filled-active');
+			}
+			otpCodeTemp += $(this).val();
+		});
+		if ($(this).val().length == 1 && ev.keyCode != 37 && ev.keyCode != 39) {
+			$(this).next().focus();
+			ev.preventDefault(); 
+		}
+		$input.each(function(i) {
+		 if($(this).val() != ''){
+			$submit.prop('disabled', false); 
+		 }else{
+			$submit.prop('disabled', true);
+	 	 }
+		});
+		 
+	});
+	$input.on("paste", function(e) { 
+		window.handlePasteOTP(e);
+	});
+	});
+	
+});
+
+   document.querySelector('.otp-submit').addEventListener('click', ()=>{
+       let inputs = document.getElementsByClassName('otp-number-input')
+       let str = ''
+       console.log(inputs)
+       Array.from(inputs).forEach(num => str += num.value)
+	   console.log(str)   
+           $.ajax({
+            type: "POST",
+            url: `/otp?otp=${str}`, 
+            success:function(data){
+                if(data == 'successful'){
+                  $('.modal').modal('hide');
+                  $.ajax({
+                    type:'POST',
+                    url: '/paymentConfirmation'
+                  })
+                  swal.fire("", "Payment was successful!", "success");
+                  setTimeout(() => {
+                    window.location.href = '/myAccount'
+                  }, 3000);
+                }
+                else if(data == 'wrong'){
+                  swal.fire("", "This OTP is wrong! Please retype the otp", "error")
+					        Array.from(inputs).forEach(num => num.value='')
+                } 
+                else {
+					swal.fire("", "This OTP has expired! Please press the resend otp button below", "error")
+					Array.from(inputs).forEach(num => num.value='')
+				}
+            }
+        })
+   })
+
+   var timeoutHandle;
+    function countdown(minutes, seconds) {
+        function tick() {
+            var counter = document.getElementById("timer");
+            counter.innerHTML =
+            //     "Resend in " + minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+            // seconds--;
+            "Resend in 10 min"
+            if (seconds >= 0) {
+                timeoutHandle = setTimeout(tick, 1000);
+            } else {
+                if (minutes >= 1) {
+                    // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+                    setTimeout(function () {
+                        countdown(minutes - 1, 59);
+                    }, 1000);
+                }
+            }
+        }
+        tick();
+    }
+
+	function change(){
+    console.log('fired from change function')
+    	var load = new Promise((resolve, reject)=> {
+			countdown(1,0)
+			resolve("finished promised");
+			reject("not done")
+		})
+		load.then(()=> {
+      $.ajax({
+              type: "GET",
+              async:false,
+              url: `/timer`,
+              success: function(data){
+                console.log(data)
+			setTimeout(()=> {
+        let getotp = document.querySelector('.hidden1')
+        var counter = document.getElementById("timer");
+        counter.style.display = 'none';
+				getotp.style.display = 'block';
+				getotp.addEventListener('click', ()=> {
+					getotp.style.display = 'none'
+					swal.fire(
+							'',
+							'A new OTP has been sent to your email!',
+							'success'
+							)
+					$.ajax({
+						type: "GET",
+						url: `/qr`, 
+						success:function(jk){
+              change()
+              counter.style.display = 'block';
+						}
+					})
+				})
+        }, data * 1000)
+      }})
+		}).catch(x => console.log(x))	
+        }
+
+        $('.modal').modal('show');
+        change()
+
+    </script>
+</body>
+</html>

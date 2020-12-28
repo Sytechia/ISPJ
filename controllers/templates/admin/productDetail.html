@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar template</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
+  <link rel="stylesheet" href="../../static/css/admin.css">
+  <link rel="stylesheet" href="../../static/css/main.css">
+  <style>
+    .report-statistic-box{
+      width:50%!important;
+    }
+  </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a href="#">Admin</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">John
+            <strong>Smith</strong>
+          </span>
+          <span class="user-role">Administrator</span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          
+          <li>
+            <a href="/admin">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+              
+            </a>
+          </li>
+          <li>
+            <a href="/productList">
+              <i class="fa fa-shopping-cart"></i>
+              <span>E-commerce</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/adminAnalytics">
+              <i class="fa fa-chart-line"></i>
+              <span>Data</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/listUser">
+              <i class="fa fa-globe"></i>
+              <span>Users</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/Calendar">
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+         
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <!-- <div class="sidebar-footer">
+      <a href="#">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">3</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <a href="#">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div> -->
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content" style="color: black;">
+  <h1> {{product.prod_name}} </h1>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <defs>
+      <symbol id="arrow" viewBox="0 0 100 100">
+        <path d="M12.5 45.83h64.58v8.33H12.5z"/>
+          <path d="M59.17 77.92l-5.84-5.84L75.43 50l-22.1-22.08 5.84-5.84L87.07 50z"/>
+      </symbol>
+    </defs>
+  </svg>
+  
+  
+    
+    <div class="content">
+      
+      <a href="/productList" class="button">
+        View Other Products
+        <span>
+          <svg>
+            <use xlink:href="#arrow" href="#arrow"></use>
+          </svg>
+        </span>
+      </a>
+      
+    </div>
+
+    <div class="container" style="border: 1px solid white;">
+      <div class="card">
+        <div class="container-fliud">
+          <div class="wrapper row">
+            <div class="preview col-md-6">
+              
+              <div class="preview-pic tab-content">
+                <div class="tab-pane active" id="pic-1"><img src="{{product.prod_img}}" /></div>
+                <!-- <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+                <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+                <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+                <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div> -->
+              </div>
+              <ul class="preview-thumbnail nav nav-tabs">
+                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{product.prod_img}}" /></a></li>
+                <!-- <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li> -->
+              </ul> 
+              
+            </div>
+            <div class="details col-md-6">
+              <h3 class="product-title">{{product.prod_name}}</h3>
+              <div class="rating">
+                <div class="stars">
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                </div>
+                <span class="review-no">{{num}} reviews</span>
+              </div>
+              <p class="product-description">Description: {{product.prod_desc}}</p>
+              <p class="price" style="text-transform: none;">Price: <span>${{product.prod_price}}</span></h4>
+              <p class="price" style="text-transform: none;">Quantity: <span>{{product.stock}}</span></h4>
+              
+              <div class="action">
+                <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span class="total" style="display: none;">{{analytics['amount_earned']}}</span>
+    <span class="total-quan" style="display: none;">{{ analytics['count'] }}</span>
+    <span class="name" style="display: none;">{{ analytics['name']}} </span>
+
+    <div class="container">
+    <div class="content">
+      <div class="report-overview-module"></div>
+  </div>
+  <br>
+    <div class="myAccount" style="display: block;" id="Italy">
+      <h2><strong>REVIEWS For {{analytics['name']}}</strong></h2>
+      <hr>
+      {% for i in reviews %}
+      <table>
+          <tr>
+              <td>
+                  <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
+                  <input type="text" id="orderDate" name="orderDate" class='trans_date' value="{{i.date_purchase}}" readonly>
+              </td>
+              <td>
+                  <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
+                  <input type="text" id="order" name="order" value="#{{i.transaction_id}}" readonly>
+              </td>
+              <td>
+                  <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
+                  <input type="text" id="orderStatus" name="orderStatus" value="Delivered" readonly>
+              </td>
+              <td>
+                  <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
+                  <input type="text" id="orderTotal" name="orderTotal" value="${{i.prod_price}}" readonly>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <div class="reviewDetails">
+                      <img src="{{i.img}}" width="100px" height="100px" style="float: left;">
+                      <span id="itemDesc"><p><span>{{i.prod_name}}</span><br>Quantity: {{i.prod_quantity}} <br><br></p></span>
+                      <p class="review"><span class="starsGiven">Stars Given: {{(i.rating)}} Stars</span><br>Comment: {{i.comment}}<br><br>
+                  </div>
+              </td>
+          </tr>
+      </table>
+      <br><br><br><hr class="lineBreak">
+      {% endfor %}
+      
+  </div>
+</div>
+
+   
+
+
+
+    
+    </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js'></script>
+<script  src="../../static/js/admin.js"></script>
+<script src="../../static/js/script2.js"></script>
+
+</body>
+</html>

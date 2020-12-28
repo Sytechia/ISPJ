@@ -1,0 +1,88 @@
+{% extends "includes/layout.html" %}
+{% block title %}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="../../static/css/style.css"> 
+{% endblock %}
+{% block content %}
+<div class="container1">
+    <main id="mainContent">
+        <section id="facts">
+            <div class="section-header">
+                <p class="section-title">REGISTER</p>
+                <p class="already-member">Already a member?&nbsp;&nbsp;<a href="/login"><strong>Log in</strong></a></p>
+                <br>
+                <div class="rowRegister">
+                    <div class="col-75">
+                        <div class="containerRegister">
+                            <form method="POST" action="">
+                                {{ form.hidden_tag() }}
+                                <div class="rowRegister">
+                                <div class="col-50">
+                                    <label for="fname"><i class="fa fa-user"></i>Fullname</label>
+                                    {% if form.fullname.errors %}
+
+                                    {{ form.fullname(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.fullname.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.fullname(placeholder="Benjamin Keng") }}
+                                {% endif %}
+
+                                    
+                                    <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                                    
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(placeholder="benjamin@gmail.com") }}
+                                {% endif %}
+                                    <label for="password"><i class="fa fa-lock"></i> Password</label>
+                                    
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(placeholder="Password strength must be average or higher", id="password") }}
+                                {% endif %}
+                                <meter style='display:none' max="4" id="password-strength-meter"></meter>
+                                <p  style='display:none' id="password-strength-text"></p>
+                                    <label for="password"><i class="fa fa-lock"></i> Confirm Password</label>
+                                    
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(placeholder="Retype Password") }}
+                                {% endif %}
+
+                                    <br><br>
+                                </div>
+                                </div>
+                                {{ form.submit(class="btnRegister", disabled="true") }}
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>                    
+                <br><br>
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}
