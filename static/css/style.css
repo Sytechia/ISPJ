@@ -1,0 +1,1256 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+* {margin:0;padding:0;border:0 none;position: relative; outline: none;
+}
+body {
+  background: rgb(0, 0, 0);
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  margin:0;
+  overflow-x: hidden;
+}
+
+
+a:hover, a:active, a:focus {
+  color: #d4af37;
+  outline: none;
+  text-decoration: none;
+}
+
+p {
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+/* Prelaoder */
+#preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  background: #fff url("../img/preloader.svg") no-repeat center center;
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  display: none;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 6px 12px 9px 12px;
+  font-size: 16px;
+  border-radius: 2px;
+  right: 15px;
+  bottom: 15px;
+  transition: background 0.5s;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+  }
+}
+
+.back-to-top:focus {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  outline: none;
+}
+
+.back-to-top:hover {
+  background: #d4af37;
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  padding: 30px 0;
+  height: 92px;
+  left: 0;
+  top: 0;
+  right: 0;
+  transition: all 0.5s;
+  z-index: 997;
+  background: black;
+}
+
+#header #logo {
+  float: left;
+}
+
+#header #logo h1 {
+  font-size: 36px;
+  margin: 0;
+  padding: 6px 0;
+  line-height: 1;
+  font-family: "Poppins", sans-serif;
+  /* font-weight: 700; */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+#header #logo h1 a, #header #logo h1 a:hover {
+  color: #fff;
+}
+
+#header #logo img {
+  padding-bottom: 0;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  #header #logo h1 {
+    font-size: 26px;
+  }
+  #header #logo img {
+    max-height: 40px;
+  }
+}
+
+#header.header-fixed {
+  background: rgba(20, 20, 20, 0.9);
+  padding: 20px 0;
+  height: 72px;
+  transition: all 0.5s;
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/wp1853721.jpg) top center;
+  background-size: cover;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
+
+#hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero .hero-container {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#hero h1 {
+  margin: 30px 0 10px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
+#hero h2 {
+  color: #eee;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+}
+
+#hero .btn-get-started {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+#hero .btn-get-started:hover {
+  background: #d4af37;
+  border: 2px solid #d4af37;
+}
+/* NavBar */
+.navbar-custom {
+  background-color: black;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+.navbar-custom .navbar-brand{
+  font-size: 35px;
+  
+}
+
+.nav-link{
+  color: white;
+}
+
+.nav-link:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background:#d4af37;
+  visibility: hidden;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: .25s linear;
+}
+
+.nav-link:hover:before,
+.nav-link:focus:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.collapse{
+  padding-right: 5%;
+}
+
+.nav-item {
+  padding-right: 5px;
+}
+
+
+@media (min-width: 1175px) {
+  .navbar {
+      height: 80px; 
+      display: flex;
+      align-items: center;
+  }
+}
+@media (max-width: 1175px) {
+  .navbar-brand {
+    margin-left: 45%;
+  }
+}
+@media (max-width: 767px) {
+ .navbar-header {
+     height: 80px;
+     padding-top: 15px;
+     padding-bottom: 15px;
+ }
+ .navbar-toggle {
+     margin-top: 5px;
+ }
+}
+/* end of NavBar */
+/*--------------------------------------------------------------
+# Sections
+--------------------------------------------------------------*/
+/* Sections Header
+--------------------------------*/
+.section-header .section-title {
+  font-size: 50px;
+  color: #d4af37;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.section-header .section-description {
+  text-align: center;
+  padding-bottom: 40px;
+  color: rgb(255, 255, 255);
+}
+/* Facts Section
+--------------------------------*/
+#facts {
+  background: #000000;
+  padding: 30px 0 30px 0;
+}
+
+.card {
+  background-color: black;
+  color:white;
+
+}
+
+.card img {
+  width: 250px;
+  height:250px;
+}
+
+.card .btn {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 5px 20px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  border: 2px solid #fff;
+  color: #fff;
+  background: none;
+  max-width: 200px;
+}
+
+.card .btn:hover {
+  background: #d4af37;
+  border: 2px solid #d4af37;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+  background: rgba(20, 20, 20, 0.9);
+  padding: 30px 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+#footer .copyright {
+  text-align: center;
+}
+
+#footer .credits {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #ccc;
+}
+
+/* REGISTER FORM */
+.rowRegister {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.containerRegister {
+  background-color: #000000;
+  padding: 30px;
+  border: 1px solid rgb(53, 53, 53);
+  border-radius: 3px;
+  margin-left: 30%;
+  margin-right: 30%;
+  color:white;
+  font-family: "Poppins" sans-serif;
+}
+
+/* Input register and login */
+.containerLogin input[type=text], .containerLogin input[type=email], .containerLogin input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid rgb(53, 53, 53);
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #d4af37
+}
+
+.containerRegister input[type=text], .containerRegister input[type=email], .containerRegister input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid rgb(53, 53, 53);
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #d4af37
+}
+
+input:focus{
+  border-bottom: 1px solid #d4af37;
+  outline: 0;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+  font-size: 50px;
+}
+
+.btnRegister {
+  background-color: #d4af37;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+  font-family: "Poppins" sans-serif;
+  font-weight:bold;
+  letter-spacing: 2px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #d4af37 !important;
+}
+
+
+.section-header .already-member {
+  font-size: 15px;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.containerLogin {
+  background-color: #000000;
+  padding: 30px;
+  border: 1px solid rgb(53, 53, 53);
+  border-radius: 3px;
+  margin-left: 35%;
+  margin-right: 35%;
+  color:white;
+  font-family: "Poppins", sans-serif;
+}
+
+.section-header .forgot-password > a{
+  font-size: 15px;
+  color: rgb(48, 48, 48);
+  /* text-transform: uppercase; */
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.forgot-password > a:hover {
+  color: #d4af37;
+}
+
+h2 {
+  color: #d4af37;
+}
+
+.section-header .more-steps {
+  font-size: 15px;
+  color: white;
+  /* text-transform: uppercase; */
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* progress bar */
+.containerProgress {
+  width: 600px;
+  margin: 100px auto; 
+  margin-top: 0;
+  margin-bottom:50;
+  text-align:center;
+  margin-left: 565px;
+}
+.progressbar {
+  counter-reset: step;
+}
+.progressbar li {
+  list-style-type: none;
+  width: 25%;
+  float: left;
+  font-size: 12px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  color: black;
+}
+.progressbar li:before {
+  width: 30px;
+  height: 30px;
+  content: counter(step);
+  counter-increment: step;
+  line-height: 30px;
+  border: 2px solid #7d7d7d;
+  display: block;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  background-color: white;
+  z-index:99;
+}
+.progressbar li:after {
+  width: 100%;
+  height: 2px;
+  content: '';
+  position: absolute;
+  background-color: #7d7d7d;
+  top: 15px;
+  left: -50%;
+  z-index: 1;
+}
+.progressbar li:first-child:after {
+  content: none;
+}
+.progressbar li.active {
+  color: #d4af37;
+}
+.progressbar li.active:before {
+  border-color: #d4af37;
+}
+.progressbar li.active + li:after {
+  background-color: #d4af37;
+  color: #d4af37;
+}
+
+.progressbar > li > a {
+  color:white;
+}
+
+.progressbar > li.active  > a {
+  color: #d4af37
+}
+
+.profileCard {
+  border: 1px solid rgb(43, 43, 43);
+  width: 300px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  float:left;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+.profileCard > h3 {
+  color:white;
+}
+
+.profileCard > a {
+  text-decoration: none;
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+}
+
+.profileCard > .btn {
+  text-align:left;
+  background-color: black;
+  color:white;
+  border: 1px solid rgb(22,22,22);
+  font-family: "Poppins" sans-serif;
+  width:100%;
+  font-size: 17px;
+  border-radius: 0;
+}
+
+.profileCard > .btn:hover {
+  background-color: #d4af37;
+}
+
+.profileCard > .activeAccount {
+  background-color: #d4af37;
+  border-radius: 0;
+}
+
+.myAccount {
+  float: left;
+  color: white;
+  width: 1000px;
+}
+
+.myAccount > h2 {
+  color:white;
+}
+
+.myAccount > p {
+  font-size: 15px;
+  color:white;
+  width: 700px;
+}
+
+.myAccount > hr {
+  background-color: white;
+  width: 800px;
+}
+
+.myAccount > input[type="email"] {
+  color: #d4af37;
+  border-bottom: none;
+}
+
+#London input {
+  color:rgb(168, 168, 168);
+  width: 400px;
+}
+
+table {
+  padding: 10px;
+}
+
+table > input {
+  color:white;
+}
+
+.saveChanges {
+  background-color: none;
+  border: 2px solid #d4af37;
+  border-radius: 0;
+  padding: 10px 50px 10px 50px;
+  color:white;
+}
+
+.saveChanges:hover {
+  background-color: #d4af37;
+  color: white;
+}
+
+
+/* Style the tab content */
+.tabcontent {
+  display: block;
+  width: 500px;
+  /* padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none; */
+}
+
+#Paris, #Tokyo, #Spain, #Italy{
+  display:none;
+}
+
+#Paris {
+  text-align:left;
+}
+
+#Paris input {
+  color:rgb(168, 168, 168);
+  width: 300px;
+  border:0;
+}
+
+#Italy input {
+  color:rgb(168, 168, 168);
+  width: 200px;
+  border:0;
+}
+
+
+
+
+/* Drop for more details */
+.dropbtn {
+  background-color: black;
+  color: white;
+  /* padding: 16px; */
+  font-size: 13px;
+  border: none;
+  font-family: "Poppins" , sans-serif;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #d4af37;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {
+  border-bottom: 1px solid #d4af37;
+}
+
+/* My Orders */
+
+.showOrderDetails {
+  color:white;
+  background-color: black;
+  border:none;
+}
+
+.showOrderDetails:focus {
+  outline: none;
+}
+
+.arrowStyle i {
+  border: 1px solid white;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 6px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+#orderDetails > p {
+  width: 200px;
+  margin-left: 200px;
+}
+
+.itemDesc {
+  position: absolute;
+  width: 300px;
+  padding-left: 20px;
+}
+
+#orderDetails > a {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* My Wallet */
+#Spain input {
+  border: none;
+  color:white
+}
+
+#Spain .walletDetails {
+  width: 300px;
+  font-size: 18px;
+}
+
+#Spain thead {
+  font-size: 22px;
+}
+
+.lineBreak {
+  background-color: rgb(44, 44, 44)!important;
+  max-width: 1000px;
+}
+
+.walletDetails a {
+  color:white;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  padding-bottom: 3px;
+}
+
+/*--------------------------------------------------------------
+Shop
+--------------------------------------------------------------*/
+.product_title {
+  color:#d4af37;
+  padding-top: 8%;
+  font-size: 3em;
+}
+/* LATEST CHANGES */
+
+#Tokyo .address {
+  color:#a8a8a8
+}
+
+#Tokyo a {
+  text-decoration: underline;
+  color:white;
+}
+
+.setAsDefault {
+  margin-left: 400px;
+  color:white;
+  background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    text-decoration: underline;
+}
+
+.showReviewSection {
+  color: #d4af37;
+  cursor: pointer;
+}
+
+.modal-footer button {
+  background-color: #d4af37;
+  color:white;
+}
+
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+  margin-right: 325px;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.rate1 {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+  margin-right: 325px;
+}
+.rate1:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate1:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate1:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate1 > input:checked ~ label {
+  color: #ffc700;    
+}
+.rate1:not(:checked) > label:hover,
+.rate1:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.rate1 > input:checked + label:hover,
+.rate1 > input:checked + label:hover ~ label,
+.rate1 > input:checked ~ label:hover,
+.rate1 > input:checked ~ label:hover ~ label,
+.rate1 > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.leftSideContact {
+  margin-left: 25%;
+  float:left;
+}
+
+.leftSideContact p {
+  max-width:300px;
+}
+
+.contactUsForm {
+  float:left;
+  margin-left: 5%;
+}
+
+.radio-inline {
+  display: inline-table;
+  font-size: 20px;
+  font-family:"Poppins", sans-serif;
+}
+
+.review {
+  position: absolute;
+  margin-left:400px;
+  width: 350px;
+}
+
+.starsGiven {
+  color:#d4af37;
+  font-size: 25px;
+}
+
+.review a {
+  background-color: none;
+  border: 1px solid #d4af37;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Poppins" sans-serif;
+}
+
+.review a:hover {
+  background-color: #d4af37;
+}
+
+/*My Account View and Update tabs*/
+.tab_tab {
+  margin-top: 10%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab_tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab_tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab_tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tab_tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.editAddress, .removeAddress, .removeReview, .editReview {
+  background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color:white;
+    text-decoration: underline;
+}
+
+.previousTran {
+  padding-bottom: 20px;
+}
+
+.slideshow-container {
+  max-width: 600px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text4 {
+  color: #f2f2f2;
+  font-size: 20px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 40%;
+  width: 100%;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dontShow {
+  display: none;
+}
+
+.slideImg {
+  opacity:0.3;
+}
+
+#slideStars {
+  color:#d4af37;
+}
+
+.mySlides .btn {
+  background-color: #d4af37;
+  border: 1px solid #d4af37;
+}
+
+.editWallet, .removeWallet {
+  text-decoration: underline;
+  color:white;
+}
+
+.editWallet:hover, .removeWallet:hover {
+  color:#d4af47;
+}
+
+.removeWallet{
+  background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.error-message {
+  color: #d4af37;
+  text-align:center;
+  font-size: 50px;
+  font-weight:bold;
+}
+
+.error-desc {
+  text-align:center;
+  font-size: 20px;
+  width:600px;
+  align-content: center;
+  color:white;
+}
+
+
+
+.default {
+  border-left: 6px solid;
+  border-left-color: #d4af37;
+}
+
+.default-add{
+  border-left: 6px solid;
+  border-left-color: #d4af37;
+}
+
+.padding {
+  padding-left: 10px;
+}
+
+/* activate page */
+.activation__wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50%);
+}
+.activation__container {
+  background-color: rgb(255,255,255);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.3);
+  border-radius: 3px;
+  width: 420px;
+  height: auto;
+  font-family: 'Open Sans';
+  text-align: center;
+}
+.activation__header {
+  width: 100%;
+  height: 60px;
+  padding: 10px 0;
+}
+.activation__logo{
+   width: 250px;
+}
+.activation__subject {
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+.activation__arrow {
+  position: relative;
+  background: transparent;
+}
+.activation__arrow:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #fff;
+  border-width: 20px;
+  margin-left: -20px;
+}
+.activation__message {
+  background-color: rgb(248,248,248);
+  height: 60px;
+  line-height: 25px;
+  padding: 30px 10px 10px;
+  font-size: 15px;
+}
+.activation__user {
+  font-weight: 600;
+  font-size: 18px;
+}
+.activation__link {
+  background-color: rgb(255,255,255);
+  height: 100px;
+  font-size: 15px;
+  line-height: 25px;
+  padding: 20px 10px;
+}
+.activation__btn {
+  border-radius: 3px;
+  color: rgb(255,255,255);
+  font-size: 15px;
+  background: rgb(21,142,255);
+  padding: 10px 20px;
+  text-decoration: none;
+  width: 200px; 
+  margin: 10px auto 0;
+  cursor: pointer;
+}
+.activation__btn:hover {
+  background: #2997ff; /*lighten(rgb(21,142,255), 3)*/
+  text-decoration: none;
+}
+.activation__footer {
+  font-size: 13px;
+  line-height: 20px;
+  height: 50px;
+  padding: 10px 0;
+}
+
+
+
