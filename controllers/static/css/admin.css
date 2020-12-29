@@ -76,7 +76,7 @@
 }
 
 body {
-  background: #000000!important;
+  background: #171726!important;
 }
 
 /*----------------toggeled sidebar----------------*/
@@ -358,11 +358,11 @@ a {
   text-decoration: none;
 }
 h1{
-  color: white;
+  color: #01E693;
   padding: 2%;
 }
 .page-content{
-  background-color: black;
+  background-color: #171726 ;
 }
 .page-wrapper .page-content {
   display: inline-block;
@@ -421,7 +421,7 @@ h1{
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #31353D;
+    background: #171726;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
@@ -816,7 +816,7 @@ h1{
   display: inline-flex;
   text-decoration: none;
   color: #fff;
-  background-color: #d4af37;
+  background-color: #0E4D40;
   padding-left: 2rem;
   overflow: hidden;
   z-index: 1;
@@ -1009,8 +1009,8 @@ h2 {
   }
 }
 .btn-primary{
-  background-color: #d4af37;
-  border-color: #d4af37;
+  background-color: #0E4D40;
+  border-color: #0E4D40;
 }
 .btn-primary:hover{
   background-color: #af9125;

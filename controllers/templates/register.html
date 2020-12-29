@@ -1,7 +1,16 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <style>
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: #01E693!important;
+        }
+    </style> 
 {% endblock %}
 {% block content %}
 <div class="container1">

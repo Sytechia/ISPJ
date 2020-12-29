@@ -15,7 +15,7 @@
 body {
     background-color: #171726!important;
     color: #ffffff;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     overflow-x: hidden;
     height: 100%;
@@ -24,6 +24,13 @@ body {
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+#mainContent {
+    background-color: #171726!important;
+}
+
+.container1{
+    background-color: #171726!important;
+}
 
 .autocomplete-items {
   position: absolute;
@@ -73,7 +80,7 @@ input[type=text] {
 }
 
 input[type=submit] {
-  background-color: DodgerBlue;
+  background-color: #0E4D40;
   color: #fff;
   cursor: pointer;
 }
@@ -338,7 +345,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .section-header .section-title {
     font-size: 50px;
-    color: #d4af37;
+    color: #01E693;
     text-transform: uppercase;
     text-align: center;
     font-weight: 700;
@@ -355,7 +362,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------*/
 
 #facts {
-    background: #000000;
+    background:#171726!important;
     padding: 80px 0 60px 0;
 }
 
@@ -422,7 +429,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .containerRegister {
-    background-color: #000000;
+    background-color: #171726!important;
     padding: 30px;
     border: 1px solid rgb(53, 53, 53);
     border-radius: 3px;
@@ -492,9 +499,10 @@ label {
     }
 }
 
-input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+.containerLogin input:-webkit-autofill, .containerLogin input:-webkit-autofill:hover, .containerLogin input:-webkit-autofill:focus, .containerLogin input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: #d4af37 !important;
+    -webkit-text-fill-color: #01E693 !important;
+    color: #01E693 !important;
 }
 
 .section-header .already-member {
@@ -507,9 +515,9 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 }
 
 .containerLogin {
-    background-color: #000000;
+    background-color: #171726 !important;
     padding: 30px;
-    border: 1px solid rgb(53, 53, 53);
+    border: 1px solid #01E693;
     border-radius: 3px;
     margin-left: 35%;
     margin-right: 35%;
@@ -519,7 +527,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 .section-header .forgot-password>a {
     font-size: 15px;
-    color: rgb(48, 48, 48);
+    color: #A8A9A9;
     /* text-transform: uppercase; */
     text-align: center;
     font-weight: 700;
@@ -527,7 +535,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 }
 
 .forgot-password>a:hover {
-    color: #d4af37;
+    color: #01E693!important;
 }
 
 .section-header .more-steps {
@@ -1289,7 +1297,7 @@ button:focus, input:focus {
     color: #fff;
     font-family: monospace;
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid #d4af37; /* The typwriter cursor */
+    border-right: .15em solid #01E693; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: .15em; /* Adjust as needed */
@@ -1307,7 +1315,7 @@ button:focus, input:focus {
   /* The typewriter cursor effect */
   @keyframes blink-caret {
     from, to { border-color: transparent }
-    50% { border-color: #d4af37 }
+    50% { border-color: #01E693 }
   }
 
   .testimonial-container {
