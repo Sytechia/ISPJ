@@ -273,11 +273,10 @@ class ResetPasswordForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset')
 
-class ContactUs(FlaskForm):
+class ContactUsForm(FlaskForm):
     fullname = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    radio = RadioField('Contact type', choices=[('enquiry','Enquiry'),('feedback','Feedback')])
-    feedback = TextAreaField('Feedback', [DataRequired()])
+    message = TextAreaField('Message', validators=[DataRequired(), length(min=10)])
     submit = SubmitField('Submit')
 
 class AdminUpdateProductForm(FlaskForm):

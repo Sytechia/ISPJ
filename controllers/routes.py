@@ -6,7 +6,7 @@ import os, json, ast, random
 from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort
 from flask_login import current_user, login_user, logout_user, login_required
 from controllers import app, db, bcrypt, mail
-from controllers.forms import RegistrationForm, LoginForm, Billing, PaymentInfo, ContactUs, PasswordForm, Disable, Activate, ChangePasswordForm
+from controllers.forms import RegistrationForm, LoginForm, Billing, PaymentInfo, ContactUsForm, PasswordForm, Disable, Activate, ChangePasswordForm
 from controllers.forms import RegistrationForm, LoginForm, AdminAddProductForm, AdminUpdateProductForm, UpdateAccountForm, UpdateBilling, RequestResetForm, ResetPasswordForm, UpdateCard
 from controllers.Sentemail import sendEmail, adminEmail
 from controllers.models import User, Product, CardInfo, AddressInfo, PreviousTransactions, Review, ProductReview
@@ -112,7 +112,10 @@ def about():
 
 @app.route('/contactUs', methods=['GET', 'POST'])
 def contactUs():
-    return render_template("contactUs.html",)
+    form = ContactUsForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        return redirect(url_for("homepage"))
+    return render_template("contactUs.html", form=form)
 
 @app.route('/terms')
 def terms(): 

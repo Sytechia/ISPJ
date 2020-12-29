@@ -317,3 +317,5 @@
 2020-12-26 19:20:23,305 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
 2020-12-27 10:18:42,175 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
 2020-12-27 10:18:49,139 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/contact-us userID:guest
+2020-12-28 13:08:14,715 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2020-12-29 09:40:15,946 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
