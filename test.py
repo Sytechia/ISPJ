@@ -1,4 +1,5 @@
 import pyodbc
+import random
 
 
 server = 'ispj-database.database.windows.net'
@@ -18,7 +19,7 @@ password = '987654321'
 isadmin = 'False'
 profile_image = '../static/images/profile.jpg'
 previous_passwords = "['123456789']"
-cursor.execute('INSERT INTO user_accounts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?);', account_status, firstname, lastname, email, password, isadmin, profile_image, previous_passwords)
+cursor.execute('INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);', random.randint(100000, 999999), 1, firstname, lastname, email, password, isadmin, profile_image, previous_passwords)
 conn.commit()
 
 cursor.execute('select * from user_accounts')
