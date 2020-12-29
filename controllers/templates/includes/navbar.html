@@ -48,39 +48,11 @@
                 <a class="nav-link" href="#">New Releases</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Register</a>
+                <a class="nav-link" href="/register">Register</a>
             </li>
-
-            {#          {% if current_user.is_authenticated %}#}
-            {#          <li class="nav-item">#}
-            {#            <a class="nav-link" href="{{ url_for('myAccount') }}">Account</a>#}
-            {#          </li>#}
-            {#          <li class="nav-item">#}
-            {#            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>#}
-            {#          </li>#}
-            {##}
-            {#          {% else %}#}
-            {#          <li class="nav-item">#}
-            {#            <a class="nav-link" href="{{ url_for('login') }}">Login</a>#}
-            {#          </li>#}
-            {#          {% endif %}#}
-            {##}
-            {#          {% if current_user.email == 'admin@gmail.com'%}#}
-            {#          <li class='nav-item'>#}
-            {#            <a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a>#}
-            {#          </li>#}
-            {#          {% elif request.path != url_for('shop') %} #}
-            {#          <li class='nav-item'>#}
-            {#          </li>#}
-            {#          {% else %}#}
-            {#          <li class='nav-item'> #}
-            {#            <a class="cd-img-replace" href="#" data-toggle="modal"#}
-            {#            data-target="#ModalLogin">Cart</a></div>#}
-            {#          </li>#}
-            {#          {% endif %}#}
         </ul>
     </div>
 

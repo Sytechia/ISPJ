@@ -5,16 +5,16 @@
 * {margin:0;padding:0;border:0 none;position: relative; outline: none;
 }
 body {
-  background: rgb(0, 0, 0);
+  background:#171726 !impotant;
   color: #ffffff;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   margin:0;
   overflow-x: hidden;
 }
 
 
 a:hover, a:active, a:focus {
-  color: #d4af37;
+  color: #01E693;
   outline: none;
   text-decoration: none;
 }
@@ -295,7 +295,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------*/
 .section-header .section-title {
   font-size: 50px;
-  color: #d4af37;
+  color: #01E693;
   text-transform: uppercase;
   text-align: center;
   font-weight: 700;
@@ -344,7 +344,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .card .btn:hover {
   background: #d4af37;
-  border: 2px solid #d4af37;
+  border: 2px solid c;
 }
 
 /*--------------------------------------------------------------
@@ -409,33 +409,39 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins" sans-serif;
 }
 
+.forgot-password:hover{
+  color:#01E693!important;
+}
+
 /* Input register and login */
 .containerLogin input[type=text], .containerLogin input[type=email], .containerLogin input[type=password]{
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
-  border-bottom: 1px solid rgb(53, 53, 53);
+  border-bottom: 1px solid#01E693;
   border-radius: 3px;
   background: none;
   border-top:none;
   border-right:none;
-  color: #d4af37
+  color: #01E693
 }
 
 .containerRegister input[type=text], .containerRegister input[type=email], .containerRegister input[type=password]{
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
-  border-bottom: 1px solid rgb(53, 53, 53);
+  border-bottom: 1px solid #01E693;
   border-radius: 3px;
   background: none;
   border-top:none;
   border-right:none;
-  color: #d4af37
+  color: #01E693
 }
 
+
+
 input:focus{
-  border-bottom: 1px solid #d4af37;
+  border-bottom: 1px solid #01E693!important;
   outline: 0;
 }
 
@@ -452,7 +458,7 @@ label {
 }
 
 .btnRegister {
-  background-color: #d4af37;
+  background-color:#0E4D40;
   color: white;
   padding: 12px;
   margin: 10px 0;
@@ -481,7 +487,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: #d4af37 !important;
+    -webkit-text-fill-color: #01E693!important;
 }
 
 
@@ -507,7 +513,7 @@ input:-webkit-autofill:active {
 
 .section-header .forgot-password > a{
   font-size: 15px;
-  color: rgb(48, 48, 48);
+  color: #A8A9A9;
   /* text-transform: uppercase; */
   text-align: center;
   font-weight: 700;
@@ -515,11 +521,11 @@ input:-webkit-autofill:active {
 }
 
 .forgot-password > a:hover {
-  color: #d4af37;
+  color: #01E693;
 }
 
 h2 {
-  color: #d4af37;
+  color: #01E693;
 }
 
 .section-header .more-steps {
@@ -581,14 +587,14 @@ h2 {
   content: none;
 }
 .progressbar li.active {
-  color: #d4af37;
+  color: #01E693;
 }
 .progressbar li.active:before {
-  border-color: #d4af37;
+  border-color: #01E693;
 }
 .progressbar li.active + li:after {
-  background-color: #d4af37;
-  color: #d4af37;
+  background-color: #01E693;
+  color: #01E693;
 }
 
 .progressbar > li > a {
@@ -596,7 +602,7 @@ h2 {
 }
 
 .progressbar > li.active  > a {
-  color: #d4af37
+  color: #01E693
 }
 
 .profileCard {
@@ -635,11 +641,11 @@ h2 {
 }
 
 .profileCard > .btn:hover {
-  background-color: #d4af37;
+  background-color: #01E693;
 }
 
 .profileCard > .activeAccount {
-  background-color: #d4af37;
+  background-color: #01E693;
   border-radius: 0;
 }
 
@@ -665,7 +671,7 @@ h2 {
 }
 
 .myAccount > input[type="email"] {
-  color: #d4af37;
+  color: #01E693;
   border-bottom: none;
 }
 
@@ -684,14 +690,14 @@ table > input {
 
 .saveChanges {
   background-color: none;
-  border: 2px solid #d4af37;
+  border: 2px solid #01E693;
   border-radius: 0;
   padding: 10px 50px 10px 50px;
   color:white;
 }
 
 .saveChanges:hover {
-  background-color: #d4af37;
+  background-color: #01E693;
   color: white;
 }
 
@@ -759,12 +765,12 @@ table > input {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #d4af37;}
+.dropdown-content a:hover {background-color: #01E693;}
 
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {
-  border-bottom: 1px solid #d4af37;
+  border-bottom: 1px solid #01E693;
 }
 
 /* My Orders */
@@ -837,7 +843,7 @@ table > input {
 Shop
 --------------------------------------------------------------*/
 .product_title {
-  color:#d4af37;
+  color:#01E693;
   padding-top: 8%;
   font-size: 3em;
 }
@@ -869,7 +875,7 @@ Shop
 }
 
 .modal-footer button {
-  background-color: #d4af37;
+  background-color: #01E693;
   color:white;
 }
 
