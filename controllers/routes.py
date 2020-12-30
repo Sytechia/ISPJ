@@ -2,14 +2,13 @@
 All dynamic routing belongs here 
 """
 
-import os, json, ast, random
-from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort
+import os, json, ast, random, requests
+from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort, Response, get_template_attribute
 from flask_login import current_user, login_user, logout_user, login_required
 from controllers import app, db, bcrypt, mail
 from controllers.forms import RegistrationForm, LoginForm, Billing, PaymentInfo, ContactUsForm, PasswordForm, Disable, Activate, ChangePasswordForm
 from controllers.forms import RegistrationForm, LoginForm, AdminAddProductForm, AdminUpdateProductForm, UpdateAccountForm, UpdateBilling, RequestResetForm, ResetPasswordForm, UpdateCard
 from controllers.Sentemail import sendEmail, adminEmail
-from controllers.models import User, Product, CardInfo, AddressInfo, PreviousTransactions, Review, ProductReview
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -99,13 +98,67 @@ def qr():
         return redirect(url_for('home'))
 
 """
-Home, contact-us, about pages 
+Home, contact-us, about pages, Chatbot
 """
 
+output = [("message stark", {"text":"Hi, how may I assist you?"})]
+
+# Home Page
 @app.route('/')
 def home():
     return render_template('homepage.html')
 
+# FAQ Page
+@app.route('/faq')
+def faq():
+    return render_template('faq.html', result=output)
+
+# Chatbot
+@app.route('/result',methods=["POST","GET"])
+def Result():
+    global output
+    if request.method=="POST":
+        print('happened!')
+        print(list(request.form.values()))
+        result=list(request.form.values())[0]
+        if request.args.get('game') != None:
+            result = request.args.get('game')
+        print(result)
+        if result.lower()=="restart":
+            output = [("message stark", {"text":"Hi, how may I assist you?"})]
+        elif result == '':
+            output.extend([("message parker",{"text":result})])
+            output.extend([("message stark", {"text":"Sorry I didn't get that..."})])
+        else:
+            try:
+                r = requests.post('http://localhost:5002/webhooks/rest/webhook', json={"message": result})
+                li = []
+                for i in r.json():
+                    if 'image' in i:
+                        li.append({"pic": i['image']})
+                    if 'text' in i:
+                        li.append(i['text'])
+                    if 'buttons' in i:
+                        for x in i['buttons']:
+                            li.append((x['title'], "button"))
+                sample = [("message parker",{"text":result})] 
+                buttons = []
+                for count, msg in enumerate(li): 
+                    if count != len(li)-1 and type(li[count+1]) is dict:
+                        sample.append(("message stark", {"text":msg, "pic": li[count+1]["pic"]}))
+                    elif type(li[count]) is tuple:
+                        buttons.append(msg[0])
+                    elif type(li[count]) is not dict:
+                        sample.append(("message stark", {"text":msg}))
+                if buttons != []:
+                    sample.append(("message stark", {"button":buttons}))
+                output.extend(sample)
+                print("output at here", output)
+            except:
+                output.extend([("message parker", result), ("message stark", "We are unable to process your request at the moment. Please try again...")])
+        return render_template("faq.html",result=output)
+
+# About page
 @app.route('/about')
 def about():
     return render_template('aboutus.html')
@@ -117,13 +170,6 @@ def contactUs():
         return redirect(url_for("homepage"))
     return render_template("contactUs.html", form=form)
 
-@app.route('/terms')
-def terms(): 
-    return render_template('terms.html')
-
-"""
-ERROR ROUTE
-"""
 """
 Account Related Routes 
 """

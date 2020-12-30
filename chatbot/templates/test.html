@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% for key,value in result%}
+          <div class="{{key}}">
+          {% if value["game_name"] %}
+            <img src="{{value['game_picture']}}" alt="">
+            <h1>{{value['game_name']}}</h1>
+          {% if value["button"] %}
+            
+            {% else %}
+            <h1>{{value}}</h1>
+          {% endif %}
+          </div>
+    {% endfor %}
+
+</body>
+</html>

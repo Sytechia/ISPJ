@@ -1,0 +1,1437 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - morning
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - see you 
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: what_do_you_have
+  examples: |
+    - what games do you sell?
+    - what do you sell?
+    - what do you have here?
+    - what do you have?
+    - what games can I get?
+    - what games can i get here?
+    - what genres do you offer?
+    - what genres do you have?
+    - what genres of games do you offer?
+    - what categories do you have?
+    - what category of games do you have?
+    - what category of games do you offer?
+    - what type of games do you have?
+    - what type of games do you offer?
+    - what type of games do you sell?
+    - what are the different games genres offered?
+    - what are the different type of games offered?
+
+- intent: action
+  examples: |
+    - Action
+    - action
+    - I want Action
+    - I want action
+    - Action genre
+    - action genre
+    - Action category 
+    - action category 
+
+- intent: adventure
+  examples: |
+    - Adventure
+    - adventure
+    - I want Adventure
+    - I want adventure
+    - Adventure genre 
+    - adventure genre 
+    - Adventure category
+    - adventure category
+
+- intent: horror
+  examples: |
+    - Horror
+    - horror
+    - I want Horror
+    - I want horror
+    - Corror genre
+    - horror genre
+    - Horror category
+    - horror category
+
+- intent: indie
+  examples: |
+    - Indie
+    - indie
+    - I want Indie
+    - I want indie
+    - Indie genre
+    - indie genre
+    - Indie category
+    - indie category
+
+- intent: multiplayer
+  examples: |
+    - Multiplayer
+    - multiplayer
+    - I want Multiplayer
+    - I want multiplayer
+    - Multiplayer genre
+    - multiplayer genre
+    - Multiplayer category
+    - multiplayer category
+    - multi
+    - player
+
+- intent: racing
+  examples: |
+    - Racing
+    - racing
+    - I want Racing
+    - I want racing
+    - Racing genre
+    - racing genre
+    - Racing category
+    - racing category
+
+- intent: rpg
+  examples: |
+    - RPG
+    - rpg
+    - I want RPG
+    - I want rpg
+    - RPG genre
+    - rpg genre
+    - RPG category
+    - rpg category
+
+- intent: simulation
+  examples: |
+    - Simulation
+    - simulation
+    - I want Simulation
+    - I want simulation
+    - Simulation genre
+    - simulation genre
+    - Simulation category
+    - simulation category
+
+- intent: sports
+  examples: |
+    - Sports
+    - sports
+    - I want Sports
+    - I want sports
+    - Sports genre
+    - sports genre
+    - Sports category
+    - sports category
+
+- intent: yes
+  examples: |
+    - Yes
+    - yes
+    - sure
+    - Sure
+    - Yah
+    - yah
+    - Yeah
+    - yeah
+    - definitely
+    - can
+    - can do
+    - of course
+    - yas
+    - I do
+    - that sounds good
+    - indeed
+    - affirmative
+    - okay
+    - ok
+
+- intent: no
+  examples: |
+    - no
+    - No
+    - nope
+    - Nope
+    - nah
+    - Nah
+    - I don't want
+    - definitely not
+    - not really
+    - I don't think so
+    - don't like that
+
+- intent: skyrim
+  examples: |
+    - Elder Scrolls
+    - Elder Scrolls V
+    - The Elder Scrolls V: Skyrim
+    - The Elder Scrolls V Skyrim
+    - i want elder scrolls
+    - i want elder scrolls v
+    - i want the elder scrolls v
+    - i want The Elder Scrolls V: Skyrim
+    - i would like skyrim
+    - i would like the elder scrolls
+    - add skyrim
+    - add skyrim to cart
+    - add The Elder Scrolls V Skyrim
+    - add The Elder Scrolls V Skyrim to cart
+
+- intent: gta
+  examples: |
+    - Grand Theft Auto V
+    - gta
+    - Grand Theft Auto
+    - The Grand Theft Auto
+    - i want Grand Theft Auto V
+    - i want Grand Theft Auto
+    - i want gta
+    - i would like Grand Theft Auto V
+    - i would like Grand Theft Auto
+    - i would like gta
+    - add Grand Theft Auto V
+    - add Grand Theft Auto
+    - add gta
+    - add Grand Theft Auto V to cart
+    - add Grand Theft Auto to cart
+    - add gta to cart
+
+- intent: fantasy
+  examples: |
+    - Final Fantasy VII Remake
+    - Final Fantasy
+    - Final Fantasy VII
+    - Fantasy
+    - i want Final Fantasy VII Remake
+    - i want Final Fantasy
+    - i want Final Fantasy VII
+    - i would like Final Fantasy VII Remake
+    - i would like Final Fantasy
+    - i would like Final Fantasy VII
+    - add Final Fantasy VII Remake
+    - add Final Fantasy
+    - add Final Fantasy VII
+    - add Final Fantasy VII Remake V to cart
+    - add Final Fantasy to cart
+    - add Final Fantasy VII to cart
+
+- intent: minecraft
+  examples: |
+    - Minecraft
+    - i want minecraft
+    - i would like minecraft
+    - add minecraft
+    - add minecraft to cart
+    - add minecraft to shopping cart
+
+- intent: uncharted
+  examples: |
+    - Uncharted 4: A Thief's EndFinal Fantasy VII Remake
+    - Uncharted 4
+    - A Thief's EndFinal
+    - A Thief's EndFinal Fantasy VII Remake
+    - Uncharted
+    - i want Uncharted 4: A Thief's EndFinal Fantasy VII Remake
+    - i want Uncharted 4
+    - i want A Thief's EndFinal
+    - i want A Thief's EndFinal Fantasy VII Remake
+    - i want Uncharted
+    - i would like Uncharted 4: A Thief's EndFinal Fantasy VII Remake
+    - i would like Uncharted 4
+    - i would like A Thief's EndFinal
+    - i would like A Thief's EndFinal Fantasy VII Remake
+    - i would like Uncharted
+    - add Uncharted 4: A Thief's EndFinal Fantasy VII Remake
+    - add Uncharted 4
+    - add A Thief's EndFinal
+    - add A Thief's EndFinal Fantasy VII Remake
+    - add Uncharted
+    - add Uncharted 4: A Thief's EndFinal Fantasy VII Remake to cart
+    - add Uncharted 4 to cart
+    - add A Thief's EndFinal to cart
+    - add A Thief's EndFinal Fantasy VII Remake to cart
+    - add Uncharted to cart
+
+- intent: assassin
+  examples: |
+    - Assassin's Creed Odyssey 
+    - Assassin's Creed
+    - Odyssey
+    - Assassin Creed
+    - Assassins Creed
+    - i want Assassin's Creed Odyssey 
+    - i want Assassin's Creed
+    - i want Odyssey
+    - i want Assassin Creed
+    - i want Assassins Creed
+    - i would like Assassin's Creed Odyssey 
+    - i would like Assassin's Creed
+    - i would like Odyssey
+    - i would like Assassin Creed
+    - i would like Assassin Creed
+    - add Assassin's Creed Odyssey 
+    - add Assassin's Creed
+    - add Odyssey
+    - add Assassin Creed
+    - add Assassins Creed
+    - add Assassin's Creed Odyssey to cart
+    - add Assassin's Creed to cart
+    - add Odyssey to cart
+    - add Assassin Creed to cart
+    - add Assassins Creed to cart
+
+- intent: resident
+  examples: |
+    - Resident Evil 3
+    - Resident Evil
+    - i want Resident Evil 3
+    - i want Resident Evil
+    - i would like Resident Evil 3 
+    - i would like Resident Evil
+    - add Resident Evil 3
+    - add Resident Evil
+    - add Resident Evil 3 to cart
+    - add Resident Evil to cart
+
+- intent: lastOfUs
+  examples: |
+    - The Last of Us Part 2
+    - The Last of Us Part II
+    - The Last of Us
+    - Last of Us
+    - i want The Last of Us Part 2
+    - i want The Last of Us Part II
+    - i want The Last of Us
+    - i want Last of Us
+    - i would like The Last of Us Part 2
+    - i would like The Last of Us Part II
+    - i would like The Last of Us
+    - i would like Last of Us
+    - add The Last of Us Part 2
+    - add The Last of Us Part II
+    - add The Last of Us
+    - add Last of Us
+    - add The Last of Us Part 2 to cart
+    - add The Last of Us Part II to cart
+    - add The Last of Us to cart
+    - add Last of Us to cart
+
+- intent: phasmophobia
+  examples: |
+    - phasmophobia
+    - i want phasmophobia
+    - i would like phasmophobia
+    - add phasmophobia
+    - add phasmophobia to cart
+
+- intent: stardew
+  examples: |
+    - Stardew Valley
+    - Stardew
+    - i want Stardew Valley
+    - i want Stardew
+    - i would like Stardew Valley
+    - i would like Stardew
+    - add Stardew Valley
+    - add Stardew
+    - add Stardew Valley to cart
+    - add Stardew to cart
+
+- intent: overcooked
+  examples: |
+    - Overcooked 2
+    - Overcooked
+    - i want Overcooked 2
+    - i want Overcooked
+    - i would like Overcooked 2
+    - i would like Overcooked
+    - add Overcooked 2
+    - add Overcooked
+    - add Overcooked 2 to cart
+    - add Overcooked to cart
+
+- intent: fallGuys
+  examples: |
+    - Fall Guys: Ultimate Knockout
+    - Ultimate Knockout
+    - Fall Guys
+    - i want Fall Guys: Ultimate Knockout
+    - i want Ultimate Knockout
+    - i want Fall Guys
+    - i would like Fall Guys: Ultimate Knockout
+    - i would like Ultimate Knockout
+    - i would like Fall Guys
+    - add Fall Guys: Ultimate Knockout
+    - add Ultimate Knockout
+    - add Fall Guys
+    - add Fall Guys: Ultimate Knockout to cart
+    - add Ultimate Knockout to cart
+    - add Fall Guys to cart
+
+- intent: animal
+  examples: |
+    - Animal Crossing: New Horizons
+    - Animal Crossing
+    - New Horizons
+    - i want Animal Crossing: New Horizons
+    - i want Animal Crossing
+    - i want New Horizons
+    - i would like Animal Crossing: New Horizons
+    - i would like Animal Crossing
+    - i would like New Horizons
+    - add Animal Crossing: New Horizons
+    - add Animal Crossing
+    - add New Horizons
+    - add Animal Crossing: New Horizons to cart
+    - add Animal Crossing to cart
+    - add New Horizons to cart
+
+- intent: cod
+  examples: |
+    - Call of Duty: Black Ops Cold War
+    - Call of Duty
+    - Black Ops Cold War
+    - i want Call of Duty: Black Ops Cold War
+    - i want Call of Duty
+    - i want Black Ops Cold War
+    - i would like Call of Duty: Black Ops Cold War
+    - i would like Call of Duty
+    - i would like Black Ops Cold War
+    - add Call of Duty: Black Ops Cold War
+    - add Call of Duty
+    - add Black Ops Cold War
+    - add Call of Duty: Black Ops Cold War to cart
+    - add Call of Duty to cart
+    - add Black Ops Cold War to cart
+
+- intent: pubg
+  examples: |
+    - PlayerUnknown's Battlegrounds
+    - pubg
+    - PlayerUnknown Battlegrounds
+    - i want PlayerUnknown's Battlegrounds
+    - i want pubg
+    - i want PlayerUnknown Battlegrounds
+    - i would like PlayerUnknown's Battlegrounds
+    - i would like pubg
+    - i would like PlayerUnknown Battlegrounds
+    - add PlayerUnknown's Battlegrounds
+    - add pubg
+    - add PlayerUnknown Battlegrounds
+    - add PlayerUnknown's Battlegrounds to cart
+    - add pubg to cart
+    - add PlayerUnknown Battlegrounds to cart
+
+- intent: mario
+  examples: |
+    - Mario Kart 8
+    - Mario Kart
+    - Mario
+    - i want Mario Kart 8
+    - i want Mario Kart
+    - i want Mario
+    - i would like Mario Kart 8
+    - i would like Mario Kart
+    - i would like Mario
+    - add Mario Kart 8
+    - add Mario Kart
+    - add Mario
+    - add Mario Kart 8 to cart
+    - add Mario Kart to cart
+    - add Mario to cart
+
+- intent: forza
+  examples: |
+    - Forza Horizon 4
+    - Forza Horizon
+    - forza
+    - i want Forza Horizon 4
+    - i want Forza Horizon
+    - i want forza
+    - i would like Forza Horizon 4
+    - i would like Forza Horizon
+    - i would like forza
+    - add Forza Horizon 4
+    - add Forza Horizon
+    - add forza
+    - add Forza Horizon 4 to cart
+    - add Forza Horizon to cart
+    - add forza to cart
+
+- intent: dirt
+  examples: |
+    - Dirt 4
+    - Dirt
+    - i want Dirt 4
+    - i want Dirt
+    - i would like Dirt 4
+    - i would like Dirt
+    - add Dirt 4
+    - add Dirt
+    - add Dirt 4 to cart
+    - add Dirt to cart
+
+- intent: witcher
+  examples: |
+    - The Witcher 3: Wild Hunt
+    - The Witcher 3
+    - Wild Hunt
+    - Witcher
+    - i want The Witcher 3: Wild Hunt
+    - i want Witcher 3
+    - i want Wild Hunt
+    - i want Witcher
+    - i would like The Witcher 3: Wild Hunt
+    - i would like The Witcher 3
+    - i would like Wild Hunt
+    - i would like Witcher
+    - add The Witcher 3: Wild Hunt
+    - add The Witcher 3
+    - add Wild Hunt
+    - add Witcher
+    - add The Witcher 3: Wild Hunt to cart
+    - add The Witcher 3 cart
+    - add Wild Hunt to cart 
+    - add Witcher to cart 
+
+- intent: persona5
+  examples: |
+    - Persona 5 Strikers
+    - Persona 5
+    - i want Persona 5 Strikers
+    - i want Persona 5
+    - i would like Persona 5 Strikers
+    - i would like Persona 5
+    - add Persona 5 Strikers
+    - add Persona 5
+    - add Persona 5 Strikers to cart
+    - add Persona 5 cart
+
+- intent: zelda
+  examples: |
+    - The Legend of Zelda: Breath of the Wild
+    - The Breath of the Wild
+    - Zelda
+    - Breath of the Wild
+    - Legend of Zelda
+    - i want The Legend of Zelda: Breath of the Wild
+    - i want The Breath of the Wild
+    - i want Zelda
+    - i want Breath of the Wild 
+    - i want Legend of Zelda
+    - i would like The Legend of Zelda: Breath of the Wild
+    - i would like The Breath of the Wild
+    - i would like Zelda
+    - i would like Breath of the Wild
+    - i would like Legend of Zelda
+    - add The Legend of Zelda: Breath of the Wild
+    - add The Breath of the Wild
+    - add Zelda
+    - add Breath of the Wild
+    - add Legend of Zelda
+    - add The Legend of Zelda: Breath of the Wild to cart
+    - add The Breath of the Wild cart
+    - add Zelda to cart 
+    - add Breath of the Wild to cart 
+    - add Legend of Zelda to cart 
+
+- intent: sims
+  examples: |
+    - The Sims 4
+    - Sims
+    - The Sims
+    - i want The Sims 4
+    - i want Sims
+    - i want The Sims
+    - i would like The Sims 4
+    - i would like Sims
+    - i would like The Sims
+    - add The Sims 4
+    - add Sims
+    - add The Sims
+    - add The Sims 4 to cart
+    - add Sims cart
+    - add The Sims to cart 
+
+- intent: wwe
+  examples: |
+    - WWE 2K Battlegrounds
+    - WWE
+    - Battlegrounds
+    - i want WWE 2K Battlegrounds
+    - i want WWE
+    - i want Battlegrounds
+    - i would like WWE 2K Battlegrounds
+    - i would like WWE
+    - i would like Battlegrounds
+    - add WWE 2K Battlegrounds
+    - add WWE
+    - add Battlegrounds
+    - add WWE 2K Battlegrounds to cart
+    - add WWE to cart
+    - add Battlegrounds to cart
+
+- intent: fifa
+  examples: |
+    - FIFA 21
+    - FIFA
+    - i want FIFA 21
+    - i want FIFA
+    - i would like FIFA 21
+    - i would like FIFA
+    - add FIFA 21
+    - add FIFA
+    - add FIFA 21 to cart
+    - add FIFA to cart
+
+- intent: nba
+  examples: |
+    - NBA 2K20
+    - NBA
+    - i want NBA 2K20
+    - i want NBA
+    - i would like NBA 2K20
+    - i would like NBA
+    - add NBA 2K20
+    - add NBA
+    - add NBA 2K20 to cart
+    - add NBA to cart
+  
+- intent: rocket
+  examples: |
+    - Rocket League
+    - i want Rocket League
+    - i would like Rocket League
+    - add Rocket League
+    - add Rocket League to cart
+
+# bot challange
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - who are you
+    - what are you
+    - who am I talking to
+
+# FAQs
+- intent: how_long_arrive
+  examples: |
+    - how long will it take for my order to arrive after i make payment
+    - how long will it take for my order to arrive after payment
+    - how long will it take for my order to arrive after making payment
+    - how long will it take for my order to arrive
+    - how long will it take for my package to arrive after i make payment
+    - how long will it take for my package to arrive after payment
+    - how long will it take for my package to arrive after making payment
+    - how long will it take for my package to arrive
+    - how long do i wait for my order
+    - how long do i wait for my order after i make payment
+    - how long do i wait for my order after payment
+    - how long do i wait for my order after making payment
+    - how long do i wait for my package
+    - how long do i wait for my package after i make payment
+    - how long do i wait for my package after payment
+    - how long do i wait for my package after making payment
+    - how long do i wait for my order to arrive
+    - how long do i wait for my order to arrive after i make payment
+    - how long do i wait for my order to arrive after payment
+    - how long do i wait for my order to arrive after making payment
+    - how long do i wait for my package to arrive
+    - how long do i wait for my package to arrive after i make payment
+    - how long do i wait for my package to arrive after payment
+    - how long do i wait for my package to arrive after making payment
+    - how long will my order take to arrive
+    - how long will my order take to arrive after i make payment
+    - how long will my order take to arrive after payment
+    - how long will my order take to arrive after making payment
+    - how long will my package take to arrive
+    - how long will my package take to arrive after i make payment
+    - how long will my package take to arrive after payment
+    - how long will my package take to arrive after making payment
+    - how long will it take for my order take to arrive
+    - how long will it take for my order take to arrive after i make payment
+    - how long will it take for my order take to arrive after payment
+    - how long will it take for my order take to arrive after making payment
+    - how long will it take for my package take to arrive
+    - how long will it take for my package take to arrive after i make payment
+    - how long will it take for my package take to arrive after payment
+    - how long will it take for my package take to arrive after making payment
+    - how long do i have to wait for my order
+    - how long do i have to wait for my order after i make payment
+    - how long do i have to wait for my order after making payment
+    - how long do i have to wait for my order after payment
+    - how long do i have to wait for my package
+    - how long do i have to wait for my package after i make payment
+    - how long do i have to wait for my package after making payment
+    - how long do i have to wait for my package after payment
+    - how long do i have to wait for my order to arrive
+    - how long do i have to wait for my order to arrive after i make payment
+    - how long do i have to wait for my order to arrive after making payment
+    - how long do i have to wait for my order to arrive after payment
+    - when will my order arrive
+    - when will my order arrive after i make payment
+    - when will my order arrive after making payment
+    - when will my order arrive after payment
+    - when will i receive my order
+    - when will i receive my order after i make payment
+    - when will i receive my order after making payment
+    - when will i receive my order after payment
+    - how long will it take to receive my order
+    - how long will it take to receive my order after i make payment
+    - how long will it take to receive my order after making payment
+    - how long will it take to receive my order after payment
+    - when will my order be here
+    - when will my package be here 
+    - when will my products be here 
+
+- intent: orders_ship
+  examples: |
+    - how do you ship my orders
+    - how do you ship my packages
+    - how do you ship my products
+    - how will my orders be shipped
+    - how will my package be shipped
+    - how will my products be shipped
+    - how are my orders shipped
+    - how are my products shipped
+    - how are my packages shipped
+    - how will my orders arrive
+    - how will my packages arrive
+    - how will my products arrive
+    - who will handle my package
+    - who will be shipping my package
+    - how do you deliver my orders
+    - how do you deliver my packages
+    - how do you deliver my products
+    - how will my orders be delivered
+    - how will my packages be delivered
+    - how will my poducts be delivered
+    - how are my orders delivered
+    - how are my packages delivered
+    - how are my products delivered
+    - how will my orders be sent
+    - how will my packages be sent
+    - how will my products be sent
+    - how are my orders sent
+    - how are my products sent
+    - how are my packages sent
+
+- intent: how_paypal
+  examples: |
+    - how do i make payments via paypal
+    - how do i make payments using paypal
+    - how does paying via paypal works
+    - how does payments via paypal works
+    - how does paypal works
+    - how do i pay using paypal
+    - how do i pay via paypal
+    - how to use paypal
+    - how to use paypal for payment
+    - how to pay using paypal
+    - how to pay via paypal
+    - how do i pay by paypal
+    - how does paying by paypal works
+    - how do i make payments by paypal
+    - how does paypal method works
+
+- intent: payment_methods
+  examples: |
+    - what are the payment methods available
+    - what are the payment methods
+    - payment methods
+    - payment methods available
+    - what are the possible payment methods
+    - how can i pay
+    - can i pay using paypal
+    - is it possible to pay using paypal
+    - can i pay using mastercard
+    - is it possible to pay using mastercard
+    - can i use mastercard
+    - can i pay using visa
+    - can i use visa
+    - is it possible to pay using visa
+    - can i pay using amex
+    - can i use amex
+    - is it possible to pay using amex
+    - can i pay using american express
+    - can i use american express
+    - is it possible to pay using american express
+    - can i pay using citybank
+    - can i use citybank
+    - is it possible to pay using citybank
+    - what credit cards can i use
+    - what debit cards can i use
+
+- intent: right_browser
+  examples: |
+    - i am having problems accessing idea store
+    - i am having problems accessing the store
+    - i am having problems accessing the website
+    - i am having problems accessing the web page
+    - i am having problems accessing the webpage
+    - i am having problems accessing the web app
+    - i am having problems accessing the web application
+    - why does some of the pages look weird
+    - why does the website look weird
+    - the website looks weird
+    - the web app looks weird
+    - the web page looks weird
+    - the webpage looks weird
+    - the app looks weird
+    - the application looks weird 
+    - why is there something wrong with the website
+    - why is there something wrong with the webpage
+    - why is there something wrong with the web page
+    - why is there something wrong with the web app
+    - why is there something wrong with the web application
+    - why is there something wrong with idea store
+    - why is there something wrong with the application
+    - is something wrong with the website
+    - is something wrong with the webpage
+    - is something wrong with the web page
+    - is something wrong with the web app
+    - is something wrong with the application
+    - is something wrong with the website
+    - is there something wrong with the website
+    - is there something wrong with the web app
+    - is there something wrong with the application
+    - is there something wrong with the webpage
+    - is there something wrong with the web page
+    - i have problems accessing the website
+    - what are the compatible browsers
+    - what are the compatible browsers for this website
+    - which browser should i use
+    - which browser should i use for this website
+    - which browser should i use to access this website
+    - what browsers are compatible for this website
+
+- intent: track_orders
+  examples: |
+    - how can i track my orders and payment
+    - how can i track my orders & payment
+    - how can i track my orders
+    - how can i track my packages
+    - how can i track my packages and payment
+    - how can i track my packages & payment
+    - how can i track my products
+    - how can i track my items
+    - how can i track my products and payment
+    - how can i track my products & payment
+    - how can i check the status of my orders
+    - how can i check the status of my items
+    - where can i check the status of my orders
+    - where can i check the status of my items
+    - how can i check the status of my packages
+    - where can i check the status of my packages
+    - how can i check the status of my products
+    - where can i check the status of my products
+    - how can i keep track of my order status
+    - where can i keep track of my order status
+    - where can i see my order status
+    - how can i see my order status
+    - how can i check my order status
+    - how can i check my order history
+    - how can i see my order history
+    - where can i check my order history
+    - where can i see my order history
+    - how can i check my previous transactions 
+    - where can i track my orders and payment
+    - where can i track my orders & payment
+    - where can i track my orders
+    - where can i track my packages
+    - where can i track my packages and payment
+    - where can i track my packages & payment
+    - where can i track my products
+    - where can i track my products and payment
+    - where can i track my products & payment
+
+- intent: reactivate
+  examples: |
+    - how do i reactivate my account 
+    - how do i reactivate my account after disabling it
+    - how do i reactivate my account after i disabled it
+    - how do i reactivate my account after disabling
+    - how do i reactivate my account after disabling my account
+    - reactivation of account
+    - reactivation of account after disabling of account
+    - reactivation of account after disabling it
+    - reactivation of account disabling account
+    - how to reactivate my account
+    - how to reactivate my account after disabling it
+    - how to reactivate my account after disabling my account
+    - how to reactivate my account after i disabled it
+    - is it possible to reactivate my account after disabling it
+    - is it possible to reactivate my account
+    - is it possible to activate my account again
+    - can i activate my account again
+    - how do i activate my account again after disabling it
+
+- intent: damaged_item
+  examples: |
+    - what should i do if i receive a faulty item
+    - what should i do if i receive a faulty product
+    - what should i do if i receive a faulty package
+    - what should i do if i receive a damaged item
+    - what should i do if i receive a damaged product
+    - what should i do if i receive a damaged package
+    - what should i do if i receive a spoiled item
+    - what should i do if i receive a spoiled product
+    - what should i do if i receive a spoiled package
+    - what should i do if i receive a defective product
+    - what should i do if i receive a defective item
+    - what should i do if i receive a defective order
+    - what should i do if i receive a defective package
+    - what if i received a damaged item
+    - what if i received a damaged product
+    - what if i received a damaged package
+    - what if i received a faulty item
+    - what if i received a faulty package
+    - what if i received a faulty product
+    - what if i received a spoiled item
+    - what if i received a spoiled poduct
+    - what if i received a spoiled package
+    - what if i received a defective item
+    - what if i received a defective product
+    - what if i received a defective order
+    - what if i received a defective package
+    - what if my item is faulty 
+    - what if my product is faulty 
+    - what if my package is faulty 
+    - what if my item is damaged
+    - what if my product is damaged
+    - what if my package is damaged
+    - what if my item is spoiled
+    - what if my product is spoiled
+    - what if my package is spoiled
+    - what if my item is defective
+    - what if my product is defective
+    - what if my order is defective
+    - what if my package is defective
+    - what to do if i receive a faulty item
+    - what to do if i receive a faulty product
+    - what to do if i receive a faulty package
+    - what to do if i receive a damaged item
+    - what to do if i receive a damaged product
+    - what to do if i receive a damaged package
+    - what to do if i receive a spoiled item
+    - what to do if i receive a spoiled product
+    - what to do if i receive a spoiled package
+    - what to do if i receive a defective package
+    - what to do if i receive a defective product
+    - what to do if i receive a defective item
+    - what to do if i receive a defective order
+    - what if my item is faulty upon arrival
+    - what if my product is faulty upon arrival
+    - what if my package is faulty upon arrival
+    - what if my item is damaged upon arrival
+    - what if my product is damaged upon arrival
+    - what if my package is damaged upon arrival
+    - what if my item is spoiled upon arrival
+    - what if my product is spoiled upon arrival
+    - what if my package is spoiled upon arrival
+    - what if my item is faulty upon receving
+    - what if my product is faulty upon receving
+    - what if my package is faulty upon receving
+    - what if my item is damaged upon receving
+    - what if my product is damaged upon receving
+    - what if my package is damaged upon receving
+    - what if my item is spoiled upon receving
+    - what if my product is spoiled upon receving
+    - what if my package is spoiled upon receving
+    - what happens if there has been a delivery mishap to my order
+    - what happens if there has been a delivery mishap to my products
+    - what happens if there has been a delivery mishap to my items
+    - what happens if there has been a mishap to my order
+    - what happens if there has been a mishap to my product
+    - what happens if there has been a mishap to my items
+
+- intent: lost_mail
+  examples: |
+    - what should i do if my delivery is lost
+    - what should i do in the event of lost delivery
+    - what should i do in the event of lost mail
+    - what if my mail got lost
+    - what if my delivery got lost
+    - what if my items got lost during delivery 
+    - what if my items got lost during delivery 
+    - what do i do if my parcel is lost in transit
+    - what do i do if my package is lost in transit
+    - what do i do if my items is lost in transit
+    - what do i do if my product is lost in transit
+    - can a package get lost in transit
+    - can items get lost in transit
+    - can a parcel get lost in transit
+    - who is responsible if a parcel goes missing
+    - who is responsible if a package goes missing
+    - what do i do if my package says delivered but i never got it
+    - what do i do if my parcel says delivered but i never got it
+    - will idea refund for lost package
+    - will i get a refund for lost package
+    - what happen of my package is lost in transit 
+    - what happen of my parcel is lost in transit 
+    - how do i find a lost package
+    - how do i find a lost parcel
+    - how do i deal with a delayed shipment
+    - what can i do if there is a delivery delay
+    - my delivery has been delayed
+    - what if my delivery has been delayed
+    - what if there is a delay in my deliveries
+    - what if my products have not been delivered
+    - what if my products have not arrived
+    - what if my items have not been delivered
+    - what if my items have not arrived
+    - what if my parcel have not been delivered
+    - what if my parcel have not arrived
+    - what if my package have not been delivered
+    - what if my package have not arrived
+    - what if my order have not been delivered
+    - what if my order have not arrived
+    - what happens if i have not received my order
+    - what happens if i have not received my package
+    - what happens if i have not received my items
+    - what should i do if my delivery has been delayed
+    - wht should i do if i have not received my order
+
+- intent: unsatisfactory
+  examples: |
+    - what if the items i have received is unsatisfactory
+    - what if the products i have received is unsatisfactory
+    - what if the package i have received is unsatisfactory
+    - what if the parcel i have received is unsatisfactory
+    - what if i am not satisfied with my order
+    - what if i am not satisfied with my items
+    - what if i am not satisfied with my products
+    - what if i am not satisfied with my package
+    - what if i am not satisfied with my parcel
+    - what if i am not happy with my items
+    - what if i am not happy with my product
+    - what if i am not happy with my order
+    - what if i am not happy with my package
+    - what happens if i am not satisfied with my order
+    - what happens if i am not satisfied with my items
+    - what happens if i am not satisfied with my products
+    - what happens if i am not satisfied with my package
+    - what happens if i am not satisfied with my parcel
+    - what happens if i receive an unsatisfying order
+    - what happens if i receive an unsatisfying item
+    - what happens if i receive an unsatisfying product
+    - what if i receive an unsatisfying order
+    - what if i receive an unsatisfying item
+    - what if i receive an unsatisfying product
+    - what if i am unsatisfied with my items
+    - what if i am unsatisfied with my products
+    - what if i am unsatisfied with my order
+    - what if i am unsatisfied with my delivery
+
+- intent: incorrect_item
+  examples: |
+    - what if i received the wrong products
+    - what if i received the wrong items
+    - what if i received the wrong order
+    - what if i received the wrong package
+    - what if i received the wrong parcel
+    - what if i received the wrong games
+    - what should i do if i received an incorrect item
+    - what should i do if i received an incorrect order
+    - what should i do if i received an incorrect product
+    - what should i do if i received an incorrect order
+    - what should i do if i received an incorrect package
+    - what should i do if i received the wrong products
+    - what should i do if i received the wrong items
+    - what should i do if i received the wrong order
+    - what should i do if i received the wrong package
+    - what should i do if i received the wrong parcel
+    - what should i do if i received the wrong game
+    - what do i do if my order is wrong
+    - what should i do if my order is wrong
+    - what if i received the wrong items
+    - what if i received the wrong package
+    - what if i received the wrong products
+    - what if i received the wrong parcel
+    - what if i received an incorrect item
+    - what if i received an incorrect product
+    - what if i received an incorrect pacakge
+    - what if i received an incorrect order
+    - what if my order is incorrect
+    - what if my order is wrong
+    - what if my order is not correct
+
+- intent: missing_products
+  examples: |
+    - what if i received my order with missing products
+    - What if my order has missing products
+    - What if there are missing products in my order
+    - what if the items from my package are missing
+    - what if i am missing an item from my order
+    - i am missing an item from my order
+    - what if my order came incomplete
+    - what if some of my items were not delivered
+    - what if some of my items were not sent
+    - missng items in order
+    - what to do if my order is missng items
+    - what if i am missing a product from my order
+    - i am missing a product from my order
+    - what if some of my products were not delivered
+    - what if some of my products were not sent
+    - missng products in order
+    - what to do if my order is missng some items
+    - what to do if my order is missng some products
+    - what to do if my order is missng products
+
+- intent: shipping_address
+  examples: |
+    - how can i change my shipping address
+    - how can i alter my shipping address
+    - how can i modify my shipping address
+    - how can i update my shipping address
+    - how do i change my shipping address
+    - how do i alter my shipping address
+    - how do i modify my shipping address
+    - how do i update my shipping address
+    - how to change my shipping address
+    - how to alter my shipping address
+    - how to modify my shipping address
+    - how to update my shipping address
+    - where to change my shipping address
+    - where to alter my shipping address
+    - where to modify my shipping address
+    - where to update my shipping address
+    - where do i change my shipping address
+    - where do i alter my shipping address
+    - where do i modify my shipping address
+    - where do i update my shipping address
+    - where can i change my shipping address
+    - where can i alter my shipping address
+    - where can i modify my shipping address
+    - where can i update my shipping address
+    - how can i change my address
+    - how can i alter my address
+    - how can i modify my address
+    - how can i update my address
+    - how do i change my address
+    - how do i alter my address
+    - how do i modify my address
+    - how do i update my address
+    - how to change my address
+    - how to alter my address
+    - how to modify my address
+    - how to update my address
+    - where to change my address
+    - where to alter my address
+    - where to modify my address
+    - where to update my address
+    - where do i change my address
+    - where do i alter my address
+    - where do i modify my address
+    - where do i update my address
+    - where can i change my address
+    - where can i alter my address
+    - where can i modify my address
+    - where can i update my address
+    - where can i save my address information
+    - where can i save my address 
+    - where can i save my shipping address
+    - how can i save my shipping address
+    - where do i save my shipping address
+    - how to save my shipping address
+    - how can i change my address information
+    - how can i alter my address information
+    - how can i modify my address information
+    - how can i update my address information
+    - how do i change my address information
+    - how do i alter my address information
+    - how do i modify my address information
+    - how do i update my address information
+    - how to change my address information
+    - how to alter my address information
+    - how to modify my address information
+    - how to update my address information
+    - where to change my address information
+    - where to alter my address information
+    - where to modify my address information
+    - where to update my address information
+    - where do i change my address information
+    - where do i alter my address information
+    - where do i modify my address information
+    - where do i update my address information
+    - where can i change my address information
+    - where can i alter my address information
+    - where can i modify my address information
+    - where can i update my address information
+    
+- intent: card_details
+  examples: |
+    - how can i change my credit card details
+    - how can i alter my credit card details
+    - how can i modify my credit card details
+    - how can i update my credit card details
+    - how do i change my credit card details
+    - how do i alter my credit card details
+    - how do i modify my credit card details
+    - how do i update my credit card details
+    - how to change my credit card details
+    - how to alter my credit card details
+    - how to modify my credit card details
+    - how to update my credit card details
+    - where to change my credit card details
+    - where to alter my credit card details
+    - where to modify my credit card details
+    - where to update my credit card details
+    - where do i change my credit card details
+    - where do i alter my credit card details
+    - where do i modify my credit card details
+    - where do i update my credit card details
+    - where can i change my credit card details
+    - where can i alter my credit card details
+    - where can i modify my credit card details
+    - where can i update my credit card details
+    - how can i change my credit card information
+    - how can i alter my credit card information
+    - how can i modify my credit card information
+    - how can i update my credit card information
+    - how do i change my credit card information
+    - how do i alter my credit card information
+    - how do i modify my credit card information
+    - how do i update my credit card information
+    - how to change my credit card information
+    - how to alter my credit card information
+    - how to modify my credit card information
+    - how to update my credit card information
+    - where to change my credit card information
+    - where to alter my credit card information
+    - where to modify my credit card information
+    - where to update my credit card information
+    - where do i change my credit card information
+    - where do i alter my credit card information
+    - where do i modify my credit card information
+    - where do i update my credit card information
+    - where can i change my credit card information
+    - where can i alter my credit card information
+    - where can i modify my credit card information
+    - where can i update my credit card information
+    - how can i change my card details
+    - how can i alter my card details
+    - how can i modify my card details
+    - how can i update my card details
+    - how do i change my card details
+    - how do i alter my card details
+    - how do i modify my card details
+    - how do i update my card details
+    - how to change my card details
+    - how to alter my card details
+    - how to modify my card details
+    - how to update my card details
+    - where to change my card details
+    - where to alter my card details
+    - where to modify my card details
+    - where to update my card details
+    - where do i change my card details
+    - where do i alter my card details
+    - where do i modify my card details
+    - where do i update my card details
+    - where can i change my card details
+    - where can i alter my card details
+    - where can i modify my card details
+    - where can i update my card details
+    - how can i change my credit card info
+    - how can i alter my credit card info
+    - how can i modify my credit card info
+    - how can i update my credit card info
+    - how do i change my credit card info
+    - how do i alter my credit card info
+    - how do i modify my credit card info
+    - how do i update my credit card info
+    - how to change my credit card info
+    - how to alter my credit card info
+    - how to modify my credit card info
+    - how to update my credit card info
+    - where to change my credit card info
+    - where to alter my credit card info
+    - where to modify my credit card info
+    - where to update my credit card info
+    - where do i change my credit card info
+    - where do i alter my credit card info
+    - where do i modify my credit card info
+    - where do i update my credit card info
+    - where can i change my credit card info
+    - where can i alter my credit card info
+    - where can i modify my credit card info
+    - where can i update my credit card info
+    - how can i change my card information
+    - how can i alter my card information
+    - how can i modify my card information
+    - how can i update my card information
+    - how do i change my card information
+    - how do i alter my card information
+    - how do i modify my card information
+    - how do i update my card information
+    - how to change my card information
+    - how to alter my card information
+    - how to modify my card information
+    - how to update my card information
+    - where to change my card information
+    - where to alter my card information
+    - where to modify my card information
+    - where to update my card information
+    - where do i change my card information
+    - where do i alter my card information
+    - where do i modify my card information
+    - where do i update my card information
+    - where can i change my card information
+    - where can i alter my card information
+    - where can i modify my card information
+    - where can i update my card information
+    - where can i save my credit card details
+    - where can i save my credit card inforation
+    - where can i save my credit card info
+    - where can i save my card details
+    - where can i save my card information
+    - how can i save my credit card details
+    - how can i save my credit card inforation
+    - how can i save my credit card info
+    - how can i save my card details
+    - how can i save my card information
+    - where do i save my credit card details
+    - where do i save my credit card inforation
+    - where do i save my credit card info
+    - where do i save my card details
+    - where do i save my card information 
+    - how to save my credit card details
+    - how to save my credit card inforation
+    - how to save my credit card info
+    - how to save my card details
+    - how to save my card information 
+
+- intent: cancel_order
+  examples: |
+    - how do i cancel my order
+    - how can i cancel my order
+    - can i cancel my order
+    - is it possible to cancel my order
+    - cancellation of order
+    - how to cancel unpaid order
+    - how to cancel paid order
+    - how to cancel order
+    - how to cancel order before it is being shipped out
+    - how to cancel order after it is shipped
+    - how to cancel shipment
+    - can i change my order
+    - i need to cancel an order
+    - i wish to cancel my order
+    - i wish to change my order
+    - can i change my order
+    - how can i chage my order
+    - where can i cancel my order
+    - where can i change my order
+    - is it possble to change my order
+  
+- intent: recover_password
+  examples: |
+    - how can i recover a forgotten password
+    - how can i recover my password
+    - how can i recover a forgotten password
+    - what if i forgot my password
+    - where do i recover my passsword
+    - where do i recover a forgotten passsword
+    - how to recover my password
+    - how to recover a forgotten password
+    - can i recover my password
+    - can i recover a forgotten password
+    - what happens if i forgot my password
+    - what happens if i cannot remember my password
+    - what should i do if i forget my password
+    - what should i do if i cannot remember my password
+    - what should i do to recover my passsword
+    - what should i do to recover a forgotten passsword
+    - what if i forgotten my password
+    - is there a way to recover my password
+    - is there a way to recover a forgotten password
+    - what if i cannot remember my password
+    - i cant seem to remember my password
+
+- intent: cannot_change_password
+  examples: |
+    - what do i do if i am not able to change the password
+    - what should i do if i am not able to change the password
+    - why can't i change my password
+    - why cant i change the password
+    - i cannot change my password
+    - how can i change my password
+    - i am not able to change my password
+    - i am not allowed to change my password
+    - why am i not able to change my password
+    - how is it that i am not able to change my password
+    - why am i not able to change my password
+    - why is it that i am not able to change my password
+    - what do i do if i am not allowed to change the password
+    - what should i do if i am not allowed to change the password
+    - why am i not allowed to change my password
+    - how is it that i am not allowed to change my password
+    - why am i not able to change my password
+    - why is it that i am not able to change my password
+    - what do i do if i cannot change the password
+    - what should i do if i cannot change the password
+
+- intent: customer_service
+  examples: |
+    - how can i contact the customer service department
+    - how do i contact the customer service department
+    - how should i contact the customer service department
+    - where do i contact the customer service department
+    - where should i contact the customer service department
+    - where can i contact the customer service department
+    - how can i contact the customer service
+    - how do i contact the customer service
+    - how should i contact the customer service
+    - where do i contact the customer service
+    - where should i contact the customer service
+    - where can i contact the customer service
+    - how do i contact your customer service center
+    - where do i contact your customer service center
+    - how can i contact the customer service centre
+    - how do i contact the customer service centre
+    - how should i contact the customer service centre
+    - where do i contact the customer service centre
+    - where should i contact the customer service centre
+    - where can i contact the customer service centre
+    - how do i contact your customer service hotline
+    - where do i contact your customer service hotline
+    - how can i contact the customer service hotline
+    - how do i contact the customer service hotline
+    - how should i contact the customer service hotline
+    - where do i contact the customer service hotline
+    - where should i contact the customer service hotline
+    - where can i contact the customer service hotline
+

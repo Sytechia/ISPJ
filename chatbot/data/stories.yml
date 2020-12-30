@@ -1,0 +1,593 @@
+version: "2.0"
+
+stories:
+
+- story: greeting
+  steps:
+  - intent: greet
+  - action: utter_bothelp
+
+- story: what games
+  steps:
+  - intent: what_do_you_have
+  - action: utter_category
+
+- story: to add
+  steps:
+  - action: utter_addMore
+  - intent: yes
+  - action: utter_category
+
+- story: not to add
+  steps:
+  - action: utter_addMore
+  - intent: no
+  - action: utter_any_help
+
+- story: happy action skyrim path
+  steps:
+  - intent: action
+  - action: utter_top_action
+  - action: utter_action_pic1
+  - action: utter_action_pic2
+  - action: utter_action_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_action
+  - intent: skyrim
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy action gta path
+  steps:
+  - intent: action
+  - action: utter_top_action
+  - action: utter_action_pic1
+  - action: utter_action_pic2
+  - action: utter_action_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_action
+  - intent: gta
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy action fantasy path
+  steps:
+  - intent: action
+  - action: utter_top_action
+  - action: utter_action_pic1
+  - action: utter_action_pic2
+  - action: utter_action_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_action
+  - intent: fantasy
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad action path
+  steps:
+  - intent: action
+  - action: utter_top_action
+  - action: utter_action_pic1
+  - action: utter_action_pic2
+  - action: utter_action_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy adventure minecraft path
+  steps:
+  - intent: adventure
+  - action: utter_top_adventure
+  - action: utter_adventure_pic1
+  - action: utter_adventure_pic2
+  - action: utter_adventure_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_adventure
+  - intent: minecraft
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy adventure uncharted path
+  steps:
+  - intent: adventure
+  - action: utter_top_adventure
+  - action: utter_adventure_pic1
+  - action: utter_adventure_pic2
+  - action: utter_adventure_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_adventure
+  - intent: uncharted
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy adventure assassin path
+  steps:
+  - intent: adventure
+  - action: utter_top_adventure
+  - action: utter_adventure_pic1
+  - action: utter_adventure_pic2
+  - action: utter_adventure_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_adventure
+  - intent: assassin
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad adventure path
+  steps:
+  - intent: adventure
+  - action: utter_top_adventure
+  - action: utter_adventure_pic1
+  - action: utter_adventure_pic2
+  - action: utter_adventure_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy horror resident path
+  steps:
+  - intent: horror
+  - action: utter_top_horror
+  - action: utter_horror_pic1
+  - action: utter_horror_pic2
+  - action: utter_horror_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_horror
+  - intent: resident
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy horror lastOfUs path
+  steps:
+  - intent: horror
+  - action: utter_top_horror
+  - action: utter_horror_pic1
+  - action: utter_horror_pic2
+  - action: utter_horror_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_horror
+  - intent: lastOfUs
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy horror phasmophobia path
+  steps:
+  - intent: horror
+  - action: utter_top_horror
+  - action: utter_horror_pic1
+  - action: utter_horror_pic2
+  - action: utter_horror_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_horror
+  - intent: phasmophobia
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad horror path
+  steps:
+  - intent: horror
+  - action: utter_top_horror
+  - action: utter_horror_pic1
+  - action: utter_horror_pic2
+  - action: utter_horror_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy indie stardew path
+  steps:
+  - intent: indie
+  - action: utter_top_indie
+  - action: utter_indie_pic1
+  - action: utter_indie_pic2
+  - action: utter_indie_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_indie
+  - intent: stardew
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy indie overcooked path
+  steps:
+  - intent: indie
+  - action: utter_top_indie
+  - action: utter_indie_pic1
+  - action: utter_indie_pic2
+  - action: utter_indie_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_indie
+  - intent: overcooked
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy indie fallGuys path
+  steps:
+  - intent: indie
+  - action: utter_top_indie
+  - action: utter_indie_pic1
+  - action: utter_indie_pic2
+  - action: utter_indie_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_indie
+  - intent: fallGuys
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad indie path
+  steps:
+  - intent: indie
+  - action: utter_top_indie
+  - action: utter_indie_pic1
+  - action: utter_indie_pic2
+  - action: utter_indie_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy multiplayer animal path
+  steps:
+  - intent: multiplayer
+  - action: utter_top_multiplayer
+  - action: utter_multiplayer_pic1
+  - action: utter_multiplayer_pic2
+  - action: utter_multiplayer_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_multiplayer
+  - intent: animal
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy multiplayer cod path
+  steps:
+  - intent: multiplayer
+  - action: utter_top_multiplayer
+  - action: utter_multiplayer_pic1
+  - action: utter_multiplayer_pic2
+  - action: utter_multiplayer_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_multiplayer
+  - intent: cod
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy multiplayer pubg path
+  steps:
+  - intent: multiplayer
+  - action: utter_top_multiplayer
+  - action: utter_multiplayer_pic1
+  - action: utter_multiplayer_pic2
+  - action: utter_multiplayer_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_multiplayer
+  - intent: pubg
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad multiplayer path
+  steps:
+  - intent: multiplayer
+  - action: utter_top_multiplayer
+  - action: utter_multiplayer_pic1
+  - action: utter_multiplayer_pic2
+  - action: utter_multiplayer_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy racing mario path
+  steps:
+  - intent: racing
+  - action: utter_top_racing
+  - action: utter_racing_pic1
+  - action: utter_racing_pic2
+  - action: utter_racing_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_racing
+  - intent: mario
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy racing forza path
+  steps:
+  - intent: racing
+  - action: utter_top_racing
+  - action: utter_racing_pic1
+  - action: utter_racing_pic2
+  - action: utter_racing_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_racing
+  - intent: forza
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy racing dirt path
+  steps:
+  - intent: racing
+  - action: utter_top_racing
+  - action: utter_racing_pic1
+  - action: utter_racing_pic2
+  - action: utter_racing_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_racing
+  - intent: dirt
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad racing path
+  steps:
+  - intent: racing
+  - action: utter_top_racing
+  - action: utter_racing_pic1
+  - action: utter_racing_pic2
+  - action: utter_racing_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy rpg witcher path
+  steps:
+  - intent: rpg
+  - action: utter_top_rpg
+  - action: utter_rpg_pic1
+  - action: utter_rpg_pic2
+  - action: utter_rpg_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_rpg
+  - intent: witcher
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy rpg persona5 path
+  steps:
+  - intent: rpg
+  - action: utter_top_rpg
+  - action: utter_rpg_pic1
+  - action: utter_rpg_pic2
+  - action: utter_rpg_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_rpg
+  - intent: persona5
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy rpg zelda path
+  steps:
+  - intent: rpg
+  - action: utter_top_rpg
+  - action: utter_rpg_pic1
+  - action: utter_rpg_pic2
+  - action: utter_rpg_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_rpg
+  - intent: zelda
+  - action: utter_added
+  - action: utter_addMore
+  
+- story: sad rpg path
+  steps:
+  - intent: rpg
+  - action: utter_top_rpg
+  - action: utter_rpg_pic1
+  - action: utter_rpg_pic2
+  - action: utter_rpg_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy simulation sims path
+  steps:
+  - intent: simulation
+  - action: utter_top_simulation
+  - action: utter_simulation_pic1
+  - action: utter_simulation_pic2
+  - action: utter_simulation_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_simulation
+  - intent: sims
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy simulation wwe path
+  steps:
+  - intent: simulation
+  - action: utter_top_simulation
+  - action: utter_simulation_pic1
+  - action: utter_simulation_pic2
+  - action: utter_simulation_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_simulation
+  - intent: wwe
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy simulation fifa path
+  steps:
+  - intent: simulation
+  - action: utter_top_simulation
+  - action: utter_simulation_pic1
+  - action: utter_simulation_pic2
+  - action: utter_simulation_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_simulation
+  - intent: fifa
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad simulation path
+  steps:
+  - intent: simulation
+  - action: utter_top_simulation
+  - action: utter_simulation_pic1
+  - action: utter_simulation_pic2
+  - action: utter_simulation_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: happy sports nba path
+  steps:
+  - intent: sports
+  - action: utter_top_sports
+  - action: utter_sports_pic1
+  - action: utter_sports_pic2
+  - action: utter_sports_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_sports
+  - intent: nba
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy sports fifa path
+  steps:
+  - intent: sports
+  - action: utter_top_sports
+  - action: utter_sports_pic1
+  - action: utter_sports_pic2
+  - action: utter_sports_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_sports
+  - intent: fifa
+  - action: utter_added
+  - action: utter_addMore
+
+- story: happy sports rocket path
+  steps:
+  - intent: sports
+  - action: utter_top_sports
+  - action: utter_sports_pic1
+  - action: utter_sports_pic2
+  - action: utter_sports_pic3
+  - action: utter_add
+  - intent: yes
+  - action: utter_add_sports
+  - intent: rocket
+  - action: utter_added
+  - action: utter_addMore
+
+- story: sad sports path
+  steps:
+  - intent: sports
+  - action: utter_top_sports
+  - action: utter_sports_pic1
+  - action: utter_sports_pic2
+  - action: utter_sports_pic3
+  - action: utter_add
+  - intent: no
+  - action: utter_any_help
+
+- story: how long arrive
+  steps:
+  - intent: how_long_arrive
+  - action: utter_how_long_arrive
+
+- story: how long arrive
+  steps:
+  - intent: orders_ship
+  - action: utter_orders_ship
+
+- story: pay using paypal
+  steps:
+  - intent: how_paypal
+  - action: utter_how_paypal
+
+- story: all payment methods
+  steps:
+  - intent: payment_methods
+  - action: utter_payment_methods
+
+- story: browser downloads
+  steps:
+  - intent: right_browser
+  - action: utter_right_browser
+
+- story: tracking orders
+  steps:
+  - intent: track_orders
+  - action: utter_track_orders
+
+- story: reactivate account
+  steps:
+  - intent: reactivate
+  - action: utter_reactivate
+
+- story: faulty items
+  steps:
+  - intent: damaged_item
+  - action: utter_damaged_item
+
+- story: lost mails
+  steps:
+  - intent: lost_mail
+  - action: utter_lost_mail
+
+- story: unsatisfied products
+  steps:
+  - intent: unsatisfactory
+  - action: utter_unsatisfactory
+
+- story: item incorrect
+  steps:
+  - intent: incorrect_item
+  - action: utter_incorrect_item
+
+- story: order with missing products
+  steps:
+  - intent: missing_products
+  - action: utter_missing_products
+
+- story: change shipping address
+  steps:
+  - intent: shipping_address
+  - action: utter_shipping_address
+
+- story: change card info
+  steps:
+  - intent: card_details
+  - action: utter_card_details
+
+- story: cancel orders
+  steps:
+  - intent: cancel_order
+  - action: utter_cancel_order
+
+- story: recover password
+  steps:
+  - intent: recover_password
+  - action: utter_recover_password
+
+- story: changing password
+  steps:
+  - intent: cannot_change_password
+  - action: utter_cannot_change_password
+
+- story: contact customer service
+  steps:
+  - intent: customer_service
+  - action: utter_customer_service
+

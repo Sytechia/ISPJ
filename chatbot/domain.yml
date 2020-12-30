@@ -1,0 +1,400 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- goodbye
+- affirm
+- deny
+- bot_challenge
+- what_do_you_have
+- indie
+- adventure
+- rpg
+- sports
+- racing
+- horror
+- multiplayer
+- simulation
+- action
+- yes
+- no
+- skyrim
+- gta
+- fantasy
+- minecraft
+- uncharted
+- assassin
+- resident
+- lastOfUs
+- phasmophobia
+- stardew
+- overcooked
+- fallGuys
+- animal
+- cod
+- pubg
+- mario
+- forza
+- dirt
+- witcher
+- persona5
+- zelda
+- sims
+- wwe
+- fifa
+- nba
+- rocket
+- how_long_arrive
+- orders_ship
+- how_paypal
+- payment_methods
+- right_browser
+- track_orders
+- reactivate
+- damaged_item
+- lost_mail
+- unsatisfactory
+- incorrect_item
+- missing_products
+- shipping_address
+- card_details
+- cancel_order
+- recover_password
+- cannot_change_password
+- customer_service
+responses:
+  utter_bothelp:
+  - text: Hi, how may I assist you?
+  utter_category:
+  - buttons:
+    - payload: /action
+      title: Action
+    - payload: /adventure
+      title: Adventure
+    - payload: /horror
+      title: Horror
+    - payload: /indie
+      title: Indie
+    - payload: /multiplayer
+      title: Multiplayer
+    - payload: /racing
+      title: Racing
+    - payload: /rpg
+      title: RPG
+    - payload: /simulation
+      title: Simulation
+    - payload: /sports
+      title: Sports
+    text: We sell a wide variety of games, which genre are you interested in? (Type one of the following options below)
+  utter_top_action:
+  - text: Here are the top action games
+  utter_top_adventure:
+  - text: Here are the top Adventure games
+  utter_top_horror:
+  - text: Here are the top Horror games
+  utter_top_indie:
+  - text: Here are the top Indie games
+  utter_top_multiplayer:
+  - text: Here are the top Multiplayer games
+  utter_top_racing:
+  - text: Here are the top Racing games
+  utter_top_rpg:
+  - text: Here are the top RPG games
+  utter_top_simulation:
+  - text: Here are the top Simulation games
+  utter_top_sports:
+  - text: Here are the top Sports games
+  utter_action_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/1/15/The_Elder_Scrolls_V_Skyrim_cover.png
+    text: 'The Elder Scrolls V: Skyrim'
+  utter_action_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Grand_Theft_Auto_V.png/220px-Grand_Theft_Auto_V.png
+    text: Grand Theft Auto V
+  utter_action_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/c/ce/FFVIIRemake.png
+    text: Final Fantasy VII Remake
+  utter_adventure_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/thumb/5/51/Minecraft_cover.png/220px-Minecraft_cover.png
+    text: Minecraft
+  utter_adventure_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/1/1a/Uncharted_4_box_artwork.jpg
+    text: "Uncharted 4: A Thief's End"
+  utter_adventure_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/9/99/ACOdysseyCoverArt.png
+    text: Assassin's Creed Odyssey
+  utter_horror_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/d/dc/Resident_Evil_3.jpg
+    text: Resident Evil 3
+  utter_horror_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/4/4f/TLOU_P2_Box_Art_2.png
+    text: The Last of Us Part II
+  utter_horror_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Phasmophobia_VG.jpg/330px-Phasmophobia_VG.jpg
+    text: Phasmophobia
+  utter_indie_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/f/fd/Logo_of_Stardew_Valley.png
+    text: Stardew Valley
+  utter_indie_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/0/03/Overcooked_2_cover_art.png
+    text: Overcooked 2
+  utter_indie_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/5/5e/Fall_Guys_cover.jpg
+    text: 'Fall Guys: Ultimate Knockout'
+  utter_multiplayer_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/1/1f/Animal_Crossing_New_Horizons.jpg
+    text: 'Animal Crossing: New Horizons'
+  utter_multiplayer_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/4/40/Black_Ops_Cold_War.jpeg
+    text: 'Call of Duty: Black Ops Cold War'
+  utter_multiplayer_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/3/3d/PlayerUnknown%27s_Battlegrounds_Steam_Logo.jpg
+    text: PlayerUnknown's Battlegrounds
+  utter_racing_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/b/b5/MarioKart8Boxart.jpg
+    text: Mario Kart 8
+  utter_racing_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/8/87/Forza_Horizon_4_cover.jpg
+    text: Forza Horizon 4
+  utter_racing_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/2/2d/Dirt_4_cover.jpg
+    text: Dirt 4
+  utter_rpg_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg
+    text: 'The Witcher 3: Wild Hunt'
+  utter_rpg_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/6/6e/Persona_5_Scramble.jpg
+    text: Persona 5 Strikers
+  utter_rpg_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg
+    text: 'The Legend of Zelda: Breath of the Wild'
+  utter_simulation_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/3/32/The_Sims_4_Box_Art.png
+    text: The Sims 4
+  utter_simulation_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/c/c2/WWE_2K_Battlegrounds_%28Video_game_cover_art%29.jpg
+    text: WWE 2K Battlegrounds
+  utter_simulation_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/en/b/bb/FIFA_21_Standard_Edition_Cover.jpg
+    text: FIFA 21
+  utter_sports_pic1:
+  - image: https://upload.wikimedia.org/wikipedia/en/e/e9/NBA_2K20_cover.png
+    text: NBA 2K20
+  utter_sports_pic2:
+  - image: https://upload.wikimedia.org/wikipedia/en/b/bb/FIFA_21_Standard_Edition_Cover.jpg
+    text: FIFA 21
+  utter_sports_pic3:
+  - image: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Rocket_League_coverart.jpg/330px-Rocket_League_coverart.jpg
+    text: Rocket League
+  utter_add:
+  - buttons:
+    - payload: /yes
+      title: Yes
+    - payload: /no
+      title: No
+    text: Would you like to add any of these games to your cart? (Type one of the following options below)
+  utter_any_help:
+  - text: How else may I assist you?
+  utter_added:
+  - text: Product has been added to your cart :)
+  utter_addMore:
+  - buttons:
+    - payload: /yes
+      title: Yes
+    - payload: /no
+      title: No
+    text: Would you like to continue browsing our top selling games? (Type one of the following options below)
+  utter_add_action:
+  - buttons:
+    - payload: /skyrim
+      title: 'The Elder Scrolls V: Skyrim'
+    - payload: /gta
+      title: Grand Theft Auto V
+    - payload: /fantasy
+      title: Final Fantasy VII Remake
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_adventure:
+  - buttons:
+    - payload: /minecraft
+      title: Minecraft
+    - payload: /uncharted
+      title: "Uncharted 4: A Thief's End"
+    - payload: /assassin
+      title: Assassin's Creed Odyssey
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_horror:
+  - buttons:
+    - payload: /resident
+      title: Resident Evil 3
+    - payload: /lastOfUs
+      title: The Last of Us Part II
+    - payload: /phasmophobia
+      title: Phasmophobia
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_indie:
+  - buttons:
+    - payload: /stardew
+      title: Stardew Valley
+    - payload: /overcooked
+      title: Overcooked 2
+    - payload: /fallGuys
+      title: 'Fall Guys: Ultimate Knockout'
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_multiplayer:
+  - buttons:
+    - payload: /animal
+      title: 'Animal Crossing: New Horizons'
+    - payload: /cod
+      title: 'Call of Duty: Black Ops Cold War'
+    - payload: /pubg
+      title: PlayerUnknown's Battlegrounds
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_racing:
+  - buttons:
+    - payload: /mario
+      title: Mario Kart 8
+    - payload: /forza
+      title: Forza Horizon 4
+    - payload: /dirt
+      title: Dirt 4
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_rpg:
+  - buttons:
+    - payload: /witcher
+      title: 'The Witcher 3: Wild Hunt'
+    - payload: /persona5
+      title: Persona 5 Strikers
+    - payload: /zelda
+      title: 'The Legend of Zelda: Breath of the Wild'
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_simulation:
+  - buttons:
+    - payload: /sims
+      title: The Sims 4
+    - payload: /wwe
+      title: WWE 2K Battlegrounds
+    - payload: /fifa
+      title: FIFA 21
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_add_sports:
+  - buttons:
+    - payload: /nba
+      title: NBA 2K20
+    - payload: /fifa
+      title: FIFA 21
+    - payload: /rocket
+      title: Rocket League
+    text: Which game would you like to add into your shopping cart? (Type one of the following options below)
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_how_long_arrive:
+  - text: "Members who ship their orders within Singapore should expect to receive\
+      \ their orders within five (5) to ten (10) working days upon payment verification\
+      \ depending on the volume of orders received. \n\nIf you experience delays in\
+      \ receiving your order, contact us immediately at (+65) 68991082 and we will\
+      \ help to confirm the status of your order."
+  utter_orders_ship:
+  - text: All your orders are sent via Singapore Post Limited (SingPost).
+  utter_how_paypal:
+  - text: "Paypal is the easiest way to make payments online. While checking out your\
+      \ order, you can choose to pay via Paypal, you will then be redirected to the\
+      \ Paypal website.\n\nBe sure to fill in correct details for fast & hassle-free\
+      \ payment processing. After a successful Paypal payment, your order information\
+      \ will be automatically generated to Idea.com system for your order."
+  utter_payment_methods:
+  - text: We accept payment via Visa, Mastercard or Paypal.
+  utter_right_browser:
+  - text: "As Idea Store uses some of the latest graphics designs which may not be\
+      \ supported in lower version of browsers, it is recommended that you use the\
+      \ following browsers to access Idea Store:\n\n\n1. Microsoft Internet Explorer\
+      \ Version 10 onwards.\nDownload the latest Microsoft Internet Explorer at: http://windows.microsoft.com/en-us/internet-explorer/download-ie\n\
+      \n\n2. Mozilla Firefox Version 10 onwards.\nDownload the latest Mozilla Firefox\
+      \ at: https://www.mozilla.org/en-US/firefox/new/\n\n\n3. Google Chrome Version\
+      \ 12 onwards.\nDownload the latest Google Chrome at: https://www.google.com/chrome/browser/desktop/\n\
+      \nIn addition, please ensure that your Javascript and Cookie is enabled on your\
+      \ browser."
+  utter_track_orders:
+  - text: After logging into your account, the status of your orders and order history
+      can be found under the ‘My Orders’ tab in the Account page
+  utter_reactivate:
+  - text: If you have disabled your account previously and want to reactivate your
+      account, simply go to the login page and input your login credentials. You will
+      be redirected to a page that allows you to restore your account. Just type in
+      your email and password to reactivate your account.
+  utter_damaged_item:
+  - text: "In the event of damaged products received, we will require photo proof\
+      \ of the affected products and your D.O (Delivery Order) in order for us to\
+      \ investigate and review before a decision is made to re-send the product to\
+      \ you at no cost, subject to availability.\n\n\nAffected products should not\
+      \ be thrown away before taking photo proof and emailing the photo of the affected\
+      \ product and your D.O (Delivery Order) to us at help@idea.com (if applicable).\
+      \ \n\n\nWe take such matters very seriously and will investigate individual\
+      \ cases thoroughly."
+  utter_lost_mail:
+  - text: "In the event of lost or delayed mail, we will try to locate the delivery\
+      \ team in Singpost and if there is a clear indication that your order is indeed\
+      \ lost, we'll re-send the order to you at no cost, subject to availability.\
+      \ Please email us your D.O (Delivery Order) at help@idea.com.  We take such\
+      \ matters very seriously and will look into individual cases thoroughly.\n"
+  utter_unsatisfactory:
+  - text: "In the event that the products you've received is unsatisfactory in any\
+      \ way you perceive, we will require photo proof of the product and your D.O\
+      \ (Delivery Order) as well and you may be required to send us back the product\
+      \ for close inspection and review before a decision is made to re-send the product\
+      \ to you at no cost, subject to availability. \n\n\nThe postage cost will be\
+      \ credited back to your account after we receive the returned item.\n\n\nAffected\
+      \ products should not be thrown away before taking photo proof and emailing\
+      \ the photo of the affected product and your D.O (Delivery Order) to us at help@idea.com\
+      \ (if applicable). \n\n\nWe take such matters very seriously and will investigate\
+      \ individual cases thoroughly."
+  utter_incorrect_item:
+  - text: "In the event that you've received the wrong products, we will require photo\
+      \ proof of the wrongly sent products and D.O (Delivery Order) and after reviewing,\
+      \ we'll re-send the correct products to you at no cost, subject to availability.\n\
+      \nAffected products should not be thrown away before taking photo proof and\
+      \ emailing the photo of the affected product and your D.O (Delivery Order) to\
+      \ us at help@idea.com (if applicable). We take such matters very seriously and\
+      \ will investigate individual cases thoroughly."
+  utter_missing_products:
+  - text: "In the event you have received your order with missing product(s), we will\
+      \ require you to email us a clear photo proof of your D.O (Delivery Order) to\
+      \ help@idea.com and after which, kindly give us a call at (+65) 68991082 and\
+      \ our customer service officer will attend to you to find out more before a\
+      \ decision is made to re-send the missing product to you at no cost, subject\
+      \ to availability.\n\nWe take such matters very seriously and will investigate\
+      \ individual cases thoroughly."
+  utter_shipping_address:
+  - text: You can change your shipping address under the My Addresses tab in the Account
+      page. You may also choose to add multiple shipping addresses. By default, the
+      last address added will be used during the checkout process. However, you may
+      choose which address you would want to set as your default by clicking on the
+      ‘Set as default address’ button.
+  utter_card_details:
+  - text: You can update your credit card details under the My Wallet tab in the Account
+      page. You may also choose to add credit cards. By default, the last credit card
+      added will be used during the checkout process. However, you may choose which
+      credit card you would want to set as your default by clicking on the ‘Set as
+      Default Card’ button.
+  utter_cancel_order:
+  - text: "Buyers can only request for cancellation once for every order. As such,\
+      \ once your request is rejected or withdrawn, you would not be able to submit\
+      \ another cancellation request for the same order. Buyers are not allowed to\
+      \ change their orders after payment.\n\nBuyers may cancel their order under\
+      \ the ‘My Orders’ tab in the Account page. Once you have requested for Order\
+      \ cancellation, the order will be automatically cancelled by the system and\
+      \ you will be refunded within 7 to 14 working days."
+  utter_recover_password:
+  - text: If you have forgotten your password, you can recover it by clicking on ‘Forgot
+      password’ at the login page. You will receive an e-mail with a link to enter
+      and confirm your new password. Your password must be alphanumeric with a minimum
+      of 8 characters including at least 2 uppercase letters, 2 numbers and 2 special
+      characters.
+  utter_cannot_change_password:
+  - text: Make sure that the password contains at least 8 characters including at
+      least 2 uppercase letters, 2 numbers and 2 special characters. You are also
+      not allowed to reuse any of your previous 5 passwords that you have used before.
+  utter_customer_service:
+  - text: You can share any queries or comments by calling (+65) 68991082 or by emailing
+      us at help@idea.com.
