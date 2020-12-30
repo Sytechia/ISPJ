@@ -924,11 +924,12 @@ Admin Related Routes
 ## Admin Static Routes ##
 @app.route('/admin')
 def admin():
-    previousTransaction = PreviousTransactions.query.all()
+    # previousTransaction = PreviousTransactions.query.all()
+    previousTransaction =[]
     li = []
-    for i in previousTransaction: 
-        if i.status == 'Awaiting order':
-            li.append(i)
+    # for i in previousTransaction: 
+    #     if i.status == 'Awaiting order':
+    #         li.append(i)
     number = len(li)
     return render_template('admin/admin.html', previousTransaction = previousTransaction, number = number)
 
