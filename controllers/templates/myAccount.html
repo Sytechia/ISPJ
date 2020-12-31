@@ -1,5 +1,30 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <style>
+        .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid#01E693;
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #01E693
+}
+
+.container1 input[type=file]{
+    padding:0px;
+    paddin-top:5px;
+    background:none;
+}
+.footer{
+    display: none;
+}
+    </style>
+{% endblock %}
 {% block content %}
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -10,63 +35,14 @@
         {% endfor %}
     {% endif %}
     {% endwith %}
-<div class="modal fade mx-auto" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body-1">
-                <div class="shopping-cart mx-auto " id="shopping-cart">
-                    <div class="title text-center ">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button><span>Cart</span>
-                    </div>
-
-                    <span class="active1" style="display: none;">{{current}}</span>
-                <div class="products">
-                    
-                    <!--Single Product layout template displayed on cart -->
-                    {% for product in cartItems %}
-                    <div class="item">
-                        <div class="image">
-                            <img src="{{ product.img }}" height="80px">
-                        </div>
-                        <div class="description">
-                            <span >{{ product.prod_name }}</span>
-                        </div>
-                        <div class="quantity">
-                            <input type="text" name="name" class="quan" id="quantity" value="{{ product.prod_quantity }}" placeholder="Amount">
-                        </div>
-                        <div class="total-price">${{ product.prod_price }}</div>
-                        <div class="remove-product">
-                            <a href="#"><i class="fas fa-times"></i></a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                     <!--End of Single Product layout template displayed on cart -->
-
-                    <div class="Subtotal">
-                        <span>Subtotal:</span>
-                        <span class='totalPrice'>$0</span><br>
-                        <span>Total Quantity:</span>
-                        <span class='totalQuantity'>0</span>
-                    </div>
-                </div>
-                    <div class="checkout mx-auto">
-                        <a href="/checkout" class="checkout-button">Checkout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>p
-</div>
+<div class="container1">
 <main id="mainContent">
     <section id="facts">
         <div class="container wow fadeIn">
             <div class="section-header">
                 <div class="profileCard">
                     <br>
-                    <img class="profile" src="{{ image_file }}" alt="John">
+                    <img class="profile" src="{{ user[5] }}" alt="John">
                     <br><br>
                     <h3>{{name}}</h3>
                     <br>
@@ -84,8 +60,8 @@
                           <img class="rounded-circle account-img" src="">
                           <div class="media-body">
 
-                            <h2 class="account-heading">{{ name }}</h2>
-                            <img class="profile" src="{{ image_file }}" alt="John">
+                            <h2 class="account-heading">{{ user[7] }}</h2>
+                            <img class="profile" src="{{ user[5] }}" alt="John">
                             <p class="text-secondary">{{ email }}</p>
                           </div>
                         </div>
@@ -104,7 +80,7 @@
                                               {% endfor %}
                                           </div>
                                       {% else %}
-                                          {{ form.fullname(placeholder="Ben Tan") }}
+                                          {{ form.fullname(placeholder="Ben Tan", value = user[7]) }}
                                       {% endif %}
                                   </div>
                                   <div class="form-group">
@@ -117,7 +93,7 @@
                                               {% endfor %}
                                           </div>
                                       {% else %}
-                                          {{ form.email(placeholder="ben@gmail.com") }}
+                                          {{ form.email(placeholder="ben@gmail.com", value=user[2]) }}
                                       {% endif %}
                                   </div>
                                   <div class="form-group">
@@ -251,74 +227,6 @@
 
                     <hr class="lineBreak">
                     {% endfor %}
-                    <!-- Sample -->
-                    <!-- <table>
-                        <tr>
-                            <td>
-                                <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
-                                <input type="text" id="orderDate" name="orderDate" value="Nov 22 2019" readonly>
-                            </td>
-                            <td>
-                                <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
-                                <input type="text" id="order" name="order" value="#91831" readonly>
-                            </td>
-                            <td>
-                                <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
-                                <input type="text" id="orderStatus" name="orderStatus" value="Delivered" readonly>
-                            </td>
-                            <td>
-                                <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
-                                <input type="text" id="orderTotal" name="orderTotal" value="$400.00" readonly>
-                            </td>
-                            <td class="arrowStyle">
-                                <button class="showOrderDetails" onclick="showOrderDetails()"><i class="arrow down" id="arrowStyle"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="orderDetails" style="display: none;">
-                                    <img src="../static/img/Omega_Black_Watch+Vvallpaper.Net.jpg" width="100px" height="100px" style="float: left;">
-                                    <span id="itemDesc"><p>Omega 1989<br>Quantity: 1 <br><br><span class="showReviewSection" data-toggle="modal" data-target="#myModal">Write a Review&nbsp;&nbsp;<i class="fa fa-pencil"></i></span></p></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="modal fade" id="myModal" role="dialog"> 
-                        <div class="modal-dialog">
-                        
-                    
-                            <div class="modal-content">
-                                
-                            <div class="modal-header">
-                                
-                                <h4 class="modal-title" style="color: black;">Write a Review</h4>
-                            </div>
-                            <div class="rate">
-                                <input type="radio" id="star5" name="rate" value="5" />
-                                <label for="star5" title="text">5 stars</label>
-                                <input type="radio" id="star4" name="rate" value="4" />
-                                <label for="star4" title="text">4 stars</label>
-                                <input type="radio" id="star3" name="rate" value="3" />
-                                <label for="star3" title="text">3 stars</label>
-                                <input type="radio" id="star2" name="rate" value="2" />
-                                <label for="star2" title="text">2 stars</label>
-                                <input type="radio" id="star1" name="rate" value="1" />
-                                <label for="star1" title="text">1 star</label>
-                            </div>
-                            <div class="modal-body">
-                                <textarea cols="40" rows="5"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="lineBreak"> -->
-                    <!-- End of sample -->
-
-                    
                    
                 </div>
 
@@ -407,4 +315,5 @@
         </div>
     </section>
 </main>
+</div>
 {% endblock %}

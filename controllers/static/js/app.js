@@ -19,7 +19,7 @@ Array.from(tablinks).forEach(iter => {
         Array.from(tablinks).forEach(i => {
             i.style.backgroundColor = ''
         })
-        event.target.style.backgroundColor = '#d4af37'
+        event.target.style.backgroundColor = '#0E4D40'
         event.target.style.border = '1 px solid #d4af37'
         
     })

@@ -221,7 +221,7 @@ def register():
         previousPass = []
         previousPass.append(password)
         query = 'INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?);'
-        constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, 0, '../static/img/profile_pic/default.jpg', str(previousPass), name)
+        constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, 0, '../../static/img/profile_pic/default.jpg', str(previousPass), name)
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -485,6 +485,7 @@ def login():
         email = form.email.data
         print(form.email.data)     
         user = query('SELECT * FROM user_accounts WHERE email = ?', email)
+        print(user)
         if user == []: 
             flash('Please check your credentials again', 'danger')
             return render_template('login.html', form=form)
@@ -500,6 +501,9 @@ def login():
             session['attempts'] = 5
             return redirect(url_for('home'))
         else:
+            user_id = user[0][0]
+            user_active = user[0][1]
+            user_email = user[0][2]
             infos.info('%s failed to log in', user_email)
             attempt= session.get('attempts')
             attempt -= 1
@@ -544,42 +548,148 @@ def checkpassword():
     else:
         return redirect(url_for('home'))
 
+# @app.route('/myAccount', methods=['GET', 'POST'])
+# def myAccount():
+#     user = query('SELECT * FROM user_accounts WHERE Id = ?', session['user_id'])
+#     name = user[0][7]
+#     email = user[0][2]
+
+#     # name =current_user.fullname
+#     # email = current_user.email
+#     removeConfirmation = request.args.get('delete')
+#     removeAddress = request.args.get('address')
+#     removeCard = request.args.get('card')
+#     if removeAddress != None and removeConfirmation == 'true':
+#         addresses = query('SELECT * FROM Addresses WHERE Id = ?', session['user_id'])
+
+#         # addresses = AddressInfo.query.filter_by(user_id=current_user.id)
+#         address = AddressInfo.query.filter_by(address=removeAddress, user_id = current_user.id).first()
+#         db.session.delete(address)
+#         db.session.commit()
+#         addresses[-1].default = 'True'
+#         db.session.commit()
+#     elif removeCard != None and removeConfirmation == 'true':
+#         cards = CardInfo.query.filter_by(user_id=current_user.id)
+#         for i in cards:
+#             cardnum = cipher_suite.decrypt(i.cardno)
+#             cardn = str(cardnum)
+#             cardnss = cardn[1:]
+#             cardns = cardnss[1:-1]
+#             if cardns == removeCard:
+#                 card = i
+#                 break 
+#         db.session.delete(card)
+#         db.session.commit()
+#         cards[-1].default = 'True'
+#         db.session.commit()
+#     form = UpdateAccountForm()
+#     if form.validate_on_submit():
+#         image = request.files['image']
+#         filename = request.files['image'].filename   
+#         if filename.find('.') == -1: 
+#             filename = None
+#             bool_image = False
+#         else:
+#             bool_image = allowed_image(filename)
+#         print(filename)
+#         if bool_image == False and filename != None:
+#             flash('Invalid file type for images', 'danger')
+#             return redirect(url_for('myAccount'))
+#         else: 
+#             if filename != None:
+#                 image.save(os.path.join(app.config["PROFILE_UPLOADS"], filename))
+#                 current_user.image_file = f'../static/img/profile_pic/{filename}'
+#             current_user.fullname = form.fullname.data
+#             current_user.email = form.email.data
+#             db.session.commit()
+#             flash('Your account has been updated!', 'success')
+#             return redirect(url_for('myAccount'))
+#     old = request.args.get('old')
+#     new = request.args.get('new')
+#     if old != None:
+#         old_password = current_user.password
+#         if bcrypt.check_password_hash(current_user.password, old):
+#             pass
+#         else:
+#             return "wrong"
+#     if new != None:
+#         hashed_password = bcrypt.generate_password_hash(new).decode('utf-8')
+#         current_user.password = hashed_password
+#         return redirect(url_for('myAccount'))
+#     elif request.method == 'GET':
+#         tran_list = []
+#         card_list = []
+#         form.fullname.data = current_user.fullname
+#         form.email.data = current_user.email
+#         image_file = current_user.image_file
+#         address = current_user.address_info
+#         cards = current_user.card_info
+#         for i in cards:
+#             cardnum = cipher_suite.decrypt(i.cardno)
+#             cardn = str(cardnum)
+#             cardnss = cardn[1:]
+#             cardns = cardnss[1:-1]
+#             card_name = i.card_name
+#             exp = i.exp
+#             year = i.year
+#             card_list.append({'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year, "card_type":i.card_type, "default":i.default})
+#         previous_transactions = current_user.previousTransactions 
+#         reviews = current_user.review 
+#         for i in previous_transactions:
+#             total = 0
+#             date = i.transaction_date
+#             items = ast.literal_eval(i.cartItems)
+#             for j in items:
+#                 total += int(j['prod_price']*j['prod_quantity'])
+#             tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})
+#     tran_list = []
+#     card_list = []
+#     address_list = []
+#     image_file = current_user.image_file
+#     address = current_user.address_info
+#     cards = current_user.card_info
+#     for addressinfo in address:
+#         addresss = addressinfo.address
+#         country = addressinfo.country
+#         state = addressinfo.state
+#         postal = addressinfo.postal
+#         data = {"address":addresss, "country":country, "state":state, "postal":postal, "default":addressinfo.default}
+#         address_list.append(data)
+#     for i in cards:
+#         cardnum = cipher_suite.decrypt(i.cardno)
+#         cardn = str(cardnum)
+#         cardnss = cardn[1:]
+#         cardns = cardnss[1:-1]
+#         card_name = i.card_name
+#         exp = i.exp
+#         year = i.year
+#         card_list.append({'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year, "card_type":i.card_type, "default":i.default})
+#     previous_transactions = current_user.previousTransactions 
+#     reviews = current_user.review 
+#     for i in previous_transactions:
+#         total = 0
+#         date = i.transaction_date
+#         items = ast.literal_eval(i.cartItems)
+#         for j in items:
+#             total += int(j['prod_price']*j['prod_quantity'])
+#         tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})        
+#     return render_template('myAccount.html', title='Account', image_file=image_file, form=form, accountInfo = address_list, previous_transactions = tran_list, review=reviews, card=card_list, name=name, email=email)
+
 @app.route('/myAccount', methods=['GET', 'POST'])
 def myAccount():
-    user = query('SELECT * FROM user_accounts WHERE Id = ?', session['user_id'])
-    name = user[0][7]
-    email = user[0][2]
-
-    # name =current_user.fullname
-    # email = current_user.email
-    removeConfirmation = request.args.get('delete')
-    removeAddress = request.args.get('address')
-    removeCard = request.args.get('card')
-    if removeAddress != None and removeConfirmation == 'true':
-        addresses = query('SELECT * FROM Addresses WHERE Id = ?', session['user_id'])
-
-        # addresses = AddressInfo.query.filter_by(user_id=current_user.id)
-        address = AddressInfo.query.filter_by(address=removeAddress, user_id = current_user.id).first()
-        db.session.delete(address)
-        db.session.commit()
-        addresses[-1].default = 'True'
-        db.session.commit()
-    elif removeCard != None and removeConfirmation == 'true':
-        cards = CardInfo.query.filter_by(user_id=current_user.id)
-        for i in cards:
-            cardnum = cipher_suite.decrypt(i.cardno)
-            cardn = str(cardnum)
-            cardnss = cardn[1:]
-            cardns = cardnss[1:-1]
-            if cardns == removeCard:
-                card = i
-                break 
-        db.session.delete(card)
-        db.session.commit()
-        cards[-1].default = 'True'
-        db.session.commit()
     form = UpdateAccountForm()
+    # Entering the Myaccount Page 
+    if request.method == 'GET':
+        if "user_id" not in session: 
+            return redirect(url_for('home'))
+        else:
+            user_id = session['user_id']
+            user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))[0]
     if form.validate_on_submit():
+        user_id = session['user_id']
+        user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))[0]
+        new_fullname = form.fullname.data 
+        new_email = form.email.data 
         image = request.files['image']
         filename = request.files['image'].filename   
         if filename.find('.') == -1: 
@@ -587,89 +697,17 @@ def myAccount():
             bool_image = False
         else:
             bool_image = allowed_image(filename)
-        print(filename)
         if bool_image == False and filename != None:
             flash('Invalid file type for images', 'danger')
             return redirect(url_for('myAccount'))
         else: 
             if filename != None:
                 image.save(os.path.join(app.config["PROFILE_UPLOADS"], filename))
-                current_user.image_file = f'../static/img/profile_pic/{filename}'
-            current_user.fullname = form.fullname.data
-            current_user.email = form.email.data
-            db.session.commit()
-            flash('Your account has been updated!', 'success')
-            return redirect(url_for('myAccount'))
-    old = request.args.get('old')
-    new = request.args.get('new')
-    if old != None:
-        old_password = current_user.password
-        if bcrypt.check_password_hash(current_user.password, old):
-            pass
-        else:
-            return "wrong"
-    if new != None:
-        hashed_password = bcrypt.generate_password_hash(new).decode('utf-8')
-        current_user.password = hashed_password
-        return redirect(url_for('myAccount'))
-    elif request.method == 'GET':
-        tran_list = []
-        card_list = []
-        form.fullname.data = current_user.fullname
-        form.email.data = current_user.email
-        image_file = current_user.image_file
-        address = current_user.address_info
-        cards = current_user.card_info
-        for i in cards:
-            cardnum = cipher_suite.decrypt(i.cardno)
-            cardn = str(cardnum)
-            cardnss = cardn[1:]
-            cardns = cardnss[1:-1]
-            card_name = i.card_name
-            exp = i.exp
-            year = i.year
-            card_list.append({'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year, "card_type":i.card_type, "default":i.default})
-        previous_transactions = current_user.previousTransactions 
-        reviews = current_user.review 
-        for i in previous_transactions:
-            total = 0
-            date = i.transaction_date
-            items = ast.literal_eval(i.cartItems)
-            for j in items:
-                total += int(j['prod_price']*j['prod_quantity'])
-            tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})
-    tran_list = []
-    card_list = []
-    address_list = []
-    image_file = current_user.image_file
-    address = current_user.address_info
-    cards = current_user.card_info
-    for addressinfo in address:
-        addresss = addressinfo.address
-        country = addressinfo.country
-        state = addressinfo.state
-        postal = addressinfo.postal
-        data = {"address":addresss, "country":country, "state":state, "postal":postal, "default":addressinfo.default}
-        address_list.append(data)
-    for i in cards:
-        cardnum = cipher_suite.decrypt(i.cardno)
-        cardn = str(cardnum)
-        cardnss = cardn[1:]
-        cardns = cardnss[1:-1]
-        card_name = i.card_name
-        exp = i.exp
-        year = i.year
-        card_list.append({'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year, "card_type":i.card_type, "default":i.default})
-    previous_transactions = current_user.previousTransactions 
-    reviews = current_user.review 
-    for i in previous_transactions:
-        total = 0
-        date = i.transaction_date
-        items = ast.literal_eval(i.cartItems)
-        for j in items:
-            total += int(j['prod_price']*j['prod_quantity'])
-        tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})        
-    return render_template('myAccount.html', title='Account', image_file=image_file, form=form, accountInfo = address_list, previous_transactions = tran_list, review=reviews, card=card_list, name=name, email=email)
+                image_file = f'../static/img/profile_pic/{filename}'
+                constructAndExecuteQuery('UPDATE user_accounts SET profile_image=? WHERE Id = ?', image_file, user_id)
+        constructAndExecuteQuery('UPDATE user_accounts SET fullname=? WHERE Id = ?', new_fullname, user_id)
+        constructAndExecuteQuery('UPDATE user_accounts SET email=? WHERE Id = ?', new_email, user_id)
+    return render_template('myAccount.html', title='Account', form=form, user = user)
 
 @app.route("/changePassword", methods=["GET", "POST"])
 def changePassword():
@@ -738,10 +776,10 @@ def activate():
 def activateask():
         return render_template('activateask.html')
 
-# @app.route("/logout")
-# def logout():
-#     logout_user()
-#     return redirect(url_for('home'))
+@app.route("/logout")
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('home'))
 
 @app.route('/defaultAddress', methods=['GET', 'POST'])
 def defaultAddress():
@@ -959,12 +997,13 @@ Admin Related Routes
 @app.route('/admin')
 def admin():
     # previousTransaction = PreviousTransactions.query.all()
-    previousTransaction =[]
-    li = []
-    # for i in previousTransaction: 
-    #     if i.status == 'Awaiting order':
-    #         li.append(i)
-    number = len(li)
+    previousTransaction = query('SELECT * FROM prev_transactions')
+    # previousTransaction =[]
+    # li = []
+    for i in previousTransaction: 
+        if i[4] == 'Awaiting order':
+            li.append(i)
+    number = len(previousTransaction)
     return render_template('admin/admin.html', previousTransaction = previousTransaction, number = number)
 
 
@@ -1185,12 +1224,14 @@ def orderStatus():
 
 @app.route('/listUser')
 def listUser():
-    users = User.query.all()
-    users = query()
-    for i in users:
-        if i.email == 'admin@gmail.com':
-            users.remove(i)
-    return render_template('admin/usersList.html', users = [])
+    users = query('SELECT * FROM user_accounts')
+    # users = User.query.all()
+    # users = query()
+    # for i in users:
+    #     if i.email == 'admin@gmail.com':
+    #         users.remove(i)
+
+    return render_template('admin/usersList.html', users = users)
 
 ## Admin E-commerce Section Routes ##
 @app.route('/productList')
