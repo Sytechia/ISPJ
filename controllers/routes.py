@@ -201,7 +201,18 @@ def about():
 def contactUs():
     form = ContactUsForm()
     if request.method == 'POST' and form.validate_on_submit():
-        return redirect(url_for("homepage"))
+        name = form.fullname.data
+        email = form.email.data
+        comment = form.message.data
+        case_id = query('SELECT case_id FROM contact_us_records')
+        if case_id == []:
+            req = 'INSERT INTO contact_us_records VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);'
+            constructAndExecuteQuery(req, 1, name, email, comment, 0, 0, 0, 0, 0)
+        else:
+            lastCase = case_id[-1][0]
+            req = 'INSERT INTO contact_us_records VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);'
+            constructAndExecuteQuery(req, int(lastCase)+1, name, email, comment, 0, 0, 0, 0, 0)
+        return redirect(url_for("home"))
     return render_template("contactUs.html", form=form)
 
 """

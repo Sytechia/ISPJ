@@ -13,6 +13,7 @@
                 <br>
                 <div class="columnRegister">
                     <form method="POST">
+                        {{ form.hidden_tag() }}
                         <div class="form-group">
                             <label><span><i class="fa fa-user"></i></span>&nbsp;Full Name:</label>
                             {{ form.fullname(class = "form-control", placeholder="John Doe") }}
