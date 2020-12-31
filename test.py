@@ -31,14 +31,19 @@ def query(query, *args):
         result = []
     return result
 
+def constructAndExecuteQuery(query, *args):
+    cursor.execute(query, *args)
+    conn.commit()
+
 """Deleting user from database"""
 # cursor.execute('DELETE FROM user_accounts WHERE Id = 349568')
     
-email = 'MarcusWang@gmail.com'
+# email = 'MarcusWang@gmail.com'
 # li = query('SELECT Id FROM user_accounts WHERE email = ?', email)[0][0]
 # print(li)
-
-
+query = 'INSERT INTO prev_transactions VALUES(?, ?, ?, ?, ?, ?);'
+constructAndExecuteQuery(query, 1, '[game1, game2, game3]', random.randint(100000, 999999), '2017-06-15', 'awaiting order', 203756)
+# user = query("SELECT * FROM user WHERE user_id = ?", session['user_id'])
 
 
 # user = query("SELECT * FROM user WHERE user_id = ?", session['user_id'])

@@ -1,20 +1,20 @@
 let dates = document.querySelectorAll('.tran_date');
 let datee = document.querySelectorAll('.trans_date');
 
-(()=> {
-  Array.from(dates).forEach(date => {
-    let orginal = date.textContent
-    console.log(date)
-    let adjusted = orginal.slice(0, -7)
-    date.innerText = adjusted
-  })
-  Array.from(datee).forEach(date => {
-    let orginal = date.value
-    console.log(orginal)
-    let adjusted = orginal.slice(0, -7)
-    date.value = adjusted
-  })
-})();
+// (()=> {
+//   Array.from(dates).forEach(date => {
+//     let orginal = date.textContent
+//     console.log(date)
+//     let adjusted = orginal.slice(0, -7)
+//     date.innerText = adjusted
+//   })
+//   Array.from(datee).forEach(date => {
+//     let orginal = date.value
+//     console.log(orginal)
+//     let adjusted = orginal.slice(0, -7)
+//     date.value = adjusted
+//   })
+// })();
 $(".sidebar-dropdown > a").click(function() {
   $(".sidebar-submenu").slideUp(200);
   if (

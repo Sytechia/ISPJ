@@ -631,9 +631,9 @@ h2 {
 
 .profileCard > .btn {
   text-align:left;
-  background-color: black;
+  background-color:  #171726;
   color:white;
-  border: 1px solid rgb(22,22,22);
+  border: 1px solid rgb(43, 43, 43);
   font-family: "Poppins" sans-serif;
   width:100%;
   font-size: 17px;

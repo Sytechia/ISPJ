@@ -242,10 +242,9 @@ class UpdateAccountForm(FlaskForm):
 
     
     def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('That email is taken. Please choose a different one.')
+        user = query('SELECT * FROM user_accounts WHERE email = ?', email)
+        if user != []:
+            raise ValidationError('That email is taken. Please choose a different one.')
 
 class UpdateBilling(FlaskForm):
     address = StringField('Address', validators=[DataRequired(), Length(min=8, max=100)])

@@ -158,10 +158,10 @@
         <tbody>
           {% for transaction in previousTransaction %}
           <tr>
-            <th scope="row">#{{ transaction.transactionId}}</th>
-            <td>{{ transaction.status }}</td>
-            <td class='tran_date'>{{ transaction.transaction_date }}</td>
-            <td>{{ transaction.user_id }}</td>
+            <th scope="row">#{{ transaction[2] }}</th>
+            <td>{{ transaction[4] }}</td>
+            <td class='tran_date'>{{ transaction[3] }}</td>
+            <td>{{ transaction[5] }}</td>
           </tr>
           {% endfor %}
         </tbody>

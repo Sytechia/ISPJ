@@ -1,3 +1,27 @@
+$('#myTab a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+// Adjusting tab classes 
+Array.from(document.querySelectorAll('.nav-link')).forEach(elment => {
+  elment.addEventListener('click', ()=> {
+    Array.from(document.querySelectorAll('.tab-pane')).forEach(element =>  {
+      if(element.classList.contains('active')){
+        element.classList.remove('active')
+      }
+      if(element.classList.contains('show')){
+        element.classList.remove('show')
+      }
+      element.style.display = 'none'
+    })
+    let link = elment.href
+    document.querySelector(`#${link.slice(link.indexOf('#')+1)}`).classList.add('active')
+    document.querySelector(`#${link.slice(link.indexOf('#')+1)}`).classList.add('show')
+    document.querySelector(`#${link.slice(link.indexOf('#')+1)}`).style.display = 'block'
+  })
+})
+
 function openNav() {
     document.getElementById("mySidebar").style.width = "200px";
     document.getElementById("main").style.marginLeft = "200px";
@@ -84,3 +108,8 @@ function openNav() {
     }
     
     replaceLinks()
+
+   
+
+
+    
