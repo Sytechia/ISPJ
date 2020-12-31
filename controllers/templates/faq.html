@@ -9,10 +9,6 @@
 {% endblock %}
 
 {% block content %}
-
-
-<!--Chatbot-->
-
 <input type="image" src="https://cdn2.iconfinder.com/data/icons/ios7-inspired-mac-icon-set/1024/messages_5122x.png" class="open-button" onload="openForm()" onclick="openForm()"  />
 <div class="chat-popup" id="myForm">
   <form class="form-container" id="chat-data" action="/result" method="POST", onsubmit="">
@@ -63,74 +59,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-
-<script>
-function openNav() {
-document.getElementById("mySidebar").style.width = "200px";
-document.getElementById("main").style.marginLeft = "200px";
-}
-function openChat() {
-document.getElementById("myForm").style.width = "400px";
-document.getElementById("main").style.marginLeft = "200px";
-}
-
-function closeNav() {
-document.getElementById("mySidebar").style.width = "0";
-document.getElementById("main").style.marginLeft= "0";
-}
-function closeChat() {
-document.getElementById("myForm").style.display = "none";
-//document.getElementById("main").style.marginLeft= "0";
-}
-
-function openForm() {
-document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-document.getElementById("myForm").style.display = "none";
-}
-var chat = document.getElementById("chat");
-chat.scrollTop = chat.scrollHeight - chat.clientHeight;
-
-
-function loadDoc() {
-  var fields = $( ":input" ).serializeArray();
-
-  $( "#results" ).empty();
-  jQuery.each( fields, function( i, field ) {
-    //$( "#results" ).append( field.value + " " );
-    $.post("/result", {
-  javascript_data: field.value+" "
-});
-  });
-  // TODO: The rest of the code will go here...
-}
-
-window.onload=function () {
-     var objDiv = document.getElementById("chat");
-     objDiv.scrollTop = objDiv.scrollHeight;
-}
-// messageBody.lastChild.scrollIntoView()
-
-// $("#mydiv").scrollTop($("#chat")[0].scrollHeight);
-  
-
-function refreshMessages() {
-$.ajax({
-  url: '/',
-  type: 'GET',
-  dataType: 'html',
-  success: function(data) {
-    console.log(data)
-    $('#chat').html(data); // data came back ok, so display it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              $('#chat').html(data); // data came back ok, so display it
-  },
-  error: function() {
-    $('#chat').prepend('Error retrieving new messages..');
-  }
-});
-}
-
-</script>
+<script src="../../static/js/chatbot.js"></script>
 
 {% endblock %}

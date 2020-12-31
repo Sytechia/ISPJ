@@ -5,7 +5,8 @@ All dynamic routing belongs here
 import os, json, ast, random, requests
 from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort, Response, get_template_attribute
 from flask_login import current_user, login_user, logout_user, login_required
-from controllers import app, db, bcrypt, mail
+from controllers import app, bcrypt, mail
+from datetime import timedelta
 from controllers.forms import RegistrationForm, LoginForm, Billing, PaymentInfo, ContactUsForm, PasswordForm, Disable, Activate, ChangePasswordForm
 from controllers.forms import RegistrationForm, LoginForm, AdminAddProductForm, AdminUpdateProductForm, UpdateAccountForm, UpdateBilling, RequestResetForm, ResetPasswordForm, UpdateCard
 from controllers.Sentemail import sendEmail, adminEmail
@@ -25,7 +26,18 @@ import threading
 from time import sleep 
 import logging
 from controllers.qr import send_qr_code
+import random
+import pyodbc
 
+# Database #
+server = 'ispj-database.database.windows.net'
+database = 'ISPJ Database'
+username = 'Peter'
+password = 'p@ssw0rd'
+driver= '{ODBC Driver 17 for SQL Server}'
+conn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+password)
+
+cursor = conn.cursor()
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 ###Create Log file ###
@@ -62,18 +74,38 @@ def refresh():
         data = json.load(f)
     return data 
 
+# Refreshes Admin events 
 def refreshEvents():
     with open('json_files/events.json', 'r+') as f:
         data = json.load(f)
     return data
 
+# Refreshes Admin Analytics 
 def refreshAnalytics():
     with open('json_files/analytics.json', 'r+') as f:
         data = json.load(f)
     return data 
 
+# Constructs an sql query with any number of parameters passed in for query to be constructued 
+"""
+For insert, delete, update statements 
+"""
+def constructAndExecuteQuery(query, *args):
+    cursor.execute(query, *args)
+    conn.commit()
 
-##Ensures that allowed images are accepted##
+"""
+For select statements
+"""
+def query(query, *args):
+    try:
+        cursor.execute(query, *args)
+        result = cursor.fetchall()
+    except: 
+        result = []
+    return result
+
+# Ensures that allowed images are accepted
 def allowed_image(filename):
     if not "." in filename:
         return False
@@ -84,6 +116,7 @@ def allowed_image(filename):
     else:
         return False
 
+# Sends a qr code to the user upon payment and starts an internal thread 
 @app.route('/qr')
 def qr():
     request_xhr_key = request.headers.get('X-Requested-With')
@@ -163,6 +196,7 @@ def Result():
 def about():
     return render_template('aboutus.html')
 
+# Contact Us page 
 @app.route('/contactUs', methods=['GET', 'POST'])
 def contactUs():
     form = ContactUsForm()
@@ -173,20 +207,21 @@ def contactUs():
 """
 Account Related Routes 
 """
+
+# Register Route 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('registerStep2'))
+    if "user_id" in session:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if request.method == 'POST' and form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         name = form.fullname.data
+        password = form.password.data
         email = form.email.data
         previousPass = []
-        previousPass.append(hashed_password)
-        user = User(fullname=name, email=email, password=hashed_password, previousPasswords = str(previousPass), isAdmin = 'False')
-        db.session.add(user)
-        db.session.commit()
+        previousPass.append(password)
+        query = 'INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?);'
+        constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, 0, '../static/img/profile_pic/default.jpg', str(previousPass), name)
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -428,6 +463,14 @@ def lock_timerr():
     else:
         return redirect(url_for('home'))
 
+# set session lifetime to 15 minutes
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=15)
+
+# Login Route 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -440,22 +483,24 @@ def login():
         session['attempts'] = 5
     if form.validate_on_submit():
         email = form.email.data
-        user = User.query.filter_by(email=email).first()
-        if user == None: 
+        print(form.email.data)     
+        user = query('SELECT * FROM user_accounts WHERE email = ?', email)
+        if user == []: 
             flash('Please check your credentials again', 'danger')
             return render_template('login.html', form=form)
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            print(user.active)
-            if user.active == "Inactive":
+        user_password = user[0][3]
+        if user and user_password == form.password.data:
+            user_id = user[0][0]
+            user_active = user[0][1]
+            user_email = user[0][2]
+            if user_active == False:
                 return redirect(url_for('activateask'))
-            login_user(user, remember=form.remember.data)
-            email = user.email
-            infos.info('%s logged in successfully', email)
+            session['user_id'] = user_id
+            infos.info('%s logged in successfully', user_email)
             session['attempts'] = 5
             return redirect(url_for('home'))
         else:
-            email = user.email
-            infos.info('%s failed to log in', email)
+            infos.info('%s failed to log in', user_email)
             attempt= session.get('attempts')
             attempt -= 1
             session['attempts']=attempt
@@ -470,21 +515,10 @@ def login():
                 flash('Invalid login credentials, Attempts %d of 5'  % attempt, 'danger')
         return render_template('login.html', form=form)
     else:
-        if current_user.is_authenticated:
+        if "user_id" in session:
+            print('here')
             return redirect(url_for('home'))
         form = LoginForm()
-        if form.validate_on_submit():
-            user = User.query.filter_by(email=form.email.data).first()
-            if user and bcrypt.check_password_hash(user.password, form.password.data):
-                if user.active == "Inactive":
-                    return redirect(url_for('activateask'))
-                login_user(user, remember=form.remember.data)
-                if user.email == 'admin@gmail.com':
-                    return redirect(url_for('admin'))
-                else:
-                    return redirect(url_for('home'))
-            else:
-                flash('Login Unsuccessful. Please check email and password', 'danger')
         return render_template('login.html', title='Login', form=form)
 
 
@@ -511,24 +545,24 @@ def checkpassword():
         return redirect(url_for('home'))
 
 @app.route('/myAccount', methods=['GET', 'POST'])
-@login_required
 def myAccount():
-    name =current_user.fullname
-    email = current_user.email
+    user = query('SELECT * FROM user_accounts WHERE Id = ?', session['user_id'])
+    name = user[0][7]
+    email = user[0][2]
+
+    # name =current_user.fullname
+    # email = current_user.email
     removeConfirmation = request.args.get('delete')
     removeAddress = request.args.get('address')
     removeCard = request.args.get('card')
-    removeReview = request.args.get('name')
     if removeAddress != None and removeConfirmation == 'true':
-        addresses = AddressInfo.query.filter_by(user_id=current_user.id)
+        addresses = query('SELECT * FROM Addresses WHERE Id = ?', session['user_id'])
+
+        # addresses = AddressInfo.query.filter_by(user_id=current_user.id)
         address = AddressInfo.query.filter_by(address=removeAddress, user_id = current_user.id).first()
         db.session.delete(address)
         db.session.commit()
         addresses[-1].default = 'True'
-        db.session.commit()
-    elif removeReview != None and removeConfirmation == 'true': 
-        review = Review.query.filter_by(prod_name=removeReview, user_id=current_user.id).first()
-        db.session.delete(review)
         db.session.commit()
     elif removeCard != None and removeConfirmation == 'true':
         cards = CardInfo.query.filter_by(user_id=current_user.id)
@@ -1151,13 +1185,12 @@ def orderStatus():
 
 @app.route('/listUser')
 def listUser():
-    # try:
-    #     if current_user.email == 'admin@gmail.com':
-    #         users = User.query.all()
-    #         for i in users:
-    #             if i.email == 'admin@gmail.com':
-    #                 users.remove(i)
-    return render_template('admin/usersList.html', users = users)
+    users = User.query.all()
+    users = query()
+    for i in users:
+        if i.email == 'admin@gmail.com':
+            users.remove(i)
+    return render_template('admin/usersList.html', users = [])
 
 ## Admin E-commerce Section Routes ##
 @app.route('/productList')
@@ -1200,16 +1233,15 @@ def adminAdd():
         new_product_description = form.description.data
         new_product_id = form.id.data
         new_product_img = f"../static/product_img/{filename}"
-        with open('json_files/product.json', 'r') as f:
-            data = json.load(f)
-            data.append({"id": int(new_product_id), "prod_name": new_product_name, "prod_price": new_product_price, "prod_desc": new_product_description, "prod_img": new_product_img})
-        with open('json_files/product.json', 'w') as f:
-            json.dump(data, f)
+        query = "INSERT INTO products VALUES(?,?,?,?,?,?)"
+        constructAndExecuteQuery()
         return redirect(url_for('admin'))
     else:
-        with open('json_files/product.json', 'r') as f: 
-            data = json.load(f)
-            latest_id = len(data)
+        # with open('json_files/product.json', 'r') as f: 
+        #     data = json.load(f)
+        #     latest_id = len(data)
+        query =  "SELECT * FROM products"
+        latest_id = len(query(query))
     return render_template('admin/adminAddProduct.html', latest_id = latest_id+1, form=form)
 
 @app.route('/adminUpdateproduct', methods=['POST', 'GET'])
@@ -1330,3 +1362,15 @@ def page_not_found500(x):
     errors.error(f"{x}")
     return render_template('feedbackError.html'), 500
 
+# @app.route('/set/')
+# def set():
+#     session['key'] = 'value'
+#     return 'ok'
+
+# @app.route('/get/')
+# def get():
+#     if 'user_id' in session: 
+#         resulr = True
+#     else:
+#         resulr = False
+#     return str(resulr)
