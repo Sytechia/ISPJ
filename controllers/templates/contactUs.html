@@ -14,7 +14,6 @@
                 <div class="columnRegister" action="">
                     <form method="POST">
                         {{ form.hidden_tag() }}
-                        {{ form.csrf_token }}
                         <div class="form-group">
                             <label><span><i class="fa fa-user"></i></span>&nbsp;Full Name:</label>
                             {{ form.fullname(class = "form-control", placeholder="John Doe") }}

@@ -10,7 +10,7 @@ from logging.config import dictConfig
 from datetime import timedelta
 from flask.logging import default_handler
 from flask import Flask, session
-from flask_session import Session
+# from flask_session import Session
 from datetime import timedelta
 
 #sqlite database setup and configurations
