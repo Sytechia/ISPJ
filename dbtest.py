@@ -21,8 +21,12 @@ cursor = conn.cursor()
 # cursor.execute('INSERT INTO user_accounts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?);', account_status, firstname, lastname, email, password, isadmin, profile_image, previous_passwords)
 # conn.commit()
 
-conn.createStatement()
+# conn.createStatement()
 
-cursor.execute('select * from user_accounts')
-for row in cursor:
-    print(row)
+# cursor.execute('select * from user_accounts')
+# for row in cursor:
+#     print(row)
+
+import datetime
+
+print(str(datetime.datetime.now())[:11])

@@ -24,6 +24,7 @@ from datetime import datetime, timedelta
 from flask_csv import send_csv
 import threading
 from time import sleep 
+from functools import reduce
 import logging
 from controllers.qr import send_qr_code
 import random
@@ -684,10 +685,25 @@ def myAccount():
             return redirect(url_for('home'))
         else:
             user_id = session['user_id']
-            user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))[0]
+            print(user_id)
+            user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))
+            while user == []:
+                user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))
+            print(user)
+            card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', int(user_id))
+            address_info = query('SELECT * from Addresses WHERE user_id=?', int(user_id))
+            prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', int(user_id))
+            transactions = []
+            for y in prev_transactions:
+                total = 0
+                for z in ast.literal_eval(y[1]):
+                    total += (z[1] * z[2])
+                transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), total))
     if form.validate_on_submit():
         user_id = session['user_id']
         user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))[0]
+        card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', int(user_id))
+        address_info = query('SELECT * from Addresses WHERE user_id=?', int(user_id))
         new_fullname = form.fullname.data 
         new_email = form.email.data 
         image = request.files['image']
@@ -707,7 +723,8 @@ def myAccount():
                 constructAndExecuteQuery('UPDATE user_accounts SET profile_image=? WHERE Id = ?', image_file, user_id)
         constructAndExecuteQuery('UPDATE user_accounts SET fullname=? WHERE Id = ?', new_fullname, user_id)
         constructAndExecuteQuery('UPDATE user_accounts SET email=? WHERE Id = ?', new_email, user_id)
-    return render_template('myAccount.html', title='Account', form=form, user = user)
+        return redirect(url_for('myAccount'))
+    return render_template('myAccount.html', form=form, user=user[0],credit_cards = card_info, addresses=address_info, transactions=transactions)
 
 @app.route("/changePassword", methods=["GET", "POST"])
 def changePassword():
@@ -784,15 +801,18 @@ def logout():
 @app.route('/defaultAddress', methods=['GET', 'POST'])
 def defaultAddress():
     address = request.args.get('address')
+    print(address)
     if address == None:
         return redirect(url_for('home'))
     try:
-        addressList = AddressInfo.query.filter_by(user_id= current_user.id)
+        addressList = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
+        print(addressList)
+        test = address.strip()
         for i in addressList:
-            i.default = 'False'
-        DefaultAdd = AddressInfo.query.filter_by(address=address, user_id=current_user.id).first()
-        DefaultAdd.default = 'True'
-        db.session.commit()
+            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",i[0])
+        constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",int(address))
+        print(query('SELECT * FROM Addresses'))
+        return "[]"
     except:
         return redirect(url_for('home'))
 
@@ -802,19 +822,11 @@ def defaultCard():
     if card == None: 
         return redirect(url_for('home'))
     try:
-        cardList = CardInfo.query.filter_by(user_id= current_user.id)
-        for i in cardList:
-            print(i)
-            i.default = 'False'
-            cardnum = cipher_suite.decrypt(i.cardno)
-            cardn = str(cardnum)
-            cardnss = cardn[1:]
-            cardns = cardnss[1:-1]
-            if cardns == card:
-                iteration = i
-                print(iteration)
-        iteration.default = 'True'
-        db.session.commit()
+        cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
+        for i in cardlist:
+            constructAndExecuteQuery('UPDATE Addresses SET default=? WHERE Id=?',"False",i[0])
+        test = card.strip()
+        constructAndExecuteQuery('UPDATE Addresses SET default=? WHERE Id=?',"True",test)
     except:
         return redirect(url_for('home'))
 

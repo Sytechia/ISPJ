@@ -11,8 +11,10 @@
             <div class="section-header col-md-6">
                 <h1 class="form-header">Contact Us!</h1>
                 <br>
-                <div class="columnRegister">
+                <div class="columnRegister" action="">
                     <form method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.csrf_token }}
                         <div class="form-group">
                             <label><span><i class="fa fa-user"></i></span>&nbsp;Full Name:</label>
                             {{ form.fullname(class = "form-control", placeholder="John Doe") }}

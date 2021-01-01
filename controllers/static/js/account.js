@@ -51,19 +51,19 @@ let transaction_dates = document.querySelectorAll('.tran_date');
       btn.addEventListener('click', defaultCard)
     })
 
-    Array.from(transaction_dates).forEach(date => {
-      console.log('u=y')
-      let orginal = date.value 
-      let amorpm = parseInt(orginal.slice(11,13))
-      let adjusted = orginal.slice(0,-10)
-      let day;
-      if(amorpm > 12){
-        day = 'pm'
-      } else{
-        day ='am'
-      }
-      date.value = adjusted + day
-    })
+    // Array.from(transaction_dates).forEach(date => {
+    //   console.log('u=y')
+    //   let orginal = date.value 
+    //   let amorpm = parseInt(orginal.slice(11,13))
+    //   let adjusted = orginal.slice(0,-10)
+    //   let day;
+    //   if(amorpm > 12){
+    //     day = 'pm'
+    //   } else{
+    //     day ='am'
+    //   }
+    //   date.value = adjusted + day
+    // })
 })();
 
 //Functions 
