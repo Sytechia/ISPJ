@@ -591,3 +591,8 @@ stories:
   - intent: customer_service
   - action: utter_customer_service
 
+- story: contact customer service
+  steps:
+  - intent: not_home
+  - action: utter_not_home
+  

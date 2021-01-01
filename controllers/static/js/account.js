@@ -99,7 +99,7 @@ function removeAddress(e){
             const address = e.target.parentElement.children[0].innerText
             $.ajax({
                 type: "GET",
-                url: `/myAccount?delete=true&address=${address}`,
+                url: `/removeAddress?address=${address}`,
             })
         } else if (
           /* Read more about handling dismissals below */
@@ -144,7 +144,7 @@ function removeCard(e){
         const card = e.target.parentElement.children[0].innerText
         $.ajax({
           type: "GET",
-          url: `/myAccount?delete=true&card=${card}`,
+          url: `/removeCard?card=${card}`,
       })
           console.log(card)
         e.target.parentElement.parentElement.parentElement.parentElement.remove()
@@ -161,14 +161,6 @@ function removeCard(e){
         )
       }
     })
-}
-
-/*
-  * Assigns item name to the review modal in order to be accessed by ajax
-*/
-function identity(event){
-  const itemName = event.target.parentElement.children[0].innerText
-  document.querySelector('.modal-title').innerHTML = `Write a Review for <span>${itemName}</span>`
 }
 
 /*
@@ -198,84 +190,6 @@ function postReview(event) {
   } 
 }
 
-/*
-  * Removing of review posted by user
-*/
-function removeReviewfunc(e){
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger'
-    },
-    buttonsStyling: true
-  })
-  
-  swalWithBootstrapButtons.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'No, cancel!',
-    reverseButtons: true
-  }).then((result) => {
-    if (result.value) {
-      swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Your review  has been deleted.',
-        'success'
-      )
-      const itemName = e.target.parentElement.parentElement.children[1].children[0].children[0].innerText
-      console.log(itemName)
-      e.target.parentElement.parentElement.parentElement.remove()
-        $.ajax({
-            type: "GET",
-            url: `/myAccount?delete=true&name=${itemName}`,
-        })
-    } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      swalWithBootstrapButtons.fire(
-        'Cancelled',
-        'Your address is safe :)',
-        'error'
-      )
-    }
-  })
-}
-
-/*
-  * Assigns the item name to the review edit modal 
-*/
-function identity2(event){ 
-  const itemName = event.target.parentElement.parentElement.children[1].children[0].children[0].textContent
-  document.querySelector('#modal-title').innerHTML = `Write a Review for <span>${itemName}</span>`
-}
-
-/*
-  * Ajax + posting of editted review 
-*/
-function postReview2(event) {
-  let rating; 
-  let parent = event.target.parentElement.parentElement
-  let itemName = parent.children[0].children[0].children[0].textContent
-  let id = parent.children[0].children[1].textContent
-  let reviewInputs = document.querySelectorAll('input[type="radio"]')
-  Array.from(reviewInputs).forEach(radio => {
-    if(radio.checked){
-      rating = radio.value
-    }
-  })
-  console.log(rating)
-  let reviewMessage = parent.children[2].children[0].value
-  if(rating){
-    $.ajax({
-      type: "GET",
-      url: `/review?edit=true&name=${itemName}&rating=${rating}&message=${reviewMessage}&id=${id}`,
-  })
-  } 
-}
 
 /*
   * Ajax + Setting of Default address

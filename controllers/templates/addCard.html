@@ -1,5 +1,22 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <style>
+        .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid#01E693;
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #01E693
+}
+</style>
+{% endblock %}
+
 {% block content %}
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -33,19 +50,6 @@
                                     
                                     <h3>Payment Information</h3>
 
-
-                                    
-                                    
-                                    <!-- {% if form.name.errors %}
-                                            {{ form.name(class="form-control form-control-lg is-invalid") }}
-                                            <div class="invalid-feedback">
-                                                {% for error in form.name.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                    {% else %}
-                                        {{ form.name(placeholder="Benjamin Keng", value= data.card_name) }}
-                                    {% endif %} -->
                                     <label for="ccnum">Credit card number       <i class="fa fa-cc-visa" style="color:rgb(255, 255, 255); font-size:1.5em;"></i>       <i class="fa fa-cc-mastercard" style="color:rgb(255, 255, 255);font-size:1.5em;"></i></label>
                                  
                                     
@@ -57,7 +61,7 @@
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                        {{ form.cardno(placeholder="4111222233334444", value=data.cardno, class="fixed") }}
+                                        {{ form.cardno(placeholder="4111222233334444", class="fixed") }}
                                     {% endif %}
                                     <label for="cname">Name on Card</label>
                                     {% if form.name.errors %}
@@ -68,7 +72,7 @@
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                        {{ form.name(placeholder="Benjamin Keng", value= data.card_name) }}
+                                        {{ form.name(placeholder="Benjamin Keng") }}
                                     {% endif %}
 
                                     <div class="rowRegister">
@@ -83,7 +87,7 @@
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                        {{ form.exp(placeholder="9", value=data.exp) }}
+                                        {{ form.exp(placeholder="9") }}
                                     {% endif %}
 
                                 </div>
@@ -99,7 +103,7 @@
                                                 {% endfor %}
                                             </div>
                                         {% else %}
-                                            {{ form.year(placeholder="2021", value=data.year) }}
+                                            {{ form.year(placeholder="2021") }}
                                         {% endif %}
                                         </div>
                                         

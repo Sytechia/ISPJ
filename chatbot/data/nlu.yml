@@ -1435,3 +1435,92 @@ nlu:
     - where should i contact the customer service hotline
     - where can i contact the customer service hotline
 
+- intent: not_home
+  examples: |
+    - what if I’m not home
+    - what if I’m not home to collect the order
+    - what if I’m not home to collect the package
+    - what if I’m not home to collect the items
+    - what if I’m not home to collect the products
+    - what if I’m not home to collect the delivery
+    - what if I’m not home when the item arrives
+    - what if I’m not home when the package arrives
+    - what if I’m not home when the order arrives
+    - what if I’m not home when the product arrives
+    - what if I’m not home when the delivery arrives
+    - what if no one is in the house 
+    - what if no one is at home 
+    - what if no one is present at home 
+    - what if no one is in the house to receive the package
+    - what if no one is in the house to receive the order
+    - what if no one is in the house to receive the items
+    - what if no one is in the house to receive the products
+    - what if no one is in the house to receive the delivery
+    - what if no one is in the house to collect the package
+    - what if no one is in the house to collect the items
+    - what if no one is in the house to collect the products
+    - what if no one is in the house to collect the order
+    - what if no one is in the house to collect the delivery
+    - what if no one is home at the time of delivery
+    - what if no one is home when the delivery arrives
+    - Upon arrival of the package, what if nobody is at home to collect it
+    - Upon arrival of the delivery, what if nobody is at home to collect it
+    - Upon arrival of the items, what if nobody is at home to collect it
+    - Upon arrival of the products, what if nobody is at home to collect it
+    - Upon arrival of the order, what if nobody is at home to collect it
+    - Upon arrival of the package, what if nobody is at home to receive it
+    - Upon arrival of the delivery, what if nobody is at home to receive it
+    - Upon arrival of the items, what if nobody is at home to receive it
+    - Upon arrival of the products, what if nobody is at home to receive it
+    - Upon arrival of the order, what if nobody is at home to receive it
+    - Upon arrival of the package, what if no one is at home to collect it
+    - Upon arrival of the delivery, what if no one is at home to collect it
+    - Upon arrival of the items, what if no one is at home to collect it
+    - Upon arrival of the products, what if no one is at home to collect it
+    - Upon arrival of the order, what if no one is at home to collect it
+    - Upon arrival of the package, what if no one is at home to receive it
+    - Upon arrival of the delivery, what if no one is at home to receive it
+    - Upon arrival of the items, what if no one is at home to receive it
+    - Upon arrival of the products, what if no one is at home to receive it
+    - Upon arrival of the order, what if no one is at home to receive it
+    - what if no one is in the house to take the package
+    - what if no one is in the house to take the items
+    - what if no one is in the house to take the orders
+    - what if no one is in the house to take the products
+    - what if no one is in the house to take the delivery
+    - what should i do if I’m not home
+    - what should i do if I’m not home to collect the order
+    - what should i do if I’m not home to collect the package
+    - what should i do if I’m not home to collect the items
+    - what should i do if I’m not home to collect the products
+    - what should i do if I’m not home to collect the delivery
+    - what should i do if I’m not home when the item arrives
+    - what should i do if I’m not home when the package arrives
+    - what should i do if I’m not home when the order arrives
+    - what should i do if I’m not home when the product arrives
+    - what should i do if I’m not home when the delivery arrives
+    - what should i do if no one is in the house 
+    - what should i do if no one is at home 
+    - what should i do if no one is present at home
+    - what should i do if no one is present at home to collect the package
+    - what should i do if no one is present at home to collect the item
+    - what should i do if no one is present at home to collect the products
+    - what should i do if no one is present at home to collect the parcel
+    - what should i do if no one is present at home to collect the order
+    - what should i do if no one is present at home to collect the delivery
+    - what should i do if no one is in the house to receive the package
+    - what should i do if no one is in the house to receive the order
+    - what should i do if no one is in the house to receive the items
+    - what should i do if no one is in the house to receive the products
+    - what should i do if no one is in the house to receive the delivery
+    - what should i do if no one is in the house to collect the package
+    - what should i do if no one is in the house to collect the items
+    - what should i do if no one is in the house to collect the products
+    - what should i do if no one is in the house to collect the order
+    - what should i do if no one is in the house to collect the delivery
+    - what should i do if no one is home at the time of delivery
+    - what should i do if no one is home when the delivery arrives
+
+# - intent: ship_where
+#   examples: |
+#     - 

@@ -17,15 +17,18 @@
 <div class="row">
   <div class="col-2 panel">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link sideTab active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-      <a class="nav-link sideTab " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-      <a class="nav-link sideTab" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-      <a class="nav-link sideTab" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+      <a class="nav-link sideTab active" id="v-pills-shipping-tab" data-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="true">Shipping</a>
+      <a class="nav-link sideTab " id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="false">Orders</a>
+      <a class="nav-link sideTab " id="v-pills-payment-tab" data-toggle="pill" href="#v-pills-payment" role="tab" aria-controls="v-pills-payment" aria-selected="false">Payment</a>
+      <a class="nav-link sideTab " id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="false">Account</a>
+      <a class="nav-link sideTab" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-contact" aria-selected="false">Contact Us</a>
+      <a class="nav-link sideTab" id="v-pills-refund-tab" data-toggle="pill" href="#v-pills-refund" role="tab" aria-controls="v-pills-refund" aria-selected="false">Refund / Returns</a>
+      <a class="nav-link sideTab" id="v-pills-others-tab" data-toggle="pill" href="#v-pills-others" role="tab" aria-controls="v-pills-others" aria-selected="false">Others</a>
     </div>
   </div>
   <div class="col-9">
     <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping">
         <div class="faq-header">
           <!-- <h3 class="faq-title">FAQ's</h3>
           <div class="seperator"></div> -->
@@ -33,45 +36,345 @@
           <div class="faq-list">
             <div>
               <details open>
-                <summary title="How can I pay for my appointment?">How can I pay for my appointment? 1</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo quod debitis ducimus iste soluta rerum ipsa consequuntur minus quae. Ea minus ex corporis, pariatur quia rerum sequi iusto odit enim expedita fugiat, assumenda molestiae earum iste blanditiis, ipsum ratione.</p>
+                <summary title="How long will it take for my order to arrive after I make payment?">How long will it take for my order to arrive after I make payment?</summary>
+                <p class="faq-content">
+                  Members who ship their orders within Singapore should expect to receive their orders within five (5) to ten (10) working days upon payment verification depending on the volume of orders received.
+                  <br><br>
+                  If you experience delays in receiving your order, contact us immediately at (+65) 68991082 and we will help to confirm the status of your order.
+                </p>
               </details>
               </div>
             <div>
               <details>
-                <summary title="What can I expect at my first consultation?">What can I expect at my first consultation?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, molestias similique! Molestiae sapiente omnis, illo facere odit reprehenderit eveniet consequuntur sit minus adipisci temporibus eius inventore quidem. Dignissimos, facere quae. Rem quas a laborum est officia pariatur voluptatum iusto perferendis aut labore fugit magni inventore nulla architecto, velit, facilis itaque.</p>
+                <summary title="What if I'm not home?">What if I'm not home?</summary>
+                <p class="faq-content">
+                  If no one is at the address when delivery is attempted, we will leave the package in a secure location. We'll make three delivery attempts on consecutive days. If the third delivery attempt is unsuccessful your package will be returned to IDEA for a refund.
+                </p>
               </details>
               </div>
             <div>
               <details>
-                <summary title="What are your opening hours?">What are your opening hours?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos error ea accusantium? Sunt cum in, repudiandae et facere at nesciunt commodi non quia earum libero aliquid labore obcaecati repellendus consequatur! Nesciunt impedit ducimus illum unde optio veritatis atque facere, voluptate a odio asperiores laudantium rerum.</p>
+                <summary title="How much is the shipping fee?">How much is the shipping fee?</summary>
+                <p class="faq-content">
+                  <img src="../static/img/faq/ship.png" alt="Shipping information" width="800px">
+                </p>
               </details>
               </div>
             <div>
               <details>
-                <summary title="Do I need a referral?">Do I need a referral?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
+                <summary title="How do you ship my orders?">How do you ship my orders?</summary>
+                <p class="faq-content">
+                  All your orders are sent via Singapore Post Limited (SingPost).
+                </p>
               </details>
               </div>
             <div>
               <details>
-                <summary title="Is the cost of the appointment covered by private health insurance?">Is the cost of the appointment covered by private health insurance?</summary>
-                <p class="faq-content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo quos quam asperiores enim sequi nihil? Iure blanditiis autem in ratione rerum, sequi cupiditate eos nemo iusto unde eaque voluptatum alias, porro aliquid sunt. Nesciunt veritatis, ex esse tempora laudantium officiis? Quas corrupti a aut sed quaerat, ipsa incidunt tempora velit dolor distinctio repellat tenetur illum consectetur quos veniam eius provident earum doloremque commodi! Minus amet, obcaecati rem, modi accusantium ad, deleniti possimus incidunt laudantium vitae iusto laborum culpa! Similique, repellat.</p>
+                <summary title="Where do you ship?">Where do you ship?</summary>
+                <p class="faq-content">
+                  We only ship within Singapore
+                </p>
               </details>
               </div>
               <div>
                   <details>
-                      <summary title="What are the parking and public transport options?">What are the parking and public transport options?</summary>
-                      <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
+                      <summary title="How long does it take to ship my order?">How long does it take to ship my order?</summary>
+                      <p class="faq-content">
+                        Once we receive an order, we expect it to ship out one business day later barring any unforeseen issues.  If your order is placed over the weekend, this means if standard delivery is selected, we expect that package to ship out no later than Tuesday. 
+                      </p>
                   </details>
               </div>
           </div>
         </div>
       </div>
 
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" style="display: none;">
+      <div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders" style="display: none;">
+        <div class="faq-header">
+          <!-- <h3 class="faq-title">FAQ's</h3>
+          <div class="seperator"></div> -->
+          <!-- 1st tab-->
+          <div class="faq-list">
+            <div>
+              <details open>
+                <summary title="How can I track my orders & payment?">How can I track my orders & payment?</summary>
+                <p class="faq-content">
+                  After logging into your account, the status of your orders and order history can be found under the ‘My Orders’ tab in the Account page.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="Can I cancel / change my order?">Can I cancel / change my order?</summary>
+                <p class="faq-content">
+                  Buyers can only request for cancellation once for every order. As such, once your request is rejected or withdrawn, you would not be able to submit another cancellation request for the same order. Buyers are not allowed to change their orders after payment.
+                  <br><br>
+                  Buyers may cancel their order under the ‘My Orders’ tab in the Account page. Once you have requested for Order cancellation, the order will be automatically cancelled by the system and you will be refunded within 7 to 14 working days.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What if my product is out of stock?">What if my product is out of stock?</summary>
+                <p class="faq-content">
+                  If you have questions about your order status, please call IDEA Customer Care at +65 3159 3099.
+                </p>
+              </details>
+              </div>
+          
+             
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment" style="display: none;">
+        <div class="faq-header">
+          <!-- <h3 class="faq-title">FAQ's</h3>
+          <div class="seperator"></div> -->
+          <!-- 1st tab-->
+          <div class="faq-list">
+            <div>
+              <details open>
+                <summary title="How do I make payments using PayPal? How does it work?">How do I make payments using PayPal? How does it work?</summary>
+                <p class="faq-content">
+                  PayPal is the easiest way to make payments online. While checking out your order, you can choose to pay via PayPal, you will then be redirected to the PayPal website. 
+                  <br><br>
+                  Be sure to fill in correct details for fast & hassle-free payment processing. After a successful PayPal payment, your order information will be automatically generated to Idea.com system for your order.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What are the payment methods available?">What are the payment methods available?</summary>
+                <p class="faq-content">
+                  We accept payment via Visa, Mastercard or Paypal.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="Which currency will I be charged in?">Which currency will I be charged in?</summary>
+                <p class="faq-content">
+                  All prices listed on our website and billing charges are processed in Singapore Dollars (SGD).
+                </p>
+              </details>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account" style="display: none;">
+        <div class="faq-header">
+          <!-- <h3 class="faq-title">FAQ's</h3>
+          <div class="seperator"></div> -->
+          <!-- 1st tab-->
+          <div class="faq-list">
+            <div>
+              <details open>
+                <summary title="How do I reactivate my account?">How do I reactivate my account?</summary>
+                <p class="faq-content">
+                  If you have disabled your account previously and want to reactivate your account, simply go to the login page and input your login credentials. You will be redirected to a page that allows you to restore your account. Just type in your email and password to reactivate your account.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="How can I change my shipping address?">How can I change my shipping address?</summary>
+                <p class="faq-content">
+                  You can change your shipping address under the My Addresses tab in the Account page. You may also choose to add multiple shipping addresses. 
+                  <br><br>
+                  By default, the last address added will be used during the checkout process. However, you may choose which address you would want to set as your default by clicking on the ‘Set as default address’ button.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="How can I change my credit card details?">How can I change my credit card details?</summary>
+                <p class="faq-content">
+                  You can update your credit card details under the My Wallet tab in the Account page. You may also choose to add credit cards. 
+                  <br><br>
+                  By default, the last credit card added will be used during the checkout process. However, you may choose which credit card you would want to set as your default by clicking on the ‘Set as Default Card’ button.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="How can I recover a forgotten password?">How can I recover a forgotten password?</summary>
+                <p class="faq-content">
+                  If you have forgotten your password, you can recover it by clicking on ‘Forgot password’ at the login page. You will receive an e-mail with a link to enter and confirm your new password. 
+                  <br><br>
+                  Your password must be alphanumeric with a minimum of 8 characters including at least 2 uppercase letters, 2 numbers and 2 special characters.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What should I do if I am not able to change the password?">What should I do if I am not able to change the password?</summary>
+                <p class="faq-content">
+                  Make sure that the password contains at least 8 characters including at least 2 uppercase letters, 2 numbers and 2 special characters. You are also not allowed to reuse any of your previous 5 passwords that you have used before.
+                </p>
+              </details>
+              </div>
+             
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact" style="display: none;">
+        <div class="faq-header">
+          <!-- <h3 class="faq-title">FAQ's</h3>
+          <div class="seperator"></div> -->
+          <!-- 1st tab-->
+          <div class="faq-list">
+            <div>
+              <details open>
+                <summary title="How can I contact the customer service department?">How can I contact the customer service department?</summary>
+                <p class="faq-content">
+                  You can share any queries or comments by calling +65 3159 3099 or by emailing us at help@idea.com.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="Do you have physical stores?">Do you have physical stores?</summary>
+                <p class="faq-content">
+                  Store Address: 545 Orchard Road, Far East Shopping Centre #05-11, Singapore 238882. 
+                  <br><br>
+                  Opened from 12PM to 8PM daily.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="Customer service contact hours">Customer service contact hours</summary>
+                <p class="faq-content">
+                  Monday – 08:00AM to 09:00PM
+                  <br><br>
+                  Tuesday – 08:00AM to 09:00PM
+                  <br><br>
+                  Wednesday – 08:00AM to 09:00PM
+                  <br><br>
+                  Thursday – 08:00AM to 09:00PM
+                  <br><br>
+                  Friday – 08:00AM to 09:00PM
+                  <br><br>
+                  Saturday – 09:00AM to 07:00PM
+                  <br><br>
+                  Sunday – Closed
+                </p>
+              </details>
+              </div>
+          
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-refund" role="tabpanel" aria-labelledby="v-pills-home-refund" style="display: none;">
+        <div class="faq-header">
+          <!-- <h3 class="faq-title">FAQ's</h3>
+          <div class="seperator"></div> -->
+          <!-- 1st tab-->
+          <div class="faq-list">
+            <div>
+              <details open>
+                <summary title="What should I do if I receive a faulty / damaged item? ">What should I do if I receive a faulty / damaged item? </summary>
+                <p class="faq-content">
+                  In the event of damaged products received, we will require photo proof of the affected products and your D.O (Delivery Order) in order for us to investigate and review before a decision is made to re-send the product to you at no cost, subject to availability.
+                  <br><br>
+                  Affected products should not be thrown away before taking photo proof and emailing the photo of the affected product and your D.O (Delivery Order) to us at help@idea.com (if applicable). We take such matters very seriously and will investigate individual cases thoroughly.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What should I do if my delivery is lost?">What should I do if my delivery is lost?</summary>
+                <p class="faq-content">
+                  In the event of lost or delayed mail, we will try to locate the delivery team in Singpost and if there is a clear indication that your order is indeed lost, we'll re-send the order to you at no cost, subject to availability.
+                  <br><br>
+                  Please email us your D.O (Delivery Order) at help@idea.com. We take such matters very seriously and will look into individual cases thoroughly.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What if the products I have received is unsatisfactory?">What if the products I have received is unsatisfactory?</summary>
+                <p class="faq-content">
+                  In the event that the products you've received is unsatisfactory in any way you perceive, we will require photo proof of the product and your D.O (Delivery Order) as well and you may be required to send us back the product for close inspection and review before a decision is made to re-send the product to you at no cost, subject to availability. The postage cost will be credited back to your account after we receive the returned item. 
+                  <br><br>
+                  Affected products should not be thrown away before taking photo proof and emailing the photo of the affected product and your D.O (Delivery Order) to us at help@idea.com (if applicable). We take such matters very seriously and will investigate individual cases thoroughly.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What if I received the wrong products?">What if I received the wrong products?</summary>
+                <p class="faq-content">
+                  In the event that you've received the wrong products, we will require photo proof of the wrongly sent products and D.O (Delivery Order) and after reviewing, we'll re-send the correct products to you at no cost, subject to availability.
+                  <br><br>
+                  Affected products should not be thrown away before taking photo proof and emailing the photo of the affected product and your D.O (Delivery Order) to us at help@idea.com (if applicable). We take such matters very seriously and will investigate individual cases thoroughly.
+                </p>
+              </details>
+              </div>
+            <div>
+              <details>
+                <summary title="What if I received my order with missing products?">What if I received my order with missing products?</summary>
+                <p class="faq-content">
+                  In the event you have received your order with missing product(s), we will require you to email us a clear photo proof of your D.O (Delivery Order) to help@idea.com and after which, kindly give us a call at +65 3159 3099 and our customer service officer will attend to you to find out more before a decision is made to re-send the missing product to you at no cost, subject to availability.
+                  <br><br>
+                  We take such matters very seriously and will investigate individual cases thoroughly.
+                </p>
+              </details>
+              </div>
+              <div>
+                  <details>
+                      <summary title="What is your return policy?">What is your return policy?</summary>
+                      <p class="faq-content">
+                        IDEA products may be returned within 90 days of the purchase date, provided you retain all packing materials, the product is in 100% resalable condition, and you have your original proof of purchase.
+                      </p>
+                  </details>
+              </div>
+
+              <div>
+                <details>
+                    <summary title="How much does returns cost?">How much does returns cost?</summary>
+                    <p class="faq-content">
+                      Return costs is completely free.
+                    </p>
+                </details>
+            </div>
+
+            <div>
+              <details>
+                  <summary title="What is IDEA’s refund policy?">What is IDEA’s refund policy?</summary>
+                  <p class="faq-content">
+                    Refund is automatically processed once cancellation has been successfully processed.
+                  </p>
+              </details>
+          </div>
+
+          <div>
+            <details>
+                <summary title="How long is the refund process?">How long is the refund process?</summary>
+                <p class="faq-content">
+                  Our refund will generally take 5-10 business days to reflect on your bank statement.
+                </p>
+            </details>
+        </div>
+
+        <div>
+          <details>
+              <summary title="How can I check the refund status?">How can I check the refund status?</summary>
+              <p class="faq-content">
+                Go to Account > My Orders.
+              </p>
+          </details>
+      </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-others" role="tabpanel" aria-labelledby="v-pills-others" style="display: none;">
         <!-- 2nd tab-->
         <div class="faq-header">
           <!-- <h3 class="faq-title">FAQ's</h3>
@@ -79,136 +382,32 @@
           <div class="faq-list">
             <div>
               <details open>
-                <summary title="How can I pay for my appointment?">How can I pay for my appointment? 2</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo quod debitis ducimus iste soluta rerum ipsa consequuntur minus quae. Ea minus ex corporis, pariatur quia rerum sequi iusto odit enim expedita fugiat, assumenda molestiae earum iste blanditiis, ipsum ratione.</p>
+                <summary title="Am I using the right browser?">Am I using the right browser?</summary>
+                <p class="faq-content">
+                  As Idea Store uses some of the latest graphics designs which may not be supported in lower version of browsers, it is recommended that you use the following browsers to access Idea Store:
+                  <br><br>
+                  1. Microsoft Internet Explorer Version 10 onwards.
+                  <br>
+                  <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download the latest Microsoft Internet Explorer</a>
+                  <br><br>
+                  2. Mozilla Firefox Version 10 onwards.
+                  <br>
+                  <a href="https://www.mozilla.org/en-US/firefox/new/">Download the latest Mozilla Firefox</a>
+                  <br><br>
+                  3. Google Chrome Version 12 onwards.
+                  <br>
+                  <a href="https://www.google.com/chrome/browser/desktop/">Download the latest Google Chrome</a>
+                  <br><br>
+                  In addition, please ensure that your Javascript and Cookie is enabled on your browser.
+                </p>
               </details>
               </div>
-            <div>
-              <details>
-                <summary title="What can I expect at my first consultation?">What can I expect at my first consultation?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, molestias similique! Molestiae sapiente omnis, illo facere odit reprehenderit eveniet consequuntur sit minus adipisci temporibus eius inventore quidem. Dignissimos, facere quae. Rem quas a laborum est officia pariatur voluptatum iusto perferendis aut labore fugit magni inventore nulla architecto, velit, facilis itaque.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="What are your opening hours?">What are your opening hours?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos error ea accusantium? Sunt cum in, repudiandae et facere at nesciunt commodi non quia earum libero aliquid labore obcaecati repellendus consequatur! Nesciunt impedit ducimus illum unde optio veritatis atque facere, voluptate a odio asperiores laudantium rerum.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="Do I need a referral?">Do I need a referral?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="Is the cost of the appointment covered by private health insurance?">Is the cost of the appointment covered by private health insurance?</summary>
-                <p class="faq-content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo quos quam asperiores enim sequi nihil? Iure blanditiis autem in ratione rerum, sequi cupiditate eos nemo iusto unde eaque voluptatum alias, porro aliquid sunt. Nesciunt veritatis, ex esse tempora laudantium officiis? Quas corrupti a aut sed quaerat, ipsa incidunt tempora velit dolor distinctio repellat tenetur illum consectetur quos veniam eius provident earum doloremque commodi! Minus amet, obcaecati rem, modi accusantium ad, deleniti possimus incidunt laudantium vitae iusto laborum culpa! Similique, repellat.</p>
-              </details>
-              </div>
-              <div>
-                  <details>
-                      <summary title="What are the parking and public transport options?">What are the parking and public transport options?</summary>
-                      <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
-                  </details>
-              </div>
+           
           </div>
         </div>
       </div>
       </div>
-      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" style="display: none;">
-        <!-- 3rd tab-->
-        <div class="faq-header">
-          <!-- <h3 class="faq-title">FAQ's</h3>
-          <div class="seperator"></div> -->
-          <div class="faq-list">
-            <div>
-              <details open>
-                <summary title="How can I pay for my appointment?">How can I pay for my appointment? 3</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo quod debitis ducimus iste soluta rerum ipsa consequuntur minus quae. Ea minus ex corporis, pariatur quia rerum sequi iusto odit enim expedita fugiat, assumenda molestiae earum iste blanditiis, ipsum ratione.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="What can I expect at my first consultation?">What can I expect at my first consultation?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, molestias similique! Molestiae sapiente omnis, illo facere odit reprehenderit eveniet consequuntur sit minus adipisci temporibus eius inventore quidem. Dignissimos, facere quae. Rem quas a laborum est officia pariatur voluptatum iusto perferendis aut labore fugit magni inventore nulla architecto, velit, facilis itaque.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="What are your opening hours?">What are your opening hours?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos error ea accusantium? Sunt cum in, repudiandae et facere at nesciunt commodi non quia earum libero aliquid labore obcaecati repellendus consequatur! Nesciunt impedit ducimus illum unde optio veritatis atque facere, voluptate a odio asperiores laudantium rerum.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="Do I need a referral?">Do I need a referral?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="Is the cost of the appointment covered by private health insurance?">Is the cost of the appointment covered by private health insurance?</summary>
-                <p class="faq-content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo quos quam asperiores enim sequi nihil? Iure blanditiis autem in ratione rerum, sequi cupiditate eos nemo iusto unde eaque voluptatum alias, porro aliquid sunt. Nesciunt veritatis, ex esse tempora laudantium officiis? Quas corrupti a aut sed quaerat, ipsa incidunt tempora velit dolor distinctio repellat tenetur illum consectetur quos veniam eius provident earum doloremque commodi! Minus amet, obcaecati rem, modi accusantium ad, deleniti possimus incidunt laudantium vitae iusto laborum culpa! Similique, repellat.</p>
-              </details>
-              </div>
-              <div>
-                  <details>
-                      <summary title="What are the parking and public transport options?">What are the parking and public transport options?</summary>
-                      <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
-                  </details>
-              </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" style="display: none;">
-        <!-- 4th tab-->
-        <div class="faq-header">
-          <!-- <h3 class="faq-title">FAQ's</h3>
-          <div class="seperator"></div> -->
-          <div class="faq-list">
-            <div>
-              <details open>
-                <summary title="How can I pay for my appointment?">How can I pay for my appointment? 4</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo quod debitis ducimus iste soluta rerum ipsa consequuntur minus quae. Ea minus ex corporis, pariatur quia rerum sequi iusto odit enim expedita fugiat, assumenda molestiae earum iste blanditiis, ipsum ratione.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="What can I expect at my first consultation?">What can I expect at my first consultation?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, molestias similique! Molestiae sapiente omnis, illo facere odit reprehenderit eveniet consequuntur sit minus adipisci temporibus eius inventore quidem. Dignissimos, facere quae. Rem quas a laborum est officia pariatur voluptatum iusto perferendis aut labore fugit magni inventore nulla architecto, velit, facilis itaque.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="What are your opening hours?">What are your opening hours?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos error ea accusantium? Sunt cum in, repudiandae et facere at nesciunt commodi non quia earum libero aliquid labore obcaecati repellendus consequatur! Nesciunt impedit ducimus illum unde optio veritatis atque facere, voluptate a odio asperiores laudantium rerum.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="Do I need a referral?">Do I need a referral?</summary>
-                <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
-              </details>
-              </div>
-            <div>
-              <details>
-                <summary title="Is the cost of the appointment covered by private health insurance?">Is the cost of the appointment covered by private health insurance?</summary>
-                <p class="faq-content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo quos quam asperiores enim sequi nihil? Iure blanditiis autem in ratione rerum, sequi cupiditate eos nemo iusto unde eaque voluptatum alias, porro aliquid sunt. Nesciunt veritatis, ex esse tempora laudantium officiis? Quas corrupti a aut sed quaerat, ipsa incidunt tempora velit dolor distinctio repellat tenetur illum consectetur quos veniam eius provident earum doloremque commodi! Minus amet, obcaecati rem, modi accusantium ad, deleniti possimus incidunt laudantium vitae iusto laborum culpa! Similique, repellat.</p>
-              </details>
-              </div>
-              <div>
-                  <details>
-                      <summary title="What are the parking and public transport options?">What are the parking and public transport options?</summary>
-                      <p class="faq-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam numquam labore explicabo cupiditate laboriosam. Ipsam explicabo possimus illum aspernatur.</p>
-                  </details>
-              </div>
-          </div>
-        </div>
-
-      </div>
+     
     </div>
   </div>
 </div>

@@ -31,7 +31,7 @@ def query(query, *args):
         result = []
     return result
 
-result = query("SELECT case_id FROM contact_us_records")
+result = query("SELECT * FROM card_info")
 print(result)
 
 def constructAndExecuteQuery(query, *args):
@@ -85,9 +85,9 @@ import datetime
 #     print(row)
 # cursor.execute("DELETE FROM prev_transactions")
 # conn.commit()
-cursor.execute("SELECT * FROM Addresses")
-for row in cursor.fetchall():
-    print(row)
+# cursor.execute("SELECT * FROM Addresses")
+# for row in cursor.fetchall():
+#     print(row)
 
 
 # items = '[("Hades",22,1,"https://upload.wikimedia.org/wikipedia/en/c/cc/Hades_cover_art.jpg"), ("GTA V",41,2,"https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Grand_Theft_Auto_V.png/220px-Grand_Theft_Auto_V.png"), ("Phasmophobia",14,3,"https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Phasmophobia_VG.jpg/330px-Phasmophobia_VG.jpg")]'

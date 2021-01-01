@@ -238,7 +238,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route('/registerStep2', methods=['GET', 'POST'])
+@app.route('/addAddress', methods=['GET', 'POST'])
 def registerStep2():
     form = Billing()
     existing = AddressInfo.query.filter_by(user_id=current_user.id)
@@ -269,7 +269,11 @@ def registerStep2():
             return redirect(url_for('myAccount'))
         else:
             flash('Address already added! Please add a different address', 'danger')
-    return render_template('registerStep2.html', form = form, data=[])
+    return render_template('addAddress.html', form = form, data=[])
+
+@app.route('/addAddress')
+def addAddress():
+    pass
 
 @app.route('/editAddress', methods=['GET', 'POST'])
 def editBilling():
@@ -306,137 +310,110 @@ def editBilling():
             return render_template('editAddress.html', form=form, data = addressinfo)
     return render_template('editAddress.html', form=form, data = data)
     
-@app.route('/editCardInfo', methods=['GET', 'POST'])
-def editCardInfo():
-    cardno1 = request.args.get('card')
-    id = request.args.get('id')
-    cards = CardInfo.query.all()
-    for i in cards:
-        cardnum = cipher_suite.decrypt(i.cardno)
-        cardn = str(cardnum)
-        cardnss = cardn[1:]
-        cardns = cardnss[1:-1]
-        iteration = i
-        if cardns == cardno1:
-            card_name = i.card_name
-            exp = i.exp
-            year = i.year
-            cardo = {'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year}
-            break 
-    form = UpdateCard()
-    if form.validate_on_submit():
-        cardno = form.cardno.data
-        print(cardno)
-        for i in cards:
-            cardnum = cipher_suite.decrypt(i.cardno)
-            cardn = str(cardnum)
-            cardnss = cardn[1:]
-            cardns = cardnss[1:-1]
-            print(cardns)
-            if cardns == cardno:
-                cardnsss = cardns
-                iteration = i
-                card_name = i.card_name
-                exp = i.exp
-                year = i.year
-                card = {'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year}
-                print(card)
-                break
-            else:
-                cardnsss = None
-                card = cardo
-        print(cardnss)
-        print(id)
-        if card['id'] == int(id) and card['cardno'] == cardnsss:
-            print('editing orginal card')
-            iteration.card_name = form.name.data
-            d = bytes(form.cardno.data, encoding='utf8')
-            encoded_text = cipher_suite.encrypt(d)
-            iteration.cardno = encoded_text
-            iteration.exp = form.exp.data
-            iteration.year =  form.year.data
-            if cardno[0] == '5':
-                iteration.card_type = "master"
-                print('master')
-            elif cardno[0] == '4':
-                iteration.card_type = "visa"
-            db.session.commit()
-            return redirect(url_for('myAccount'))
-        elif card['cardno'] == cardnsss and card['id'] != int(id):
-            print('error')
-            flash('Card number already exist! Please add a different card', 'danger')
-            return render_template('editCard.html', form=form, data = cardo)
-        else:
-            iteration.card_name = form.name.data
-            d = bytes(form.cardno.data, encoding='utf8')
-            encoded_text = cipher_suite.encrypt(d)
-            iteration.cardno = encoded_text
-            iteration.exp = form.exp.data
-            iteration.year = form.year.data
-            if cardno[0] == '5':
-                iteration.card_type = "master"
-            else:
-                iteration.card_type = "visa"
-            db.session.commit()
-            return redirect(url_for('myAccount'))
-    return render_template('editCard.html', form=form, data = cardo)
+# @app.route('/editCardInfo', methods=['GET', 'POST'])
+# def editCardInfo():
+#     cardno1 = request.args.get('card')
+#     id = request.args.get('id')
+#     cards = CardInfo.query.all()
+#     for i in cards:
+#         cardnum = cipher_suite.decrypt(i.cardno)
+#         cardn = str(cardnum)
+#         cardnss = cardn[1:]
+#         cardns = cardnss[1:-1]
+#         iteration = i
+#         if cardns == cardno1:
+#             card_name = i.card_name
+#             exp = i.exp
+#             year = i.year
+#             cardo = {'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year}
+#             break 
+#     form = UpdateCard()
+#     if form.validate_on_submit():
+#         cardno = form.cardno.data
+#         print(cardno)
+#         for i in cards:
+#             cardnum = cipher_suite.decrypt(i.cardno)
+#             cardn = str(cardnum)
+#             cardnss = cardn[1:]
+#             cardns = cardnss[1:-1]
+#             print(cardns)
+#             if cardns == cardno:
+#                 cardnsss = cardns
+#                 iteration = i
+#                 card_name = i.card_name
+#                 exp = i.exp
+#                 year = i.year
+#                 card = {'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year}
+#                 print(card)
+#                 break
+#             else:
+#                 cardnsss = None
+#                 card = cardo
+#         print(cardnss)
+#         print(id)
+#         if card['id'] == int(id) and card['cardno'] == cardnsss:
+#             print('editing orginal card')
+#             iteration.card_name = form.name.data
+#             d = bytes(form.cardno.data, encoding='utf8')
+#             encoded_text = cipher_suite.encrypt(d)
+#             iteration.cardno = encoded_text
+#             iteration.exp = form.exp.data
+#             iteration.year =  form.year.data
+#             if cardno[0] == '5':
+#                 iteration.card_type = "master"
+#                 print('master')
+#             elif cardno[0] == '4':
+#                 iteration.card_type = "visa"
+#             db.session.commit()
+#             return redirect(url_for('myAccount'))
+#         elif card['cardno'] == cardnsss and card['id'] != int(id):
+#             print('error')
+#             flash('Card number already exist! Please add a different card', 'danger')
+#             return render_template('editCard.html', form=form, data = cardo)
+#         else:
+#             iteration.card_name = form.name.data
+#             d = bytes(form.cardno.data, encoding='utf8')
+#             encoded_text = cipher_suite.encrypt(d)
+#             iteration.cardno = encoded_text
+#             iteration.exp = form.exp.data
+#             iteration.year = form.year.data
+#             if cardno[0] == '5':
+#                 iteration.card_type = "master"
+#             else:
+#                 iteration.card_type = "visa"
+#             db.session.commit()
+#             return redirect(url_for('myAccount'))
+#     return render_template('editCard.html', form=form, data = cardo)
 
-@app.route('/registerStep3', methods=['GET', 'POST'])
-def registerStep3():
+@app.route('/editCard', methods=['GET', 'POST'])
+def editCard():
+    pass
+
+
+@app.route('/addCard', methods=['GET','POST'])
+def addCard():
     form = PaymentInfo()
     if form.validate_on_submit():
-        msg = form.cardno.data
-        cards = CardInfo.query.all()
-        for i in cards:
-            cardnum = cipher_suite.decrypt(i.cardno)
-            cardn = str(cardnum)
-            cardnss = cardn[1:]
-            cardns = cardnss[1:-1]
-            iteration = i
-            print(cardns, iteration)
-            if cardns == msg:
-                flash('Card number already exist! Please add a different card', 'danger')
-                return render_template('registerStep3.html', form = form, data = None)
+        card_name = form.name.data
+        card_no = form.cardno.data
+        card_type = 'VISA' if card_no[0] == '4' else 'MASTERCARD'
+        card_exp = form.exp.data 
+        card_year = form.year.data
+        exisiting_card_no = query('SELECT card_no FROM card_info WHERE card_no=?', card_no)
+        all_card_list = query('SELECT * FROM card_info')
+        print(all_card_list)
+        print(exisiting_card_no)
+        if exisiting_card_no == []:
+            cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',int(session['user_id']))
+            for i in cardlist:
+                constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
+            constructAndExecuteQuery('INSERT INTO card_info VALUES(?,?,?,?,?,?,?,?)', int(all_card_list[-1][0])+1, card_name,card_no,card_type,card_exp,card_year,int(session['user_id']),'True')
+            return redirect(url_for('myAccount'))
         else:
-            card_no = form.cardno.data
-            if card_no[0] == '5':
-                card_type = "master"
-            elif card_no[0] == "4":
-                card_type = "visa"
-            cardnses = CardInfo.query.filter_by(user_id=current_user.id)
-            for i in cardnses: 
-                i.default = 'False'
-            msg = form.cardno.data
-            cards = CardInfo.query.all()
-            for i in cards:
-                cardnum = cipher_suite.decrypt(i.cardno)
-                cardn = str(cardnum)
-                cardnss = cardn[1:]
-                cardns = cardnss[1:-1]
-                iteration = i
-                if cardns == msg:
-                    return render_template('registerStep3.html', form = form, data = None)
-            else:
-                print(current_user.id)
-                cardnses = CardInfo.query.filter_by(user_id=current_user.id)
-                print(cardnses)
-                if str(cardnses).find('SELECT') != None:
-                    cardns = []
-                card_no = form.cardno.data
-                if card_no[0] == '5':
-                    card_type = "master"
-                else:
-                    card_type = "visa"
-                for i in cardnses: 
-                    i.default = 'False'
-                msg = form.cardno.data
-                d = bytes(msg, encoding='utf8')
-                encoded_text = cipher_suite.encrypt(d)
-                cardinfo = CardInfo(card_name=form.name.data, cardno=encoded_text, exp=form.exp.data, year=form.year.data, user_id = current_user.id, card_type = card_type, default='True')
-                db.session.add(cardinfo)
-                db.session.commit()
-                return redirect(url_for('myAccount'))
-    return render_template('registerStep3.html', form = form, data = None)
+            flash('Card number already exist! Please add a different card', 'danger')
+            return render_template('addCard.html', form = form)
+    else:
+        return render_template('addCard.html', form = form)
 
 lock_timer = 0
 def task():
@@ -697,13 +674,11 @@ def myAccount():
         else:
             user_id = session['user_id']
             print(user_id)
-            user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))
-            while user == []:
-                user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))
+            user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
             print(user)
-            card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', int(user_id))
-            address_info = query('SELECT * from Addresses WHERE user_id=?', int(user_id))
-            prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', int(user_id))
+            card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
+            address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
+            prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', str(user_id))
             transactions = []
             for y in prev_transactions:
                 total = 0
@@ -712,9 +687,9 @@ def myAccount():
                 transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), total))
     if form.validate_on_submit():
         user_id = session['user_id']
-        user = query('SELECT * FROM user_accounts WHERE Id = ?', int(user_id))[0]
-        card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', int(user_id))
-        address_info = query('SELECT * from Addresses WHERE user_id=?', int(user_id))
+        user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))[0]
+        card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
+        address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
         new_fullname = form.fullname.data 
         new_email = form.email.data 
         image = request.files['image']
@@ -820,7 +795,7 @@ def defaultAddress():
         print(addressList)
         test = address.strip()
         for i in addressList:
-            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",i[0])
+            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",int(i[0]))
         constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",int(address))
         print(query('SELECT * FROM Addresses'))
         return "[]"
@@ -830,16 +805,57 @@ def defaultAddress():
 @app.route('/defaultCard', methods=['GET', 'POST'])
 def defaultCard():
     card = request.args.get('card')
+    print(card)
     if card == None: 
         return redirect(url_for('home'))
     try:
         cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
+        print(cardlist)
         for i in cardlist:
-            constructAndExecuteQuery('UPDATE Addresses SET default=? WHERE Id=?',"False",i[0])
+            constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
         test = card.strip()
-        constructAndExecuteQuery('UPDATE Addresses SET default=? WHERE Id=?',"True",test)
+        constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",int(test))
+        print(query('SELECT * FROM card_info'))
+        return "[]"
     except:
         return redirect(url_for('home'))
+
+@app.route('/removeCard')
+def removeCard():
+    card = request.args.get('card')
+    print(card)
+    if card == None: 
+        return redirect(url_for('myAccount'))
+    try:
+        test = card.strip()
+        constructAndExecuteQuery('DELETE FROM card_info WHERE Credit_card_id=?', int(test))
+        cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
+        print(cardlist)
+        if cardlist != []:
+            constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",cardlist[-1][0])
+        print(query('SELECT * FROM card_info'))
+        return "[]"
+    except:
+        return redirect(url_for('myAccount'))
+
+@app.route('/removeAddress')
+def removeAddress():
+    address = request.args.get('address')
+    print(address)
+    if address == None: 
+        return redirect(url_for('myAccount'))
+    try:
+        test = address.strip()
+        constructAndExecuteQuery('DELETE FROM Addresses WHERE Id=?', int(test))
+        addresslist = query('SELECT * FROM Addresses WHERE user_id=?',session['user_id'])
+        print(addresslist)
+        if addresslist != []:
+            constructAndExecuteQuery('UPDATE Addresses SET "default_address"=? WHERE Id=?',"True",addresslist[-1][0])
+        print(query('SELECT * FROM Addresses'))
+        return "[]"
+    except:
+        return redirect(url_for('myAccount'))
+
 
 """
 Shop Related Routes 

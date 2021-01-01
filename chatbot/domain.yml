@@ -63,6 +63,7 @@ intents:
 - recover_password
 - cannot_change_password
 - customer_service
+- not_home
 responses:
   utter_bothelp:
   - text: Hi, how may I assist you?
@@ -398,3 +399,8 @@ responses:
   utter_customer_service:
   - text: You can share any queries or comments by calling (+65) 68991082 or by emailing
       us at help@idea.com.
+  utter_not_home:
+  - text: "If no one is at the address when delivery is attempted, we will leave the package in a secure location. We'll make three delivery attempts on consecutive days. If the third delivery attempt is unsuccessful your package will be returned to IDEA for a refund."
+  
+
+

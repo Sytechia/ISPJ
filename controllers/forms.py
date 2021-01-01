@@ -84,7 +84,6 @@ class PaymentInfo(FlaskForm):
         if not result:
             raise ValidationError("Invalid card name")
     cardno = StringField('Fullname', validators=[DataRequired(), Length(min=16, max=16)])
-
     def validate_cardno(form, field):
 
         def sum_digits(digit):
