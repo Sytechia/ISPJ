@@ -218,6 +218,11 @@ def home():
 def item():
     return render_template('product.html')
 
+# All Products Page #
+@app.route('/catalog')
+def catalog():
+    return render_template('catalog.html')
+
 # FAQ Page #
 @app.route('/faq')
 def faq():
