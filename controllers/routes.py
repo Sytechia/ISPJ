@@ -5,7 +5,7 @@ All dynamic routing belongs here
 import os, json, ast, random, requests
 from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort, Response, get_template_attribute
 from flask_login import current_user, login_user, logout_user, login_required
-from controllers import app, bcrypt, mail
+from controllers import app, bcrypt, mail, oauth
 from datetime import timedelta
 from controllers.forms import RegistrationForm, LoginForm, Billing, PaymentInfo, ContactUsForm, PasswordForm, Disable, Activate, ChangePasswordForm
 from controllers.forms import RegistrationForm, LoginForm, AdminAddProductForm, AdminUpdateProductForm, UpdateAccountForm, UpdateBilling, RequestResetForm, ResetPasswordForm, UpdateCard
@@ -359,6 +359,32 @@ def login():
         form = LoginForm()
         return render_template('login.html', title='Login', form=form)
 
+@app.route("/googlelogin")
+def googlelogin():
+    google = oauth.create_client('google')
+    redirect_uri = url_for('authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@app.route("/login/callback")
+def authorize():
+    google = oauth.create_client('google')
+    token = google.authorize_access_token()
+    resp = google.get('userinfo')
+    user_info = resp.json()
+    user = oauth.google.userinfo()
+    session['profile'] = user_info
+    session.permanent = True
+    user = query('SELECT * FROM user_accounts WHERE Id = ?', session['profile']['id'])
+    if not user:
+        constructAndExecuteQuery("""Insert into user_accounts(Id,email,profile_image,fullname,account_status,isadmin) values (?,?,?,?,1,0)""",session['profile']['id'],session['profile']['email'],session['profile']['picture'],session['profile']['given_name'])
+        user = query('SELECT * FROM user_accounts WHERE Id = ?', session['profile']['id'])
+        session['user_id'] = user[0][0]
+        return redirect('/myAccount')
+    if user:
+        session['user_id'] = user[0][0]
+        print(session)
+    return redirect('/myAccount')
+
 # Adding Address route #
 @app.route('/addAddress', methods=['GET', 'POST'])
 def addAddress():
@@ -591,7 +617,8 @@ def myAccount():
             old_password = request.args.get('old')
             if old_password != None:
                 current_password = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0][3]
-                if old_password != current_password:
+                compare_old_pw = check_password_hash(current_password, old_password)
+                if not compare_old_pw:
                     return "wrong"
             user_id = session['user_id']
             user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
@@ -637,7 +664,10 @@ def changePassword():
     user = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0]
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        if user[3] == form.current_password.data:
+        user_current_pw = form.current_password.data
+        db_pw = user[3]
+        compare_current_hash = check_password_hash(db_pw, user_current_pw)
+        if compare_current_hash == True:
             oldpasswords = ast.literal_eval(user[6])
             for i in oldpasswords:
                 if i == form.password.data:
@@ -647,11 +677,13 @@ def changePassword():
             else:
                 if len(oldpasswords) == 5:
                     oldpasswords = []
-                    oldpasswords.append(form.password.data)
-                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',form.password.data,str(oldpasswords), session['user_id'])
-                else:    
-                    oldpasswords.append(form.password.data)
-                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',form.password.data,str(oldpasswords), session['user_id'])
+                    new_pw = generate_password_hash(form.current_password.data, 10)
+                    oldpasswords.append(new_pw)
+                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
+                else:
+                    new_pw = generate_password_hash(form.current_password.data, 10)
+                    oldpasswords.append(new_pw)
+                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
                 return redirect(url_for('myAccount'))
     return render_template('changePassword.html', form=form)
 
