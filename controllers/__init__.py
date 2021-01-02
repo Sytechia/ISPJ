@@ -5,7 +5,6 @@ from flask_login import login_manager
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from cryptography.fernet import Fernet
 from logging.config import dictConfig
 from datetime import timedelta
 from flask.logging import default_handler
@@ -29,11 +28,6 @@ app.config["ALLOWED_IMAGE_EXTENSIONS"] = ['JPEG', 'PNG', 'JPG', 'GIF']
 # db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 key = b'Yf7wsTW0knSSY03n3IGF1_QmhvvZCYYqrkBXGlh0Hng='
-
-#login system configurations
-# login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
-# login_manager.login_message_category = 'info'
 
 #smtp email configurations
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'

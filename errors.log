@@ -417,3 +417,4 @@
 2021-01-01 19:00:16,604 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://localhost:5000/favicon.ico userID:guest
 2021-01-01 19:01:18,512 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://localhost:5000/favicon.ico userID:guest
 2021-01-01 19:02:18,558 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://localhost:5000/favicon.ico userID:guest
+2021-01-02 15:18:53,977 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://localhost:5000/favicon.ico userID:guest

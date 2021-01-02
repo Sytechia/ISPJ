@@ -15,7 +15,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask_mail import Message
 from flask import Flask
-from cryptography.fernet import Fernet
 from controllers import key
 import base64, platform
 from password_strength import PasswordPolicy
@@ -24,7 +23,6 @@ from datetime import datetime, timedelta
 from flask_csv import send_csv
 import threading
 from time import sleep 
-from functools import reduce
 import logging
 from controllers.qr import send_qr_code
 import random
@@ -62,10 +60,6 @@ errors = setup_logger('Error_logger', 'errors.log', logging.ERROR)
 infos = setup_logger('Info_logger', 'infos.log', logging.INFO)
 criticals = setup_logger('Criticals_logger', 'criticals.log', logging.CRITICAL)
 debugs = setup_logger('debugs_logger', 'debugs.log', logging.DEBUG)
-
-cipher_suite = Fernet(key)
-vali = current_user
-
 
 """
 Functions/Utilities 

@@ -6,22 +6,9 @@ To run the server:
 - python run.py 
 - FLASK_APP=run.py FLASK_DEBUG=1 flask run (with git bash)
 
-Cryptography module:
-- If there is an error regarding module not found 
-- you might have to install paramiko alongside it
-- pip install paramiko 
-
 Admin account:
 - Admin account: admin@gmail.com
 - Admin password: SpiderMan2@@1
-
-Reset database:
-- open your terminal 
-- type python.exe 
-- type from controllers.models import db 
-- then type db.drop_all()
-- afterwards type db.session.commit()
-- Lasty type db.create_all()
 
 User account Management:
 - Disable account functions
