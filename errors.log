@@ -423,3 +423,6 @@
 2021-01-02 14:02:09,647 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:https://127.0.0.1:5000/static/img/profile_pic/blank.png userID:guest
 2021-01-02 14:04:17,788 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:https://127.0.0.1:5000/favicon.ico userID:guest
 2021-01-02 14:07:44,170 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:https://127.0.0.1:5000/static/img/profile_pic/blank.png userID:guest
+2021-01-02 16:07:32,847 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-02 16:19:25,555 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-02 16:44:26,912 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest

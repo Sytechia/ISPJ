@@ -898,9 +898,293 @@ nlu:
     - can i activate my account again
     - how do i activate my account again after disabling it
 
-- intent: damaged_item
+# - intent: damaged_item
+#   examples: |
+#     - what should i do if i receive a faulty item
+#     - what should i do if i receive a faulty product
+#     - what should i do if i receive a faulty package
+#     - what should i do if i receive a damaged item
+#     - what should i do if i receive a damaged product
+#     - what should i do if i receive a damaged package
+#     - what should i do if i receive a spoiled item
+#     - what should i do if i receive a spoiled product
+#     - what should i do if i receive a spoiled package
+#     - what should i do if i receive a defective product
+#     - what should i do if i receive a defective item
+#     - what should i do if i receive a defective order
+#     - what should i do if i receive a defective package
+#     - what if i received a damaged item
+#     - what if i received a damaged product
+#     - what if i received a damaged package
+#     - what if i received a faulty item
+#     - what if i received a faulty package
+#     - what if i received a faulty product
+#     - what if i received a spoiled item
+#     - what if i received a spoiled poduct
+#     - what if i received a spoiled package
+#     - what if i received a defective item
+#     - what if i received a defective product
+#     - what if i received a defective order
+#     - what if i received a defective package
+#     - what if my item is faulty 
+#     - what if my product is faulty 
+#     - what if my package is faulty 
+#     - what if my item is damaged
+#     - what if my product is damaged
+#     - what if my package is damaged
+#     - what if my item is spoiled
+#     - what if my product is spoiled
+#     - what if my package is spoiled
+#     - what if my item is defective
+#     - what if my product is defective
+#     - what if my order is defective
+#     - what if my package is defective
+#     - what to do if i receive a faulty item
+#     - what to do if i receive a faulty product
+#     - what to do if i receive a faulty package
+#     - what to do if i receive a damaged item
+#     - what to do if i receive a damaged product
+#     - what to do if i receive a damaged package
+#     - what to do if i receive a spoiled item
+#     - what to do if i receive a spoiled product
+#     - what to do if i receive a spoiled package
+#     - what to do if i receive a defective package
+#     - what to do if i receive a defective product
+#     - what to do if i receive a defective item
+#     - what to do if i receive a defective order
+#     - what if my item is faulty upon arrival
+#     - what if my product is faulty upon arrival
+#     - what if my package is faulty upon arrival
+#     - what if my item is damaged upon arrival
+#     - what if my product is damaged upon arrival
+#     - what if my package is damaged upon arrival
+#     - what if my item is spoiled upon arrival
+#     - what if my product is spoiled upon arrival
+#     - what if my package is spoiled upon arrival
+#     - what if my item is faulty upon receving
+#     - what if my product is faulty upon receving
+#     - what if my package is faulty upon receving
+#     - what if my item is damaged upon receving
+#     - what if my product is damaged upon receving
+#     - what if my package is damaged upon receving
+#     - what if my item is spoiled upon receving
+#     - what if my product is spoiled upon receving
+#     - what if my package is spoiled upon receving
+#     - what happens if there has been a delivery mishap to my order
+#     - what happens if there has been a delivery mishap to my products
+#     - what happens if there has been a delivery mishap to my items
+#     - what happens if there has been a mishap to my order
+#     - what happens if there has been a mishap to my product
+#     - what happens if there has been a mishap to my items
+
+- intent: lost_mail
   examples: |
-    - what should i do if i receive a faulty item
+    - what should i do if my delivery is lost
+    - what should i do in the event of lost delivery
+    - what should i do in the event of lost mail
+    - what if my mail got lost
+    - what if my delivery got lost
+    - what if my items got lost during delivery 
+    - what if my items got lost during delivery 
+    - what do i do if my parcel is lost in transit
+    - what do i do if my package is lost in transit
+    - what do i do if my items is lost in transit
+    - what do i do if my product is lost in transit
+    - can a package get lost in transit
+    - can items get lost in transit
+    - can a parcel get lost in transit
+    - who is responsible if a parcel goes missing
+    - who is responsible if a package goes missing
+    - what do i do if my package says delivered but i never got it
+    - what do i do if my parcel says delivered but i never got it
+    - what happen of my package is lost in transit 
+    - what happen of my parcel is lost in transit 
+    - how do i find a lost package
+    - how do i find a lost parcel
+    - how do i deal with a delayed shipment
+    - what can i do if there is a delivery delay
+    - my delivery has been delayed
+    - what if my delivery has been delayed
+    - what if there is a delay in my deliveries
+    - what if my products have not been delivered
+    - what if my products have not arrived
+    - what if my items have not been delivered
+    - what if my items have not arrived
+    - what if my parcel have not been delivered
+    - what if my parcel have not arrived
+    - what if my package have not been delivered
+    - what if my package have not arrived
+    - what if my order have not been delivered
+    - what if my order have not arrived
+    - what happens if i have not received my order
+    - what happens if i have not received my package
+    - what happens if i have not received my items
+    - what should i do if my delivery has been delayed
+    - what should i do if i have not received my order
+    - what should I do if I am having shipping delay issues
+    - what should do i do if I am having shipping delay issues
+    - what should I do if I am having delivery delay issues
+    - what should do i do if I am having delivery delay issues
+    - what if my order is delayed
+    - what if my items is delayed
+    - what if my products is delayed
+    - what if my package is delayed
+    - what if my parcel is delayed
+    - what if my delivery is delayed
+    - what should i do if my order is delayed
+    - what should i do if my items is delayed
+    - what should i do if my products is delayed
+    - what should i do if my package is delayed
+    - what should i do if my parcel is delayed
+    - what should i do if my delivery is delayed
+    - what do i do if my order is delayed
+    - what do i do if my items is delayed
+    - what do i do if my products is delayed
+    - what do i do if my package is delayed
+    - what do i do if my parcel is delayed
+    - what do i do if my delivery is delayed
+    - what happens if my order is delayed
+    - what happens if my items is delayed
+    - what happens if my products is delayed
+    - what happens if my package is delayed
+    - what happens if my parcel is delayed
+    - what happens if my delivery is delayed
+    - what if there is a delay in my delivery
+    - what if there is a delay with my delivery
+    - what if there is a delay in my order
+    - what if there is a delay with my shipping
+    - what if there is a delay in my shipping
+    - what should i do if there is a delay in my delivery
+    - what should i do if there is a delay with my delivery
+    - what should i do if there is a delay in my order
+    - what should i do if there is a delay with my shipping
+    - what should i do if there is a delay in my shipping
+    - what do i do if there is a delay in my delivery
+    - what do i do if there is a delay with my delivery
+    - what do i do if there is a delay in my order
+    - what do i do if there is a delay with my shipping
+    - what do i do if there is a delay in my shipping
+    - what happens if there is a delay in my delivery
+    - what happens if there is a delay with my delivery
+    - what happens if there is a delay in my order
+    - what happens if there is a delay with my shipping
+    - what happens if there is a delay in my shipping
+
+- intent: return_policy
+  examples: |
+    - what if the items i have received is unsatisfactory
+    - what if the products i have received is unsatisfactory
+    - what if the package i have received is unsatisfactory
+    - what if the parcel i have received is unsatisfactory
+    - what if i am not satisfied with my order
+    - what if i am not satisfied with my items
+    - what if i am not satisfied with my products
+    - what if i am not satisfied with my package
+    - what if i am not satisfied with my parcel
+    - what if i am not happy with my items
+    - what if i am not happy with my product
+    - what if i am not happy with my order
+    - what if i am not happy with my package
+    - what happens if i am not satisfied with my order
+    - what happens if i am not satisfied with my items
+    - what happens if i am not satisfied with my products
+    - what happens if i am not satisfied with my package
+    - what happens if i am not satisfied with my parcel
+    - what happens if i receive an unsatisfying order
+    - what happens if i receive an unsatisfying item
+    - what happens if i receive an unsatisfying product
+    - what if i receive an unsatisfying order
+    - what if i receive an unsatisfying item
+    - what if i receive an unsatisfying product
+    - what if i am unsatisfied with my items
+    - what if i am unsatisfied with my products
+    - what if i am unsatisfied with my order
+    - what if i am unsatisfied with my delivery
+    - what if i am unhappy with my delivery 
+    - what if i am unhappy with my order 
+    - what if i am unhappy with my items
+    - what if i am unhappy with my products
+    - what if i am unhappy with my package
+    - what should i do if i am unhappy with my delivery 
+    - what should i do if i am unhappy with my order 
+    - what should i do if i am unhappy with my items
+    - what should i do if i am unhappy with my products
+    - what should i do if i am unhappy with my package
+    - what do i do if i am unhappy with my delivery 
+    - what do i do if i am unhappy with my order 
+    - what do i do if i am unhappy with my items
+    - what do i do if i am unhappy with my products
+    - what do i do if i am unhappy with my package
+    - can I get my money back if I am not satisfied with my purchase
+    - can I get my money back if I am not happy with my purchase
+    - can I get my money back if I am unsatisfied with my purchase
+    - what if i am not satisfied with my purchase
+    - what if i am not happy with my purchase
+    - what if i am unsatisfied with my purchase
+    - what should i do if i am not satisfied with my purchase
+    - what should i do if i am not happy with my purchase
+    - what should i do if i am unsatisfied with my purchase
+    - what should i do if i am unhappy with my purchase
+    - what do i do if i am not satisfied with my purchase
+    - what do i do if i am not happy with my purchase
+    - what do i do if i am unsatisfied with my purchase
+    - can i return a product if i am not satisfied with my purchase
+    - do you accept returns
+    - does idea accept returns
+    - what is the return policy
+    - what is the stores return policy 
+    - what is idea’s return policy 
+    - what is ideas return policy 
+    - what is your return policy
+    - return policy 
+    - can I return my products
+    - can I return my items
+    - is it possible to return a product
+    - is it possible to return an item
+    - is it possible to return products 
+    - is it possible to return item
+    - am I able to return items
+    - am I able to return products
+    - what if i received the wrong products
+    - what if i received the wrong items
+    - what if i received the wrong order
+    - what if i received the wrong package
+    - what if i received the wrong parcel
+    - what if i received the wrong games
+    - what should i do if i received an incorrect item
+    - what should i do if i received an incorrect order
+    - what should i do if i received an incorrect product
+    - what should i do if i received an incorrect order
+    - what should i do if i received an incorrect package
+    - what should i do if i received the wrong products
+    - what should i do if i received the wrong items
+    - what should i do if i received the wrong order
+    - what should i do if i received the wrong package
+    - what should i do if i received the wrong parcel
+    - what should i do if i received the wrong game
+    - what do i do if my order is wrong
+    - what should i do if my order is wrong
+    - what if i received the wrong items
+    - what if i received the wrong package
+    - what if i received the wrong products
+    - what if i received the wrong parcel
+    - what if i received an incorrect item
+    - what if i received an incorrect product
+    - what if i received an incorrect pacakge
+    - what if i received an incorrect order
+    - what if my order is incorrect
+    - what if my order is wrong
+    - what if my order is not correct
+    - what are the conditions for returning my products
+    - what are the conditions for returning my items
+    - what are the conditions for returning my package
+    - what are the conditions for returning products
+    - what are the conditions for returning items
+    - what are the conditions for returning package
+    - are there any conditions for returning products 
+    - are there any conditions for returning items 
+    - are there any conditions for returning package 
+    - - what should i do if i receive a faulty item
     - what should i do if i receive a faulty product
     - what should i do if i receive a faulty package
     - what should i do if i receive a damaged item
@@ -977,227 +1261,42 @@ nlu:
     - what happens if there has been a mishap to my product
     - what happens if there has been a mishap to my items
 
-- intent: lost_mail
-  examples: |
-    - what should i do if my delivery is lost
-    - what should i do in the event of lost delivery
-    - what should i do in the event of lost mail
-    - what if my mail got lost
-    - what if my delivery got lost
-    - what if my items got lost during delivery 
-    - what if my items got lost during delivery 
-    - what do i do if my parcel is lost in transit
-    - what do i do if my package is lost in transit
-    - what do i do if my items is lost in transit
-    - what do i do if my product is lost in transit
-    - can a package get lost in transit
-    - can items get lost in transit
-    - can a parcel get lost in transit
-    - who is responsible if a parcel goes missing
-    - who is responsible if a package goes missing
-    - what do i do if my package says delivered but i never got it
-    - what do i do if my parcel says delivered but i never got it
-    - will idea refund for lost package
-    - will i get a refund for lost package
-    - what happen of my package is lost in transit 
-    - what happen of my parcel is lost in transit 
-    - how do i find a lost package
-    - how do i find a lost parcel
-    - how do i deal with a delayed shipment
-    - what can i do if there is a delivery delay
-    - my delivery has been delayed
-    - what if my delivery has been delayed
-    - what if there is a delay in my deliveries
-    - what if my products have not been delivered
-    - what if my products have not arrived
-    - what if my items have not been delivered
-    - what if my items have not arrived
-    - what if my parcel have not been delivered
-    - what if my parcel have not arrived
-    - what if my package have not been delivered
-    - what if my package have not arrived
-    - what if my order have not been delivered
-    - what if my order have not arrived
-    - what happens if i have not received my order
-    - what happens if i have not received my package
-    - what happens if i have not received my items
-    - what should i do if my delivery has been delayed
-    - what should i do if i have not received my order
-    - what should I do if I am having shipping delay issues
-    - what should do i do if I am having shipping delay issues
-    - what should I do if I am having delivery delay issues
-    - what should do i do if I am having delivery delay issues
-    - what if my order is delayed
-    - what if my items is delayed
-    - what if my products is delayed
-    - what if my package is delayed
-    - what if my parcel is delayed
-    - what if my delivery is delayed
-    - what should i do if my order is delayed
-    - what should i do if my items is delayed
-    - what should i do if my products is delayed
-    - what should i do if my package is delayed
-    - what should i do if my parcel is delayed
-    - what should i do if my delivery is delayed
-    - what do i do if my order is delayed
-    - what do i do if my items is delayed
-    - what do i do if my products is delayed
-    - what do i do if my package is delayed
-    - what do i do if my parcel is delayed
-    - what do i do if my delivery is delayed
-    - what happens if my order is delayed
-    - what happens if my items is delayed
-    - what happens if my products is delayed
-    - what happens if my package is delayed
-    - what happens if my parcel is delayed
-    - what happens if my delivery is delayed
-    - what if there is a delay in my delivery
-    - what if there is a delay with my delivery
-    - what if there is a delay in my order
-    - what if there is a delay with my shipping
-    - what if there is a delay in my shipping
-    - what should i do if there is a delay in my delivery
-    - what should i do if there is a delay with my delivery
-    - what should i do if there is a delay in my order
-    - what should i do if there is a delay with my shipping
-    - what should i do if there is a delay in my shipping
-    - what do i do if there is a delay in my delivery
-    - what do i do if there is a delay with my delivery
-    - what do i do if there is a delay in my order
-    - what do i do if there is a delay with my shipping
-    - what do i do if there is a delay in my shipping
-    - what happens if there is a delay in my delivery
-    - what happens if there is a delay with my delivery
-    - what happens if there is a delay in my order
-    - what happens if there is a delay with my shipping
-    - what happens if there is a delay in my shipping
-
-- intent: unsatisfactory
-  examples: |
-    - what if the items i have received is unsatisfactory
-    - what if the products i have received is unsatisfactory
-    - what if the package i have received is unsatisfactory
-    - what if the parcel i have received is unsatisfactory
-    - what if i am not satisfied with my order
-    - what if i am not satisfied with my items
-    - what if i am not satisfied with my products
-    - what if i am not satisfied with my package
-    - what if i am not satisfied with my parcel
-    - what if i am not happy with my items
-    - what if i am not happy with my product
-    - what if i am not happy with my order
-    - what if i am not happy with my package
-    - what happens if i am not satisfied with my order
-    - what happens if i am not satisfied with my items
-    - what happens if i am not satisfied with my products
-    - what happens if i am not satisfied with my package
-    - what happens if i am not satisfied with my parcel
-    - what happens if i receive an unsatisfying order
-    - what happens if i receive an unsatisfying item
-    - what happens if i receive an unsatisfying product
-    - what if i receive an unsatisfying order
-    - what if i receive an unsatisfying item
-    - what if i receive an unsatisfying product
-    - what if i am unsatisfied with my items
-    - what if i am unsatisfied with my products
-    - what if i am unsatisfied with my order
-    - what if i am unsatisfied with my delivery
-    - what if i am unhappy with my delivery 
-    - what if i am unhappy with my order 
-    - what if i am unhappy with my items
-    - what if i am unhappy with my products
-    - what if i am unhappy with my package
-    - what should i do if i am unhappy with my delivery 
-    - what should i do if i am unhappy with my order 
-    - what should i do if i am unhappy with my items
-    - what should i do if i am unhappy with my products
-    - what should i do if i am unhappy with my package
-    - what do i do if i am unhappy with my delivery 
-    - what do i do if i am unhappy with my order 
-    - what do i do if i am unhappy with my items
-    - what do i do if i am unhappy with my products
-    - what do i do if i am unhappy with my package
-    - can I get my money back if I am not satisfied with my purchase
-    - can I get my money back if I am not happy with my purchase
-    - can I get my money back if I am unsatisfied with my purchase
-    - can I get a refund if I am not satisfied with my purchase
-    - can I geta refund if I am not happy with my purchase
-    - can I get a refund if I am unsatisfied with my purchase
-    - what if i am not satisfied with my purchase
-    - what if i am not happy with my purchase
-    - what if i am unsatisfied with my purchase
-    - what should i do if i am not satisfied with my purchase
-    - what should i do if i am not happy with my purchase
-    - what should i do if i am unsatisfied with my purchase
-    - what should i do if i am unhappy with my purchase
-    - what do i do if i am not satisfied with my purchase
-    - what do i do if i am not happy with my purchase
-    - what do i do if i am unsatisfied with my purchase
-    - can i get a refund if i am unhappy with my order
-    - can i get a refund if i am unhappy with my items
-    - can i get a refund if i am unhappy with my products
-    - can i get a refund if i am unhappy with my package
-    - can i get a refund if i am unhappy with my purchase
-    - can i get a refund if i am not satisfied with my order
-    - can i get a refund if i am not satisfied with my items
-    - can i get a refund if i am not satisfied with my products
-    - can i get a refund if i am not satisfied with my package
-    - can i get a refund if i am not satisfied with my purchase
-    - can i get a refund if i am not happy with my order
-    - can i get a refund if i am not happy with my items
-    - can i get a refund if i am not happy with my products
-    - can i get a refund if i am not happy with my package
-    - can i get a refund if i am not happy with my purchase
-    - can i get a refund if i am unsatisfied with my order
-    - can i get a refund if i am unsatisfied with my items
-    - can i get a refund if i am unsatisfied with my products
-    - can i get a refund if i am unsatisfied with my package
-    - can i get a refund if i am unsatisfied with my purchase
-    - if i am unhappy with my purchase can i get a refund
-    - if i am unhappy with my order can i get a refund
-    - if i am unhappy with my items can i get a refund
-    - if i am unhappy with my products can i get a refund
-    - can i get a refund if i receive a product that is unsatisfactory
-    - can i get a refund if i receive an item that is unsatisfactory
-    - can i get a refund if i receive a package that is unsatisfactory
-    - can i get a refund if my order is unsatisfactory
-    - can i get a refund if my package is unsatisfactory
-    - can i get a refund if my items are unsatisfactory
-    - can i get a refund if my products unsatisfactory
 
 
-- intent: incorrect_item
-  examples: |
-    - what if i received the wrong products
-    - what if i received the wrong items
-    - what if i received the wrong order
-    - what if i received the wrong package
-    - what if i received the wrong parcel
-    - what if i received the wrong games
-    - what should i do if i received an incorrect item
-    - what should i do if i received an incorrect order
-    - what should i do if i received an incorrect product
-    - what should i do if i received an incorrect order
-    - what should i do if i received an incorrect package
-    - what should i do if i received the wrong products
-    - what should i do if i received the wrong items
-    - what should i do if i received the wrong order
-    - what should i do if i received the wrong package
-    - what should i do if i received the wrong parcel
-    - what should i do if i received the wrong game
-    - what do i do if my order is wrong
-    - what should i do if my order is wrong
-    - what if i received the wrong items
-    - what if i received the wrong package
-    - what if i received the wrong products
-    - what if i received the wrong parcel
-    - what if i received an incorrect item
-    - what if i received an incorrect product
-    - what if i received an incorrect pacakge
-    - what if i received an incorrect order
-    - what if my order is incorrect
-    - what if my order is wrong
-    - what if my order is not correct
+
+# - intent: incorrect_item
+#   examples: |
+#     - what if i received the wrong products
+#     - what if i received the wrong items
+#     - what if i received the wrong order
+#     - what if i received the wrong package
+#     - what if i received the wrong parcel
+#     - what if i received the wrong games
+#     - what should i do if i received an incorrect item
+#     - what should i do if i received an incorrect order
+#     - what should i do if i received an incorrect product
+#     - what should i do if i received an incorrect order
+#     - what should i do if i received an incorrect package
+#     - what should i do if i received the wrong products
+#     - what should i do if i received the wrong items
+#     - what should i do if i received the wrong order
+#     - what should i do if i received the wrong package
+#     - what should i do if i received the wrong parcel
+#     - what should i do if i received the wrong game
+#     - what do i do if my order is wrong
+#     - what should i do if my order is wrong
+#     - what if i received the wrong items
+#     - what if i received the wrong package
+#     - what if i received the wrong products
+#     - what if i received the wrong parcel
+#     - what if i received an incorrect item
+#     - what if i received an incorrect product
+#     - what if i received an incorrect pacakge
+#     - what if i received an incorrect order
+#     - what if my order is incorrect
+#     - what if my order is wrong
+#     - what if my order is not correct
+    
 
 - intent: missing_products
   examples: |
@@ -1997,3 +2096,47 @@ nlu:
     - what time can I call customer care department
     - what time can I call customer service department
     - what time is it possible to call customer service
+
+- intent: how_return
+  examples: |
+    - how do I return my order
+    - how do I return my orders
+    - how do I return my products
+    - how do I return my product
+    - how do I return my items
+    - how do I return my item
+    - how should I return my order
+    - how should I return my orders
+    - how should I return my products
+    - how should I return my product
+    - how should I return my items
+    - how should I return my item
+    - how to return items
+    - how to return products
+    - how to return order
+    - how to return an item
+    - how to return a product
+    - how to return an order
+    - where can I return my order
+    - where can I return my items
+    - where can I return my products
+    - where to return my order
+    - where to return my items
+    - where to return my products
+    - where do I return my order
+    - where do I return my items
+    - where do I return my products
+    - where should I return my order
+    - where should I return my items
+    - where should I return my products
+    - where do I go to return my order
+    - where do I go to return my items
+    - where do I go to return my products
+    - where can I go to return my order
+    - where can I go to return my items
+    - where can I go to return my products
+    - how do I return my idea.com order
+    - how do I return my idea.com items
+    - how do I return my idea.com product
+    - how do I return my idea order
+    - how to return items on idea singapore

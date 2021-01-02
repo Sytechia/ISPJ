@@ -26,7 +26,9 @@ from time import sleep
 import logging
 from controllers.qr import send_qr_code
 import random
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import pyodbc
+from flask import current_app
 from flask_bcrypt import generate_password_hash, check_password_hash
 
 
@@ -75,6 +77,15 @@ def refreshAnalytics():
     with open('json_files/analytics.json', 'r+') as f:
         data = json.load(f)
     return data 
+
+# Verify reset token #
+def verify_reset_token(token):
+    s = Serializer(current_app.config['SECRET_KEY'])
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
+        return None
+    return query('SELECT * FROM user_accounts WHERE id=?', user_id)[0]
 
 # Constructs an sql query with any number of parameters passed in for query to be constructued #
 """
@@ -677,16 +688,17 @@ def changePassword():
             else:
                 if len(oldpasswords) == 5:
                     oldpasswords = []
-                    new_pw = generate_password_hash(form.current_password.data, 10)
+                    new_pw = generate_password_hash(form.password.data, 10)
                     oldpasswords.append(new_pw)
                     constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
                 else:
-                    new_pw = generate_password_hash(form.current_password.data, 10)
+                    new_pw = generate_password_hash(form.password.data, 10)
                     oldpasswords.append(new_pw)
                     constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
                 return redirect(url_for('myAccount'))
     return render_template('changePassword.html', form=form)
 
+# Disable account route #
 @app.route("/disable", methods=["GET", "POST"])
 def disable():
     form = Disable()
@@ -701,6 +713,7 @@ def disable():
             return redirect(url_for('disable'))
     return render_template('disable.html', form=form)
 
+# Activate Account route#
 @app.route("/activate", methods=["GET", "POST"])
 def activate():
     form = Activate()
@@ -721,6 +734,7 @@ def activate():
 def activateask():
         return render_template('activateask.html')
 
+# Logout route #
 @app.route("/logout")
 def logout():
     session.pop('user_id', None)
@@ -809,8 +823,6 @@ def confirm():
     else:
         return redirect(url_for('home'))
     
-
-
 @app.route('/checkout')
 def checkout():
     print(request.referrer)
@@ -901,7 +913,7 @@ def u():
 Admin Related Routes
 """
 
-## Admin Static Routes ##
+# Admin Home Page #
 @app.route('/admin')
 def admin():
     # previousTransaction = PreviousTransactions.query.all()
@@ -914,7 +926,7 @@ def admin():
     number = len(previousTransaction)
     return render_template('admin/admin.html', previousTransaction = previousTransaction, number = number)
 
-
+# Admin Analytics Page #    
 @app.route('/adminAnalytics')
 def analytics():
     data = refreshAnalytics()
@@ -1274,7 +1286,7 @@ def stock():
 """Reset Password token routes"""
 
 def send_reset_email(user):
-    s = Serializer(current_app.config['SECRET_KEY'], expires_sec=600)
+    s = Serializer(current_app.config['SECRET_KEY'], 600)
     token =s.dumps({'user_id': user[0]}).decode('utf-8')
     msg = Message('Password Reset Request', sender='testemailnyp@gmail.com', recipients=[user.email])
     msg.body = f'''To reset your password, visit the following link:
@@ -1294,7 +1306,7 @@ def reset_request():
     form = RequestResetForm()
     if form.validate_on_submit():
         email = form.email.data.strip()
-        user = query('SELECT * FROM user_accounts WHERE email=?',email)
+        user = query('SELECT * FROM user_accounts WHERE email=?',email)[0]
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('login'))
@@ -1303,6 +1315,35 @@ def reset_request():
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
     form = ResetPasswordForm()
+    if "user_id" in session: 
+        return redirect(url_for('home'))
+    user = verify_reset_token(token)
+    print(user)
+    if user is None:
+        flash('That is an invalid or expired token', 'danger')
+        return redirect(url_for('reset_request'))
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, 10)
+        db_pw = user[3]
+        oldpasswords = ast.literal_eval(user[6])
+        for i in oldpasswords:
+            if i == hashed_password:
+                print('old password')
+                flash('You cannot reuse any of your previous 5 passwords!', 'danger')
+                return redirect(request.referrer)
+        else:
+            if len(oldpasswords) == 5:
+                oldpasswords = []
+                new_pw = generate_password_hash(form.password.data, 10)
+                oldpasswords.append(new_pw)
+                constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), user[0])
+            else:
+                new_pw = generate_password_hash(form.password.data, 10)
+                oldpasswords.append(new_pw)
+                constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), user[0])
+            flash('Your password has been updated! You are now able to log in', 'success')
+            session['attempts'] = 5
+            return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
 
 """Error Handling Routes"""

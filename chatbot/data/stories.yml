@@ -536,25 +536,25 @@ stories:
   - intent: reactivate
   - action: utter_reactivate
 
-- story: faulty items
-  steps:
-  - intent: damaged_item
-  - action: utter_damaged_item
+# - story: faulty items
+#   steps:
+#   - intent: damaged_item
+#   - action: utter_damaged_item
 
 - story: lost mails
   steps:
   - intent: lost_mail
   - action: utter_lost_mail
 
-- story: unsatisfied products
-  steps:
-  - intent: unsatisfactory
-  - action: utter_unsatisfactory
+# - story: unsatisfied products
+#   steps:
+#   - intent: unsatisfactory
+#   - action: utter_unsatisfactory
 
-- story: item incorrect
-  steps:
-  - intent: incorrect_item
-  - action: utter_incorrect_item
+# - story: item incorrect
+#   steps:
+#   - intent: incorrect_item
+#   - action: utter_incorrect_item
 
 - story: order with missing products
   steps:
@@ -620,3 +620,9 @@ stories:
   steps:
   - intent: contact_hours
   - action: utter_contact_hours
+
+- story: return policy
+  steps:
+  - intent: return_policy
+  - action: utter_return_policy
+

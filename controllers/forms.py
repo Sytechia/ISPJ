@@ -46,7 +46,7 @@ class RegistrationForm(FlaskForm):
 
     def validate_email(self, email):
         # user = User.query.filter_by(email=email.data).first()
-        user = query('SELECT * FROM user_accounts WHERE email = ?', email)
+        user = query('SELECT * FROM user_accounts WHERE email = ?', email.data)
         if user != []:
             raise ValidationError('That email is taken. Please choose a different one.')
 
@@ -125,13 +125,18 @@ class PaymentInfo(FlaskForm):
     def validate_exp(form, field):
         current_month = int(datetime.now().month)
         months = [str(i) for i in range(current_month, 13)]
+        current_year = int(datetime.now().year)
+        print(current_year)
+        if int(form.year.data) > current_year:
+            return True
         if field.data not in months:
             raise ValidationError('Invalid expiry month!')
         else:
             return True
+
     year = StringField('Year', validators=[DataRequired(), Length(min=4, max=4)])
     def validate_year(form, field):
-        year_accepted = ["2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028"]
+        year_accepted = ["2021","2022","2023","2024","2025","2026","2027","2028"]
         if field.data not in year_accepted:
             raise ValidationError('Invalid expiry year!')    
         else:
@@ -241,7 +246,7 @@ class UpdateAccountForm(FlaskForm):
 
     
     def validate_email(self, email):
-        user = query('SELECT * FROM user_accounts WHERE email = ?', email)
+        user = query('SELECT * FROM user_accounts WHERE email = ?', email.data)
         if user != []:
             raise ValidationError('That email is taken. Please choose a different one.')
 
@@ -285,8 +290,9 @@ class RequestResetForm(FlaskForm):
     submit = SubmitField('Request')
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is None:
+        user = query('SELECT * FROM user_accounts WHERE email = ?', email.data)
+        print(user, self.email)
+        if user == []:
             raise ValidationError('There is no account with that email. You must register first.')
 
 

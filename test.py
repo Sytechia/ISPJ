@@ -10,8 +10,8 @@ conn = pyodbc.connect("DRIVER="+driver+";SERVER="+server+";PORT=1433;DATABASE="+
 
 cursor = conn.cursor()
 
-cursor.execute('DELETE FROM user_accounts WHERE fullname=?',"Marcus")
-conn.commit()
+# cursor.execute('DELETE FROM user_accounts WHERE fullname=?',"Marcus")
+# conn.commit()
 
 # account_status = 1
 # firstname = "Darren Kang"
@@ -113,3 +113,8 @@ import ast
 #         total += (z[1] * z[2])
 #     transactions.append([(y[2], str(y[3]),y[4], y[1], total)])
 # print(transactions)
+
+from datetime import datetime
+
+current_year = int(datetime.now().year)
+print(current_year)
