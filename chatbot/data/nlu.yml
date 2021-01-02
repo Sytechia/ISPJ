@@ -1129,6 +1129,8 @@ nlu:
     - what do i do if i am not happy with my purchase
     - what do i do if i am unsatisfied with my purchase
     - can i return a product if i am not satisfied with my purchase
+    - can i return a item if i am not satisfied with my purchase
+    - can i return a order if i am not satisfied with my purchase
     - do you accept returns
     - does idea accept returns
     - what is the return policy
@@ -1260,6 +1262,25 @@ nlu:
     - what happens if there has been a mishap to my order
     - what happens if there has been a mishap to my product
     - what happens if there has been a mishap to my items
+    - what if my product does not match the description
+    - what if my item does not match the description
+    - what if my order does not match the description
+    - what should I do my product does not match the description
+    - what should I do if my item does not match the description
+    - what should I do if my order does not match the description
+    - what if the item I received does not match the description
+    - what if the product I received does not match the description
+    - what if the order I received does not match the description
+    - what should I do if the item I received does not match the description
+    - what should I do if the product I received does not match the description
+    - what should I do if the order I received does not match the description
+    - can i return a order if the item I received does not match the description
+    - can i return a order if the item does not match the description
+    - can i return a order if the order I received does not match the description
+    - can i return a order if the order does not match the description
+    - can i return a order if the product I received does not match the description
+    - can i return a order if the product does not match the description
+
 
 
 
@@ -2140,3 +2161,188 @@ nlu:
     - how do I return my idea.com product
     - how do I return my idea order
     - how to return items on idea singapore
+
+- intent: return_cost
+  examples: |
+    - how much does returns cost
+    - how much do returns cost
+    - how much do I have to pay for return
+    - how much do I have to pay to return
+    - how much do I have to pay for return costs
+    - how much do idea charge for returns
+    - how much does idea charge for returns
+    - how much do you charge for returns
+    - how much does you charge for returns
+    - how much does returns cost
+    - do I have to pay for returning 
+    - do I have to pay return costs
+    - do I have to pay for return shipping
+    - do I have to pay for return delivery
+    - do we have to pay for returning 
+    - do we have to pay return costs
+    - do we have to pay for return shipping
+    - do we have to pay for return delivery
+    - do you get your money back when you return something
+    - do i get my money back when i return something
+    - do we get our money back when we return something
+    - would i get my money back when i return something
+    - would we get our money back when we return something
+    - what is the return cost
+    - what will be the return cost
+    - how much would returns cost
+    - what does returns cost
+
+- intent: refund_policy
+  examples: |
+    - what is idea’s refund policy
+    - what is ideas refund policy 
+    - what is IDEA’s refund policy
+    - what is IDEAs refund policy
+    - refund policy
+    - what is the stores refund policy
+    - what is the store’s refund policy
+    - what is the refund policy
+    - can I get a refund
+    - where can I get a refund
+    - is it possible to get a refund
+    - I want to get a refund 
+    - I would like to get a refund
+    - I wish to get a refund
+    - What if I want to get a refund
+    - What happens if I want to get a refund
+    - What should I do if I want to get a refund
+    - What to do if I want to get a refund
+    - What if I want a refund
+    - What happens if I want a refund
+    - What should I do if I want a refund
+    - What to do if I want a refund
+    - can I get a refund if I am not satisfied with my purchase
+    - can I geta refund if I am not happy with my purchase
+    - can I get a refund if I am unsatisfied with my purchase
+    - can i get a refund if i am unhappy with my order
+    - can i get a refund if i am unhappy with my items
+    - can i get a refund if i am unhappy with my products
+    - can i get a refund if i am unhappy with my package
+    - can i get a refund if i am unhappy with my purchase
+    - can i get a refund if i am not satisfied with my order
+    - can i get a refund if i am not satisfied with my items
+    - can i get a refund if i am not satisfied with my products
+    - can i get a refund if i am not satisfied with my package
+    - can i get a refund if i am not satisfied with my purchase
+    - can i get a refund if i am not happy with my order
+    - can i get a refund if i am not happy with my items
+    - can i get a refund if i am not happy with my products
+    - can i get a refund if i am not happy with my package
+    - can i get a refund if i am not happy with my purchase
+    - can i get a refund if i am unsatisfied with my order
+    - can i get a refund if i am unsatisfied with my items
+    - can i get a refund if i am unsatisfied with my products
+    - can i get a refund if i am unsatisfied with my package
+    - can i get a refund if i am unsatisfied with my purchase
+    - can i get a refund if i receive a product that is unsatisfactory
+    - can i get a refund if i receive an item that is unsatisfactory
+    - can i get a refund if i receive a package that is unsatisfactory
+    - can i get a refund if my order is unsatisfactory
+    - can i get a refund if my package is unsatisfactory
+    - can i get a refund if my items are unsatisfactory
+    - can i get a refund if my products unsatisfactory
+    - if i am unhappy with my purchase can i get a refund
+    - if i am unhappy with my order can i get a refund
+    - if i am unhappy with my items can i get a refund
+    - if i am unhappy with my products can i get a refund
+    - will idea refund for lost package
+    - will i get a refund for lost package
+    - can I get a refund if the order I received does not match the description
+    - can I get a refund if the items I received does not match the description
+    - can I get a refund if the items I received does not match the description
+    - can I get a refund if my order does not match the description
+    - can I get a refund if my item does not match the description
+    - can I get a refund if my product does not match the description
+
+
+- intent: refund_time
+  examples: |
+    - how long is the refund process
+    - how long would be the refund process
+    - how long do I have to wait to get my refund
+    - how long do I have to wait to receive my refund
+    - how long do I have to wait for my refund
+    - how long do refunds take to process?
+    - why is my debit card refund taking so long?
+    - why is my refund taking so long?
+    - How long does it take to get a refund back on my debit card
+    - when will I get my refund
+    - when will I receive my refund
+    - how long is the refunding process
+    - how long is the refund process going to take
+    - how long will the refund process take
+    - how long does it take to refund
+    - how long does IDEA take to refund
+    - how long does idea take to refund
+    - how long does the store take to refund
+    - why do refunds take 3 5 days?
+    - do refunds process on weekends?
+    - why is my refund not showing in my bank?
+    - what time does refund go into bank?
+    - why does it take so long to get your money back
+    - why does it take so long to get my money back
+    - why are refunds taking so long?
+    - why is the refund taking so long
+    - why does the refund take so long to process
+    - why does the refund take so long
+    - why does my refund take so long
+    - how long will the Refund process take
+    - how long will it take to refund me
+    - how long will it take to refund
+    - when would my refund be processed and how long will it take to receive my refund
+    - how Long Does a credit card refund take
+    - how long for refund
+    - where is my refund
+    - where's my refund
+
+
+- intent: refund_status
+  examples: |
+    - how can I check the refund status 
+    - how can I check my refund status 
+    - where can I check my refund status 
+    - where can I check the refund status 
+    - how can I check if my item is in refund status
+    - how can I check if my item is refunded
+    - where can I check my items refund status 
+    - where can I check my item’s refund status 
+    - where can I check my product refund status 
+    - where can I check my product’s refund status 
+    - how else can I check my refund status
+    - how can I check the status of my refund
+    - how can I check status of my refund
+    - where can I check status of my refund
+    - what can I do to check my refund status
+    - what can I do to check the status of my refund
+    - what can I do to check my the status of the refund
+    - what should I do to check my refund status
+    - what should I do to check the status of my refund
+    - what should I do to check my the status of the refund
+
+- intent: currency
+  examples: |
+    - which currency will I be charged in
+    - What currency will I be charged in
+    - what currency will I be charged
+    - which currency will I be charged
+    - currency
+    - what currency can I use to pay
+    - what are the currencies I can use to pay
+    - what currency can I use for payment
+    - what are the currencies I can use for payment
+    - what are the currencies available for payment 
+    - what are the currencies available
+    - can I use sgd
+    - can I use usd
+    - can I use sgd for payment
+    - can I use usd for payment
+    - can I use sgd to pay
+    - can I use usd to pay
+    - can sgd be used for payment
+    - can usd be used to pay
+

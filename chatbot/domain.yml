@@ -71,6 +71,11 @@ intents:
 - contact_hours
 - return_policy
 - how_return
+- return_cost
+- refund_policy
+- refund_time
+- refund_status
+- currency
 responses:
   utter_bothelp:
   - text: Hi, how may I assist you?
@@ -422,9 +427,20 @@ responses:
 
   utter_return_policy:
     - text: "You may only return products if your product is damaged / faulty, does not match description or if you have received the wrong item or you do not want the item anymore.\n\n\nIDEA products may be returned within 90 days of the purchase date, provided you retain all packing materials, the product is in 100% resalable condition, and you have your original proof of purchase.\n\n\nIf you have received damaged or wrong products, we will require photo proof of the affected products and D.O (Delivery Order) and you may be required to send us back the product for close inspection. After reviewing, we'll re-send the correct products to you at no cost, subject to availability."
-  utter_return_policy:
-    - text: ""
+  utter_how_return:
+    - text: "You can return to us via POPstation / Postal Service / In-Store Returns."
 
+  utter_return_cost:
+    - text: "If the item that you returned has been certified damaged or faulty, or isn’t what you ordered upon receiving, you will receive a full refund.\n\n\nDelivery charge is not refundable if the return is due to change of mind, unsuitable or no reason."
+  
+  utter_refund_policy:
+    - text: "Refund is automatically processed once cancellation has been successfully processed or once IDEA has cleared the Quality Evaluation of the returned item. For lost mail, IDEA will re-send the order to you at no cost, subject to availability."
+  utter_refund_time:
+    - text: "Our refund will generally take 5-10 business days to reflect on your bank statement."
+  utter_refund_status:
+    - text: "Go to Account > My Orders"
+  utter_currency:
+    - text: "All prices listed on our website and billing charges are processed in Singapore Dollars (SGD)."
 
 
 

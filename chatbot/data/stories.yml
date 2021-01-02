@@ -626,3 +626,32 @@ stories:
   - intent: return_policy
   - action: utter_return_policy
 
+- story: how to return
+  steps:
+  - intent: how_return
+  - action: utter_how_return
+
+- story: return costs
+  steps:
+  - intent: how_return
+  - action: utter_how_return
+
+- story: refund policy
+  steps:
+  - intent: refund_policy
+  - action: utter_refund_policy
+
+- story: how long for refund
+  steps:
+  - intent: refund_time
+  - action: utter_refund_time
+
+- story: refund status
+  steps:
+  - intent: refund_status
+  - action: utter_refund_status
+
+- story: currencies available
+  steps:
+  - intent: currency
+  - action: utter_currency
