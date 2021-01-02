@@ -596,3 +596,27 @@ stories:
   - intent: not_home
   - action: utter_not_home
   
+- story: where do you ship
+  steps:
+  - intent: ship_where
+  - action: utter_ship_where
+
+- story: shipping time
+  steps:
+  - intent: ship_time
+  - action: utter_ship_time
+
+- story: product is backordered
+  steps:
+  - intent: backordered
+  - action: utter_backordered
+
+- story: opening hours
+  steps:
+  - intent: store_address
+  - action: utter_store_address
+
+- story: contact hours
+  steps:
+  - intent: contact_hours
+  - action: utter_contact_hours

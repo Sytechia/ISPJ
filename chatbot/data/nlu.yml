@@ -1022,7 +1022,55 @@ nlu:
     - what happens if i have not received my package
     - what happens if i have not received my items
     - what should i do if my delivery has been delayed
-    - wht should i do if i have not received my order
+    - what should i do if i have not received my order
+    - what should I do if I am having shipping delay issues
+    - what should do i do if I am having shipping delay issues
+    - what should I do if I am having delivery delay issues
+    - what should do i do if I am having delivery delay issues
+    - what if my order is delayed
+    - what if my items is delayed
+    - what if my products is delayed
+    - what if my package is delayed
+    - what if my parcel is delayed
+    - what if my delivery is delayed
+    - what should i do if my order is delayed
+    - what should i do if my items is delayed
+    - what should i do if my products is delayed
+    - what should i do if my package is delayed
+    - what should i do if my parcel is delayed
+    - what should i do if my delivery is delayed
+    - what do i do if my order is delayed
+    - what do i do if my items is delayed
+    - what do i do if my products is delayed
+    - what do i do if my package is delayed
+    - what do i do if my parcel is delayed
+    - what do i do if my delivery is delayed
+    - what happens if my order is delayed
+    - what happens if my items is delayed
+    - what happens if my products is delayed
+    - what happens if my package is delayed
+    - what happens if my parcel is delayed
+    - what happens if my delivery is delayed
+    - what if there is a delay in my delivery
+    - what if there is a delay with my delivery
+    - what if there is a delay in my order
+    - what if there is a delay with my shipping
+    - what if there is a delay in my shipping
+    - what should i do if there is a delay in my delivery
+    - what should i do if there is a delay with my delivery
+    - what should i do if there is a delay in my order
+    - what should i do if there is a delay with my shipping
+    - what should i do if there is a delay in my shipping
+    - what do i do if there is a delay in my delivery
+    - what do i do if there is a delay with my delivery
+    - what do i do if there is a delay in my order
+    - what do i do if there is a delay with my shipping
+    - what do i do if there is a delay in my shipping
+    - what happens if there is a delay in my delivery
+    - what happens if there is a delay with my delivery
+    - what happens if there is a delay in my order
+    - what happens if there is a delay with my shipping
+    - what happens if there is a delay in my shipping
 
 - intent: unsatisfactory
   examples: |
@@ -1054,6 +1102,69 @@ nlu:
     - what if i am unsatisfied with my products
     - what if i am unsatisfied with my order
     - what if i am unsatisfied with my delivery
+    - what if i am unhappy with my delivery 
+    - what if i am unhappy with my order 
+    - what if i am unhappy with my items
+    - what if i am unhappy with my products
+    - what if i am unhappy with my package
+    - what should i do if i am unhappy with my delivery 
+    - what should i do if i am unhappy with my order 
+    - what should i do if i am unhappy with my items
+    - what should i do if i am unhappy with my products
+    - what should i do if i am unhappy with my package
+    - what do i do if i am unhappy with my delivery 
+    - what do i do if i am unhappy with my order 
+    - what do i do if i am unhappy with my items
+    - what do i do if i am unhappy with my products
+    - what do i do if i am unhappy with my package
+    - can I get my money back if I am not satisfied with my purchase
+    - can I get my money back if I am not happy with my purchase
+    - can I get my money back if I am unsatisfied with my purchase
+    - can I get a refund if I am not satisfied with my purchase
+    - can I geta refund if I am not happy with my purchase
+    - can I get a refund if I am unsatisfied with my purchase
+    - what if i am not satisfied with my purchase
+    - what if i am not happy with my purchase
+    - what if i am unsatisfied with my purchase
+    - what should i do if i am not satisfied with my purchase
+    - what should i do if i am not happy with my purchase
+    - what should i do if i am unsatisfied with my purchase
+    - what should i do if i am unhappy with my purchase
+    - what do i do if i am not satisfied with my purchase
+    - what do i do if i am not happy with my purchase
+    - what do i do if i am unsatisfied with my purchase
+    - can i get a refund if i am unhappy with my order
+    - can i get a refund if i am unhappy with my items
+    - can i get a refund if i am unhappy with my products
+    - can i get a refund if i am unhappy with my package
+    - can i get a refund if i am unhappy with my purchase
+    - can i get a refund if i am not satisfied with my order
+    - can i get a refund if i am not satisfied with my items
+    - can i get a refund if i am not satisfied with my products
+    - can i get a refund if i am not satisfied with my package
+    - can i get a refund if i am not satisfied with my purchase
+    - can i get a refund if i am not happy with my order
+    - can i get a refund if i am not happy with my items
+    - can i get a refund if i am not happy with my products
+    - can i get a refund if i am not happy with my package
+    - can i get a refund if i am not happy with my purchase
+    - can i get a refund if i am unsatisfied with my order
+    - can i get a refund if i am unsatisfied with my items
+    - can i get a refund if i am unsatisfied with my products
+    - can i get a refund if i am unsatisfied with my package
+    - can i get a refund if i am unsatisfied with my purchase
+    - if i am unhappy with my purchase can i get a refund
+    - if i am unhappy with my order can i get a refund
+    - if i am unhappy with my items can i get a refund
+    - if i am unhappy with my products can i get a refund
+    - can i get a refund if i receive a product that is unsatisfactory
+    - can i get a refund if i receive an item that is unsatisfactory
+    - can i get a refund if i receive a package that is unsatisfactory
+    - can i get a refund if my order is unsatisfactory
+    - can i get a refund if my package is unsatisfactory
+    - can i get a refund if my items are unsatisfactory
+    - can i get a refund if my products unsatisfactory
+
 
 - intent: incorrect_item
   examples: |
@@ -1356,6 +1467,13 @@ nlu:
     - where can i cancel my order
     - where can i change my order
     - is it possble to change my order
+    - am i able to cancel my order
+    - i need to cancel an order
+    - can i change or update my order
+    - can i update my order
+    - can i change or cancel my order
+    - change or cancel order
+    - please cancel my order
   
 - intent: recover_password
   examples: |
@@ -1413,6 +1531,7 @@ nlu:
     - where should i contact the customer service department
     - where can i contact the customer service department
     - how can i contact the customer service
+    - how can i contact customer service
     - how do i contact the customer service
     - how should i contact the customer service
     - where do i contact the customer service
@@ -1434,6 +1553,39 @@ nlu:
     - where do i contact the customer service hotline
     - where should i contact the customer service hotline
     - where can i contact the customer service hotline
+    - where can I provide feedback
+    - where can i give my feedback
+    - i would like to provide feedback
+    - can i provide feedback
+    - i would like to give some feedback
+    - i would like to give feedback
+    - i wish to provide feedback
+    - i wish to give some feedback
+    - i wish to give feedback
+    - how can i contact the customer care department
+    - how do i contact the customer care department
+    - how should i contact the customer care department
+    - where can i contact the customer care department
+    - where should i contact the customer care department
+    - where do i contact the customer care department
+    - how can i contact the customer care
+    - how do i contact the customer care
+    - how should i contact the customer care
+    - where can i contact the customer care
+    - where should i contact the customer care
+    - where do i contact the customer care
+    - how can i contact customer care department
+    - how do i contact customer care department
+    - how should i contact customer care department
+    - where can i contact customer care department
+    - where should i contact customer care department
+    - where do i contact customer care department
+    - how can i contact customer care
+    - how do i contact the customer care
+    - how should i contact customer care
+    - where can i contact customer care
+    - where should i contact customer care
+    - where do i contact customer care
 
 - intent: not_home
   examples: |
@@ -1521,6 +1673,327 @@ nlu:
     - what should i do if no one is home at the time of delivery
     - what should i do if no one is home when the delivery arrives
 
-# - intent: ship_where
-#   examples: |
-#     - 
+- intent: ship_where
+  examples: |
+    - where do you ship
+    - where do you ship to
+    - Where do you provide shipping
+    - what are the countries that you ship to
+    - what countries do you ship to
+    - what are the places that you ship to
+    - what places do you ship to
+    - what are the countries that you provide shipping to
+    - what are the places that you provide shipping to
+    - where do you ship orders to
+    - where do you ship products to 
+    - where do you ship items to 
+    - where do you ship parcels to
+    - where do you ship deliveries to 
+    - where do you deliver to
+    - do you ship internationally
+    - do you offer international shipping
+    - will I pay taxes for international shipping
+    - international shipping
+    - shipping locations
+
+- intent: ship_time
+  examples: |
+    - how long does it take to ship my order
+    - how long does it take to ship my items
+    - how long does it take to ship my products
+    - how long does it take to ship my package
+    - how long does it take to ship my parcel
+    - how long does it take to ship my delivery
+    - how long do I have to wait for my order
+    - how long do I have to wait for my items
+    - how long do I have to wait for my products
+    - how long do I have to wait for my package
+    - how long do I have to wait for my parcel
+    - how long do I have to wait for my delivery
+    - how long do I have to wait for my order to arrive
+    - how long do I have to wait for my items to arrive
+    - how long do I have to wait for my products to arrive
+    - how long do I have to wait for my package to arrive
+    - how long do I have to wait for my parcel to arrive
+    - how long do I have to wait for my delivery to arrive
+    - how long does it take for my order to arrive
+    - how long does it take for my items to arrive
+    - how long does it take for my products to arrive
+    - how long does it take for my package to arrive
+    - how long does it take for my parcel to arrive
+    - how long does it take for my delivery to arrive
+    - how long does an order take to arrive once shipped
+    - how long does an item take to arrive once shipped
+    - how long does a product take to arrive once shipped
+    - how long does a package take to arrive once shipped
+    - how long does a parcel take to arrive once shipped
+    - how long does a delivery take to arrive once shipped
+    - how long does an order take to arrive
+    - how long does an item take to arrive
+    - how long does a product take to arrive
+    - how long does a package take to arrive
+    - how long does a parcel take to arrive
+    - how long does a delivery take to arrive
+    - how long will my order take to arrive
+    - how long will my items take to arrive
+    - how long will my products take to arrive
+    - how long will my package take to arrive
+    - how long will my parcel take to arrive
+    - how long will my delivery take to arrive
+    - how long does it take for my order to ship out
+    - how long does it take for my items to ship out
+    - how long does it take for my products to ship out
+    - how long does it take for my package to ship out
+    - how long does it take for my parcel to ship out
+    - how long does it take for my delivery to ship out
+    - how long does it take for my order to get ship out
+    - how long does it take for my items to get ship out
+    - how long does it take for my products to get ship out
+    - how long does it take for my package to get ship out
+    - how long does it take for my parcel to get ship out
+    - how long does it take for my delivery to get ship out
+    - how long does it take for orders to get ship out
+    - how long does it take for items to get ship out
+    - how long does it take for products to get ship out
+    - how long does it take for package to get ship out
+    - how long does it take for parcels to get ship out
+    - how long does it take for deliveries to get ship out
+    - how long will it take for my order to arrive, once it ships
+    - how long will it take for my items to arrive, once it ships
+    - how long will it take for my products to arrive, once it ships
+    - how long will it take for my package to arrive, once it ships
+    - how long will it take for my parcel to arrive, once it ships
+    - how long will it take for my deliveries to arrive, once it ships
+    - how long will it take for my order to arrive, once shipped
+    - how long will it take for my items to arrive, once shipped
+    - how long will it take for my products to arrive, once shipped
+    - how long will it take for my package to arrive, once shipped
+    - how long will it take for my parcel to arrive, once shipped
+    - how long will it take for my deliveries to arrive, once shipped
+    - how long will it take for my order to arrive
+    - how long will it take for my items to arrive
+    - how long will it take for my products to arrive
+    - how long will it take for my package to arrive
+    - how long will it take for my parcel to arrive
+    - how long will it take for my delivery to arrive
+    - when will you ship my order
+    - when will you ship my items
+    - when will you ship my products
+    - when will you ship my package
+    - when will you ship my parcel
+    - when will you ship my delivery
+    - how long does it take for delivery
+    - how long does it take for shipping
+    - how long does it take to deliver
+    - how long does it take for ship
+    - how long does it take to deliver after payment
+    - how long does it take for ship after payment
+    - how long does it take for delivery after payment
+    - how long does it take for shipping after payment
+    - how long does it take for an order to arrive once it gets shipped
+    - how long does it take for an order to arrive
+    - how long does delivery take
+    - how long does shipping take
+    - how long does the delivery process take
+    - how long does the shipping process take
+    - how long does it take for an order to be processed and shipped
+    - how long does it take for an item to be processed and shipped
+    - how long does it take for a product to be processed and shipped
+    - how long does it take for a package to be processed and shipped
+    - how long does it take for a parcel to be processed and shipped
+    - how long does it take for a delivery to be processed and shipped
+    - how long does it take for orders to be processed and shipped
+    - how long does it take for items to be processed and shipped
+    - how long does it take for products to be processed and shipped
+    - how long does it take for packages to be processed and shipped
+    - how long does it take for parcels to be processed and shipped
+    - how long does it take for deliveries to be processed and shipped
+    - how long does it take for orders to shipped
+    - how long does it take for items to be shipped
+    - how long does it take for products to be shipped
+    - how long does it take for packages to be shipped
+    - how long does it take for parcels to be shipped
+    - how long does it take for deliveries to be shipped
+    - how long does it take to ship orders
+    - how long does it take to ship items
+    - how long does it take to ship products
+    - how long does it take to ship packages
+    - how long does it take to ship parcels
+    - how long does it take to ship deliveries
+    - how long does it take to ship my orders
+    - how long does it take to ship my items
+    - how long does it take to ship my products
+    - how long does it take to ship my packages
+    - how long does it take to ship my parcel
+    - how long does it take to ship my delivery
+    - how long does it take to ship my orders after payment
+    - how long does it take to ship my items after payment
+    - how long does it take to ship my products after payment
+    - how long does it take to ship my packages after payment
+    - how long does it take to ship my parcel after payment
+    - how long does it take to ship my delivery after payment
+    - how long does it take to deliver my orders
+    - how long does it take to deliver my items
+    - how long does it take to deliver my products
+    - how long does it take to deliver my packages
+    - how long does it take to deliver my parcel
+    - how long does it take to deliver my delivery
+    - how long does it take to deliver my orders after payment
+    - how long does it take to deliver my items after payment
+    - how long does it take to deliver my products after payment
+    - how long does it take to deliver my packages after payment
+    - how long does it take to deliver my parcel after payment
+    - how long does it take to deliver my delivery after payment
+    - how long does it take to ship out my order
+    - how long does it take to ship out my items
+    - how long does it take to ship out my products
+    - how long does it take to ship out my package
+    - how long does it take to ship out my parcel
+    - how long does it take to ship out my delivery
+    - after a package is shipped how long does it take to arrive
+    - after a package is delivered how long does it take to arrive
+
+- intent: backordered
+  examples: |
+    - what if my product is backordered
+    - what if my item is backordered
+    - what if my product is out of stock after payment
+    - what if my item is out of stock after payment
+    - what if my product ran out of stock after payment
+    - what if my item ran out of stock after payment
+    - what should I do if my product is out of stock after payment
+    - what should I do if my item is out of stock after payment
+    - what happens if my product is out of stock after payment
+    - what happens if my item is out of stock after payment
+    - what to do if my product is out of stock after payment
+    - what to do if my item is out of stock after payment
+    - what if my product is out of stock after purchase
+    - what if my item is out of stock after purchase
+    - what if my product ran out of stock after purchase
+    - what if my item ran out of stock after purchase
+    - what should I do if my product is out of stock after purchase
+    - what should I do if my item is out of stock after purchase
+    - what happens if my product is out of stock after purchase
+    - what happens if my item is out of stock after purchase
+    - what to do if my product is out of stock after purchase
+    - what to do if my item is out of stock after purchase
+    - an item on my order has been backordered
+    - a product on my order has been backordered
+    - what happens of my product is backordered
+    - what happens of my item is backordered
+    - what should I do if my product is backordered
+    - what should I do if my item is backordered
+    - what to do if my product is backordered
+    - what to do if my item is backordered
+    - my product is backordered, what should I do
+    - my item is backordered, what should I do
+
+- intent: store_address
+  examples: |
+    - what is the store location
+    - where is idea located at
+    - what is the location of idea
+    - where is the store located at
+    - what is the location of the store
+    - what is the location of the physical store
+    - what is store location
+    - what is the location of IDEA
+    - what is the location of idea
+    - do you have physical stores
+    - do you have a physical store
+    - where is your store located
+    - where is the store located
+    - where is the physical store located
+    - where is your physical store located
+    - I can’t find idea
+    - I can’t find IDEA
+    - I can’t find the store
+    - I can’t find the physical store
+    - I cant find idea
+    - I cant find IDEA
+    - I cant find the store
+    - I cant find the physical store
+    - I cannot find idea
+    - I cannot find IDEA
+    - I cannot find the store
+    - I cannot find the physical store
+    - where is idea
+    - where is IDEA
+    - where is the store
+    - where is your store 
+    - where is idea located
+    - where is idea located
+    - where can I find idea
+    - where can I find the store
+    - where can I find your store
+    - what time does the store open or closes
+    - what time does idea open or closes
+    - what time does IDEA open or closes
+    - what time does the store open or close
+    - what time does idea open or close
+    - what time does IDEA open or close
+    - what time does the store open
+    - what time does idea open
+    - what time does IDEA open
+    - what time does the store close
+    - when can I visit the store
+    - when can I visit idea
+    - where can I visit the store
+    - where can I visit idea
+    - where can I visit IDEA
+    - what are your opening hours
+    - what are the opening hours of the store
+    - what time do you close
+    - when do you open
+    - when do you close
+    - what time does the store open from
+    - what time does the store open till
+    - opening hours
+    - what is the stores operating hours 
+    - what are the operating hours
+    - what are the operating hours of the store
+    - what are your operating hours
+    - what is idea’s operating hours
+    - opening hours
+    - store location
+    - location of idea
+    - location of physical store
+    - idea location
+
+- intent: contact_hours
+  examples: |
+    - customer service contact hours
+    - customer care contact hours
+    - customer care department contact hours
+    - customer care centre contact hours
+    - customer service department contact hours
+    - customer service centre contact hours
+    - what is the customer service contact hours
+    - what is the customer service department contact hours
+    - what is the customer service centre contact hours
+    - what is the customer care contact hours
+    - what is the customer care department contact hours
+    - what is the customer care centre contact hours
+    - what are the contact hours of customer service
+    - when can I contact customer service
+    - when is it possible to contact customer service
+    - when can I contact customer service hotline
+    - when can I call customer service hotline
+    - when can I contact customer care hotline
+    - when can I call customer care hotline
+    - when can I call customer service
+    - when can I call customer care
+    - when is it possible to call customer service
+    - when can I call customer service centre 
+    - when can I call customer care department
+    - when can I call customer service department
+    - what time can I contact customer service hotline
+    - what time can I contact customer care hotline
+    - what time can I call customer service hotline
+    - what time can I call customer care hotline
+    - what time can I call customer service 
+    - what time can I call customer care
+    - what time can I call customer service centre 
+    - what time can I call customer care department
+    - what time can I call customer service department
+    - what time is it possible to call customer service

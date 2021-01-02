@@ -1,5 +1,21 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <style>
+        .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid#01E693;
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #01E693
+}
+</style>
+{% endblock %}
 {% block content %}
 
 <div class="container1">
@@ -35,7 +51,7 @@
                                                 {% endfor %}
                                             </div>
                                         {% else %}
-                                            {{ form.address(placeholder="542 W. 15th Street", value= data.address) }}
+                                            {{ form.address(placeholder="542 W. 15th Street") }}
                                         {% endif %}
                                     
                                     <label for="country"><i class="fa fa-institution"></i> Country</label>
@@ -48,7 +64,7 @@
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                        {{ form.country(placeholder="United States", value=data.country) }}
+                                        {{ form.country(placeholder="United States") }}
                                     {% endif %}
                         
                                     <div class="rowRegister">
@@ -62,7 +78,7 @@
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                        {{ form.state(placeholder="NY", value=data.state) }}
+                                        {{ form.state(placeholder="NY") }}
                                     {% endif %}
                                     </div>
                                     <div class="col-50">
@@ -76,7 +92,7 @@
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                        {{ form.postal(placeholder="569830", value=data.postal) }}
+                                        {{ form.postal(placeholder="569830") }}
                                     {% endif %}
                                         
                                     </div>

@@ -10,6 +10,9 @@ conn = pyodbc.connect("DRIVER="+driver+";SERVER="+server+";PORT=1433;DATABASE="+
 
 cursor = conn.cursor()
 
+cursor.execute('DELETE FROM user_accounts WHERE fullname=?',"Marcus")
+conn.commit()
+
 # account_status = 1
 # firstname = "Darren Kang"
 # email = "darrenkang@gmail.com"
@@ -23,20 +26,20 @@ cursor = conn.cursor()
 """ Inserting into database """
 # constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, isadmin, profile_image, previous_passwords, fullname)
 
-def query(query, *args):
-    try:
-        cursor.execute(query, *args)
-        result = cursor.fetchall()
-    except: 
-        result = []
-    return result
+# def query(query, *args):
+#     try:
+#         cursor.execute(query, *args)
+#         result = cursor.fetchall()
+#     except: 
+#         result = []
+#     return result
+# strip_address = '528 bishan road'
+# result = query('SELECT * FROM Addresses WHERE user_id=? AND address=?', '2037560', strip_address)
+# print(result)
 
-result = query("SELECT * FROM card_info")
-print(result)
-
-def constructAndExecuteQuery(query, *args):
-    cursor.execute(query, *args)
-    conn.commit()
+# def constructAndExecuteQuery(query, *args):
+#     cursor.execute(query, *args)
+#     conn.commit()
 
 """Deleting user from database"""
 # cursor.execute("DELETE FROM user_accounts WHERE Id = 349568")

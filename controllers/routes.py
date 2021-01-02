@@ -29,7 +29,6 @@ import logging
 from controllers.qr import send_qr_code
 import random
 import pyodbc
-from flask_bcrypt import generate_password_hash, check_password_hash
 
 # Database #
 server = 'ispj-database.database.windows.net'
@@ -67,28 +66,21 @@ vali = current_user
 
 
 """
-Functions 
+Functions/Utilities 
 """
-
-##Refreshes the json file if admin adds a new product in##
-def refresh():
-    with open('json_files/product.json', 'r+') as f:
-        data = json.load(f)
-    return data 
-
-# Refreshes Admin events 
+# Refreshes Admin events #
 def refreshEvents():
     with open('json_files/events.json', 'r+') as f:
         data = json.load(f)
     return data
 
-# Refreshes Admin Analytics 
+# Refreshes Admin Analytics #
 def refreshAnalytics():
     with open('json_files/analytics.json', 'r+') as f:
         data = json.load(f)
     return data 
 
-# Constructs an sql query with any number of parameters passed in for query to be constructued 
+# Constructs an sql query with any number of parameters passed in for query to be constructued #
 """
 For insert, delete, update statements 
 """
@@ -107,7 +99,7 @@ def query(query, *args):
         result = []
     return result
 
-# Ensures that allowed images are accepted
+# Ensures that allowed images are accepted #
 def allowed_image(filename):
     if not "." in filename:
         return False
@@ -118,7 +110,7 @@ def allowed_image(filename):
     else:
         return False
 
-# Sends a qr code to the user upon payment and starts an internal thread 
+# Sends a qr code to the user upon payment and starts an internal thread #
 @app.route('/qr')
 def qr():
     request_xhr_key = request.headers.get('X-Requested-With')
@@ -132,23 +124,94 @@ def qr():
     else: 
         return redirect(url_for('home'))
 
+# Threading #
+lock_timer = 0
+def task():
+    global lock_timer 
+    lock_timer = 300
+    for i in range(300):
+        lock_timer -= 1
+        sleep(1)
+        print(lock_timer)
+    print('finished')
+
+# Send an email to the admin email #
+def emailTask():
+    global email
+    print(email)
+    with app.app_context():
+        adminEmail(email)
+    return "sent"
+
+# Timer ajax route #
+@app.route('/timer')
+def timerr():
+    request_xhr_key = request.headers.get('X-Requested-With')
+    if request_xhr_key and request_xhr_key == 'XMLHttpRequest': 
+        global timer
+        print("actual", timer)
+        return str(timer)
+    else:
+        return redirect(url_for('home'))
+
+# Lockout ajax route #
+@app.route('/lock_timer')
+def lock_timerr():
+    request_xhr_key = request.headers.get('X-Requested-With')
+    if request_xhr_key and request_xhr_key == 'XMLHttpRequest': 
+        global lock_timer
+        print(lock_timer)
+        return str(lock_timer)
+    else:
+        return redirect(url_for('home'))
+
+# set session lifetime to 15 minutes #
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=15)
+
+# Check Password ajax route #
+@app.route('/checkPassword')
+def checkpassword():
+    request_xhr_key = request.headers.get('X-Requested-With')
+    if request_xhr_key and request_xhr_key == 'XMLHttpRequest':
+        datas = {"data":[]}
+        password = request.args.get('pass')
+        print(password)
+        policy = PasswordPolicy.from_names(
+            length = 8,
+            uppercase = 2,
+            numbers = 2,
+            special = 2, 
+            nonletters = 2
+        )
+        stats = PasswordStats(password)
+        requirements = policy.test(password)
+        for i in range(len(requirements)):
+            requirements[i] = str(requirements[i])
+        return json.dumps({"data":[stats.strength(), f"{requirements}"]})
+    else:
+        return redirect(url_for('home'))
+
 """
 Home, contact-us, about pages, Chatbot
 """
 
+# Chatbot starting Output #
 output = [("message stark", {"text":"Hi, how may I assist you?"})]
 
-# Home Page
+# Home Page #
 @app.route('/')
 def home():
     return render_template('homepage.html')
 
-# FAQ Page
+# FAQ Page #
 @app.route('/faq')
 def faq():
     return render_template('faq.html', result=output)
 
-# Chatbot
+# Chatbot #
 @app.route('/result',methods=["POST","GET"])
 def Result():
     global output
@@ -193,12 +256,12 @@ def Result():
                 output.extend([("message parker", result), ("message stark", "We are unable to process your request at the moment. Please try again...")])
         return render_template("faq.html",result=output)
 
-# About page
+# About page #
 @app.route('/about')
 def about():
     return render_template('aboutus.html')
 
-# Contact Us page 
+# Contact Us page #
 @app.route('/contactUs', methods=['GET', 'POST'])
 def contactUs():
     form = ContactUsForm()
@@ -221,7 +284,7 @@ def contactUs():
 Account Related Routes 
 """
 
-# Register Route 
+# Register Account route # 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if "user_id" in session:
@@ -230,239 +293,18 @@ def register():
     if request.method == 'POST' and form.validate_on_submit():
         name = form.fullname.data
         password = form.password.data
-        email = form.email.data
-        # hashing of password
-        hash_password = generate_password_hash(password, 10)
+        email = form.email.data.strip()
+        if query('SELECT * FROM user_accounts WHERE email=?', email) != []:
+            flash('This email has been taken already!', 'danger')
+            return redirect(url_for('login'))
         previousPass = []
-        previousPass.append(hash_password)
-        query = 'INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?);'
-        constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, hash_password, 0, '../../static/img/profile_pic/default.jpg', str(previousPass), name)
+        previousPass.append(password)
+        constructAndExecuteQuery('INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?)', random.randint(100000, 999999), 1, email, password, 0, '../static/img/profile_pic/default.jpg', str(previousPass), name)
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route('/addAddress', methods=['GET', 'POST'])
-def registerStep2():
-    form = Billing()
-    existing = AddressInfo.query.filter_by(user_id=current_user.id)
-    if form.validate_on_submit():
-        exisr = AddressInfo.query.filter_by(address=form.address.data, user_id=current_user.id).first()
-        print(exisr)
-        if exisr == None:
-            for i in existing:
-                i.default = 'False'
-            address = form.address.data.strip()
-            country = form.country.data
-            state = form.state.data.strip()
-            postal = form.postal.data
-            address = AddressInfo(address=address, country=country, state=state, postal=postal, user_id = current_user.id, default='True')
-            db.session.add(address)
-            db.session.commit()
-            return redirect(url_for('myAccount'))
-        elif str(exisr).find('SELECT') != None and exisr == None:
-            for i in existing:
-                i.default = 'False'
-            address = form.address.data.en
-            country = form.country.data
-            state = form.state.data
-            postal = form.postal.data
-            address = AddressInfo(address=address, country=country, state=state, postal=postal, user_id = current_user.id, default='True')
-            db.session.add(address)
-            db.session.commit()
-            return redirect(url_for('myAccount'))
-        else:
-            flash('Address already added! Please add a different address', 'danger')
-    return render_template('addAddress.html', form = form, data=[])
-
-@app.route('/addAddress')
-def addAddress():
-    pass
-
-@app.route('/editAddress', methods=['GET', 'POST'])
-def editBilling():
-    address = request.args.get('address')
-    addressinfo = AddressInfo.query.filter_by(address=address, user_id=current_user.id).first()
-    address = addressinfo.address.strip()
-    country = addressinfo.country
-    state = addressinfo.state.strip()
-    postal = addressinfo.postal
-    data = {"address":address, "country":country, "state":state, "postal":postal, "default":addressinfo.default}
-    form = UpdateBilling()
-    if request.method == 'GET':
-        form.country.data = country
-    if form.validate_on_submit() and request.method=='POST':
-        exisr = AddressInfo.query.filter_by(address=form.address.data, user_id=current_user.id).first()
-        print(exisr)
-        if exisr == None:
-            addressinfo.address = form.address.data
-            addressinfo.country = form.country.data
-            addressinfo.state = form.state.data
-            addressinfo.postal = form.postal.data
-            db.session.commit()
-            return redirect(url_for('myAccount'))
-        elif addressinfo.address == form.address.data:
-            print(form.country.data)
-            addressinfo.address = form.address.data
-            addressinfo.country = form.country.data
-            addressinfo.state = form.state.data
-            addressinfo.postal = form.postal.data
-            db.session.commit()
-            return redirect(url_for('myAccount'))
-        else:
-            flash('Address already added! Please add a different address', 'danger')
-            return render_template('editAddress.html', form=form, data = addressinfo)
-    return render_template('editAddress.html', form=form, data = data)
-    
-# @app.route('/editCardInfo', methods=['GET', 'POST'])
-# def editCardInfo():
-#     cardno1 = request.args.get('card')
-#     id = request.args.get('id')
-#     cards = CardInfo.query.all()
-#     for i in cards:
-#         cardnum = cipher_suite.decrypt(i.cardno)
-#         cardn = str(cardnum)
-#         cardnss = cardn[1:]
-#         cardns = cardnss[1:-1]
-#         iteration = i
-#         if cardns == cardno1:
-#             card_name = i.card_name
-#             exp = i.exp
-#             year = i.year
-#             cardo = {'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year}
-#             break 
-#     form = UpdateCard()
-#     if form.validate_on_submit():
-#         cardno = form.cardno.data
-#         print(cardno)
-#         for i in cards:
-#             cardnum = cipher_suite.decrypt(i.cardno)
-#             cardn = str(cardnum)
-#             cardnss = cardn[1:]
-#             cardns = cardnss[1:-1]
-#             print(cardns)
-#             if cardns == cardno:
-#                 cardnsss = cardns
-#                 iteration = i
-#                 card_name = i.card_name
-#                 exp = i.exp
-#                 year = i.year
-#                 card = {'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year}
-#                 print(card)
-#                 break
-#             else:
-#                 cardnsss = None
-#                 card = cardo
-#         print(cardnss)
-#         print(id)
-#         if card['id'] == int(id) and card['cardno'] == cardnsss:
-#             print('editing orginal card')
-#             iteration.card_name = form.name.data
-#             d = bytes(form.cardno.data, encoding='utf8')
-#             encoded_text = cipher_suite.encrypt(d)
-#             iteration.cardno = encoded_text
-#             iteration.exp = form.exp.data
-#             iteration.year =  form.year.data
-#             if cardno[0] == '5':
-#                 iteration.card_type = "master"
-#                 print('master')
-#             elif cardno[0] == '4':
-#                 iteration.card_type = "visa"
-#             db.session.commit()
-#             return redirect(url_for('myAccount'))
-#         elif card['cardno'] == cardnsss and card['id'] != int(id):
-#             print('error')
-#             flash('Card number already exist! Please add a different card', 'danger')
-#             return render_template('editCard.html', form=form, data = cardo)
-#         else:
-#             iteration.card_name = form.name.data
-#             d = bytes(form.cardno.data, encoding='utf8')
-#             encoded_text = cipher_suite.encrypt(d)
-#             iteration.cardno = encoded_text
-#             iteration.exp = form.exp.data
-#             iteration.year = form.year.data
-#             if cardno[0] == '5':
-#                 iteration.card_type = "master"
-#             else:
-#                 iteration.card_type = "visa"
-#             db.session.commit()
-#             return redirect(url_for('myAccount'))
-#     return render_template('editCard.html', form=form, data = cardo)
-
-@app.route('/editCard', methods=['GET', 'POST'])
-def editCard():
-    pass
-
-
-@app.route('/addCard', methods=['GET','POST'])
-def addCard():
-    form = PaymentInfo()
-    if form.validate_on_submit():
-        card_name = form.name.data
-        card_no = form.cardno.data
-        card_type = 'VISA' if card_no[0] == '4' else 'MASTERCARD'
-        card_exp = form.exp.data 
-        card_year = form.year.data
-        exisiting_card_no = query('SELECT card_no FROM card_info WHERE card_no=?', card_no)
-        all_card_list = query('SELECT * FROM card_info')
-        print(all_card_list)
-        print(exisiting_card_no)
-        if exisiting_card_no == []:
-            cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',int(session['user_id']))
-            for i in cardlist:
-                constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
-            constructAndExecuteQuery('INSERT INTO card_info VALUES(?,?,?,?,?,?,?,?)', int(all_card_list[-1][0])+1, card_name,card_no,card_type,card_exp,card_year,int(session['user_id']),'True')
-            return redirect(url_for('myAccount'))
-        else:
-            flash('Card number already exist! Please add a different card', 'danger')
-            return render_template('addCard.html', form = form)
-    else:
-        return render_template('addCard.html', form = form)
-
-lock_timer = 0
-def task():
-    global lock_timer 
-    lock_timer = 300
-    for i in range(300):
-        lock_timer -= 1
-        sleep(1)
-        print(lock_timer)
-    print('finished')
-
-def emailTask():
-    global email
-    print(email)
-    with app.app_context():
-        adminEmail(email)
-    return "sent"
-
-@app.route('/timer')
-def timerr():
-    request_xhr_key = request.headers.get('X-Requested-With')
-    if request_xhr_key and request_xhr_key == 'XMLHttpRequest': 
-        global timer
-        print("actual", timer)
-        return str(timer)
-    else:
-        return redirect(url_for('home'))
-
-@app.route('/lock_timer')
-def lock_timerr():
-    request_xhr_key = request.headers.get('X-Requested-With')
-    if request_xhr_key and request_xhr_key == 'XMLHttpRequest': 
-        global lock_timer
-        print(lock_timer)
-        return str(lock_timer)
-    else:
-        return redirect(url_for('home'))
-
-# set session lifetime to 15 minutes
-
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=15)
-
-# Login Route 
+# Login Route #
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -482,10 +324,7 @@ def login():
             flash('Please check your credentials again', 'danger')
             return render_template('login.html', form=form)
         user_password = user[0][3]
-        # hashing of password to confirm identity
-        password = form.password.data
-        hash_successful = check_password_hash(user_password, password)
-        if user and hash_successful == True:
+        if user and user_password == form.password.data:
             user_id = user[0][0]
             user_active = user[0][1]
             user_email = user[0][2]
@@ -520,168 +359,242 @@ def login():
         form = LoginForm()
         return render_template('login.html', title='Login', form=form)
 
-
-@app.route('/checkPassword')
-def checkpassword():
-    request_xhr_key = request.headers.get('X-Requested-With')
-    if request_xhr_key and request_xhr_key == 'XMLHttpRequest':
-        datas = {"data":[]}
-        password = request.args.get('pass')
-        print(password)
-        policy = PasswordPolicy.from_names(
-            length = 8,
-            uppercase = 2,
-            numbers = 2,
-            special = 2, 
-            nonletters = 2
-        )
-        stats = PasswordStats(password)
-        requirements = policy.test(password)
-        for i in range(len(requirements)):
-            requirements[i] = str(requirements[i])
-        return json.dumps({"data":[stats.strength(), f"{requirements}"]})
+# Adding Address route #
+@app.route('/addAddress', methods=['GET', 'POST'])
+def addAddress():
+    form = Billing()
+    if form.validate_on_submit():
+        new_address = form.address.data 
+        new_country = form.country.data 
+        new_state = form.state.data 
+        new_postal = form.postal.data
+        all_address_list = query('SELECT * FROM Addresses')
+        strip_address = new_address.strip()
+        existing_address = query('SELECT * FROM Addresses WHERE user_id=? AND address=?', session['user_id'], strip_address)
+        print(existing_address)
+        if existing_address == []:
+            user_exisiting_addresses = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
+            if user_exisiting_addresses != []:
+                for i in user_exisiting_addresses:
+                    constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",i[0])
+            constructAndExecuteQuery('INSERT INTO Addresses VALUES(?,?,?,?,?,?,?)',int(all_address_list[-1][0])+1,new_address,new_state,new_country,new_postal,"True",int(session['user_id']))
+            print(query('SELECT * FROM Addresses'))
+            return redirect(url_for('myAccount'))
+        else:
+            flash('Address already added! Please add a different address', 'danger')
+            return render_template('addAddress.html', form=form)
     else:
+        return render_template('addAddress.html', form=form)
+
+# Edit Address route #
+@app.route('/editAddress', methods=['GET', 'POST'])
+def editAddress():
+    form=Billing()
+    if request.method == 'GET':
+        address_id = request.args.get('address')
+        if address_id != None:
+            address = query('SELECT * FROM Addresses WHERE Id=?', int(address_id))
+            if address[0][-1] != int(session['user_id']):
+                address = []
+        else:
+            return redirect(url_for('home'))
+        return render_template('editAddress.html', form=form, address=address[0])
+    if form.validate_on_submit():
+        address_id = request.args.get('address')
+        address = query('SELECT * FROM Addresses WHERE Id=?', int(address_id))
+        editted_address = form.address.data 
+        editted_country = form.country.data 
+        editted_state = form.state.data 
+        editted_postal = form.postal.data
+        stripped_address = editted_address.strip()
+        old_addresses = query('SELECT * FROM Addresses WHERE user_id=?', int(session['user_id']))
+        print(old_addresses)
+        if len(old_addresses) == 1:
+            constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
+            return redirect(url_for('myAccount'))
+        else:
+            check_existing_address = query('SELECT * FROM Addresses WHERE address=? AND user_id=?', stripped_address, int(session['user_id']))
+            print(check_existing_address)
+            if check_existing_address == []:
+                constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
+                return redirect(url_for('myAccount'))
+            elif check_existing_address[0][0] == int(address_id):
+                constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
+                return redirect(url_for('myAccount'))
+            else:
+                flash('You have already added this address! Please add a different address', 'danger')
+                return render_template('editAddress.html', form=form,address=address[0])
+    else:
+        address_id = request.args.get('address')
+        if address_id != None:
+            address = query('SELECT * FROM Addresses WHERE Id=?', int(address_id))
+        else:
+            return redirect(url_for('home'))
+        return render_template('editAddress.html', form=form, address=address[0])
+
+# Setting Default Address route #
+@app.route('/defaultAddress', methods=['GET', 'POST'])
+def defaultAddress():
+    address = request.args.get('address')
+    print(address)
+    if address == None:
+        return redirect(url_for('home'))
+    try:
+        addressList = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
+        print(addressList)
+        test = address.strip()
+        for i in addressList:
+            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",int(i[0]))
+        constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",int(address))
+        print(query('SELECT * FROM Addresses'))
+        return "[]"
+    except:
         return redirect(url_for('home'))
 
-# @app.route('/myAccount', methods=['GET', 'POST'])
-# def myAccount():
-#     user = query('SELECT * FROM user_accounts WHERE Id = ?', session['user_id'])
-#     name = user[0][7]
-#     email = user[0][2]
+# Remove address route #
+@app.route('/removeAddress')
+def removeAddress():
+    address = request.args.get('address')
+    print(address)
+    if address == None: 
+        return redirect(url_for('myAccount'))
+    try:
+        test = address.strip()
+        constructAndExecuteQuery('DELETE FROM Addresses WHERE Id=?', int(test))
+        addresslist = query('SELECT * FROM Addresses WHERE user_id=?',session['user_id'])
+        print(addresslist)
+        if addresslist != []:
+            constructAndExecuteQuery('UPDATE Addresses SET "default_address"=? WHERE Id=?',"True",addresslist[-1][0])
+        print(query('SELECT * FROM Addresses'))
+        return "[]"
+    except:
+        return redirect(url_for('myAccount'))
 
-#     # name =current_user.fullname
-#     # email = current_user.email
-#     removeConfirmation = request.args.get('delete')
-#     removeAddress = request.args.get('address')
-#     removeCard = request.args.get('card')
-#     if removeAddress != None and removeConfirmation == 'true':
-#         addresses = query('SELECT * FROM Addresses WHERE Id = ?', session['user_id'])
+# Add Card route #
+@app.route('/addCard', methods=['GET','POST'])
+def addCard():
+    form = PaymentInfo()
+    if form.validate_on_submit():
+        card_name = form.name.data
+        card_no = form.cardno.data
+        card_type = 'VISA' if card_no[0] == '4' else 'MASTERCARD'
+        card_exp = form.exp.data 
+        card_year = form.year.data
+        exisiting_card_no = query('SELECT card_no FROM card_info WHERE card_no=?', card_no)
+        all_card_list = query('SELECT * FROM card_info')
+        print(all_card_list)
+        print(exisiting_card_no)
+        if exisiting_card_no == []:
+            cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',int(session['user_id']))
+            for i in cardlist:
+                constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
+            constructAndExecuteQuery('INSERT INTO card_info VALUES(?,?,?,?,?,?,?,?)', int(all_card_list[-1][0])+1, card_name,card_no,card_type,card_exp,card_year,int(session['user_id']),'True')
+            return redirect(url_for('myAccount'))
+        else:
+            flash('Card number already exist! Please add a different card', 'danger')
+            return render_template('addCard.html', form = form)
+    else:
+        return render_template('addCard.html', form = form)
 
-#         # addresses = AddressInfo.query.filter_by(user_id=current_user.id)
-#         address = AddressInfo.query.filter_by(address=removeAddress, user_id = current_user.id).first()
-#         db.session.delete(address)
-#         db.session.commit()
-#         addresses[-1].default = 'True'
-#         db.session.commit()
-#     elif removeCard != None and removeConfirmation == 'true':
-#         cards = CardInfo.query.filter_by(user_id=current_user.id)
-#         for i in cards:
-#             cardnum = cipher_suite.decrypt(i.cardno)
-#             cardn = str(cardnum)
-#             cardnss = cardn[1:]
-#             cardns = cardnss[1:-1]
-#             if cardns == removeCard:
-#                 card = i
-#                 break 
-#         db.session.delete(card)
-#         db.session.commit()
-#         cards[-1].default = 'True'
-#         db.session.commit()
-#     form = UpdateAccountForm()
-#     if form.validate_on_submit():
-#         image = request.files['image']
-#         filename = request.files['image'].filename   
-#         if filename.find('.') == -1: 
-#             filename = None
-#             bool_image = False
-#         else:
-#             bool_image = allowed_image(filename)
-#         print(filename)
-#         if bool_image == False and filename != None:
-#             flash('Invalid file type for images', 'danger')
-#             return redirect(url_for('myAccount'))
-#         else: 
-#             if filename != None:
-#                 image.save(os.path.join(app.config["PROFILE_UPLOADS"], filename))
-#                 current_user.image_file = f'../static/img/profile_pic/{filename}'
-#             current_user.fullname = form.fullname.data
-#             current_user.email = form.email.data
-#             db.session.commit()
-#             flash('Your account has been updated!', 'success')
-#             return redirect(url_for('myAccount'))
-#     old = request.args.get('old')
-#     new = request.args.get('new')
-#     if old != None:
-#         old_password = current_user.password
-#         if bcrypt.check_password_hash(current_user.password, old):
-#             pass
-#         else:
-#             return "wrong"
-#     if new != None:
-#         hashed_password = bcrypt.generate_password_hash(new).decode('utf-8')
-#         current_user.password = hashed_password
-#         return redirect(url_for('myAccount'))
-#     elif request.method == 'GET':
-#         tran_list = []
-#         card_list = []
-#         form.fullname.data = current_user.fullname
-#         form.email.data = current_user.email
-#         image_file = current_user.image_file
-#         address = current_user.address_info
-#         cards = current_user.card_info
-#         for i in cards:
-#             cardnum = cipher_suite.decrypt(i.cardno)
-#             cardn = str(cardnum)
-#             cardnss = cardn[1:]
-#             cardns = cardnss[1:-1]
-#             card_name = i.card_name
-#             exp = i.exp
-#             year = i.year
-#             card_list.append({'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year, "card_type":i.card_type, "default":i.default})
-#         previous_transactions = current_user.previousTransactions 
-#         reviews = current_user.review 
-#         for i in previous_transactions:
-#             total = 0
-#             date = i.transaction_date
-#             items = ast.literal_eval(i.cartItems)
-#             for j in items:
-#                 total += int(j['prod_price']*j['prod_quantity'])
-#             tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})
-#     tran_list = []
-#     card_list = []
-#     address_list = []
-#     image_file = current_user.image_file
-#     address = current_user.address_info
-#     cards = current_user.card_info
-#     for addressinfo in address:
-#         addresss = addressinfo.address
-#         country = addressinfo.country
-#         state = addressinfo.state
-#         postal = addressinfo.postal
-#         data = {"address":addresss, "country":country, "state":state, "postal":postal, "default":addressinfo.default}
-#         address_list.append(data)
-#     for i in cards:
-#         cardnum = cipher_suite.decrypt(i.cardno)
-#         cardn = str(cardnum)
-#         cardnss = cardn[1:]
-#         cardns = cardnss[1:-1]
-#         card_name = i.card_name
-#         exp = i.exp
-#         year = i.year
-#         card_list.append({'id':i.id,'card_name':card_name, 'cardno':cardns, 'exp':exp, 'year':year, "card_type":i.card_type, "default":i.default})
-#     previous_transactions = current_user.previousTransactions 
-#     reviews = current_user.review 
-#     for i in previous_transactions:
-#         total = 0
-#         date = i.transaction_date
-#         items = ast.literal_eval(i.cartItems)
-#         for j in items:
-#             total += int(j['prod_price']*j['prod_quantity'])
-#         tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})        
-#     return render_template('myAccount.html', title='Account', image_file=image_file, form=form, accountInfo = address_list, previous_transactions = tran_list, review=reviews, card=card_list, name=name, email=email)
+# Edit Card route #
+@app.route('/editCard', methods=['GET', 'POST'])
+def editCard():
+    form=PaymentInfo()
+    if request.method == 'GET' :
+        card_id = request.args.get('card')
+        if card_id != None:
+            card = query('SELECT * FROM card_info WHERE Credit_card_id=?', int(card_id))
+            if card[0][6] != int(session['user_id']):
+                card = []
+        else:
+            return redirect(url_for('home'))
+        return render_template('editCard.html', form=form, card=card[0])
+    if form.validate_on_submit():
+        card_id = request.args.get('card')
+        card = query('SELECT * FROM card_info WHERE Credit_card_id=?', int(card_id))
+        edited_cardno = form.cardno.data
+        edited_cardname = form.name.data 
+        edited_cardtype = 'VISA' if edited_cardno[0] == '4' else 'MASTERCARD'
+        edited_cardexp = form.exp.data 
+        edited_cardexpyear = form.year.data
+        stripped_cardno = edited_cardno.strip()
+        user_existing_cards = query('SELECT * FROM card_info WHERE fk_user_id=?', int(session['user_id']))
+        if len(user_existing_cards) == 1:
+            constructAndExecuteQuery('UPDATE card_info SET card_name=?,card_no=?,exp_month=?,exp_year=?,card_type=? WHERE Credit_card_id=?',edited_cardname,edited_cardno,edited_cardexp,edited_cardexpyear,edited_cardtype,int(card_id))
+            return redirect(url_for('myAccount'))
+        else:
+            existing_cardno = query('SELECT * FROM card_info WHERE card_no=?', stripped_cardno)
+            if existing_cardno == []:
+                constructAndExecuteQuery('UPDATE card_info SET card_name=?,card_no=?,exp_month=?,exp_year=?,card_type=? WHERE Credit_card_id=?',edited_cardname,edited_cardno,edited_cardexp,edited_cardexpyear,edited_cardtype,int(card_id))
+                return redirect(url_for('myAccount'))
+            elif existing_cardno[0][0] == int(card_id):
+                constructAndExecuteQuery('UPDATE card_info SET card_name=?,card_no=?,exp_month=?,exp_year=?,card_type=? WHERE Credit_card_id=?',edited_cardname,edited_cardno,edited_cardexp,edited_cardexpyear,edited_cardtype,int(card_id))
+                return redirect(url_for('myAccount'))
+            else:
+                print('here')
+                flash('This card number has already been added! Please add a different card number')
+                return render_template('editCard.html', form=form, card=card[0])
+    else:
+        card_id = request.args.get('card')
+        if card_id != None:
+            card = query('SELECT * FROM card_info WHERE Credit_card_id=?', int(card_id))
+        else:
+            return redirect(url_for('home'))
+        return render_template('editCard.html', form=form, card=card[0])
 
+# Setting Default Card route #
+@app.route('/defaultCard', methods=['GET', 'POST'])
+def defaultCard():
+    card = request.args.get('card')
+    print(card)
+    if card == None: 
+        return redirect(url_for('home'))
+    try:
+        cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
+        print(cardlist)
+        for i in cardlist:
+            constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
+        test = card.strip()
+        constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",int(test))
+        print(query('SELECT * FROM card_info'))
+        return "[]"
+    except:
+        return redirect(url_for('home'))
+
+# Remove Card route #
+@app.route('/removeCard')
+def removeCard():
+    card = request.args.get('card')
+    print(card)
+    if card == None: 
+        return redirect(url_for('myAccount'))
+    try:
+        test = card.strip()
+        constructAndExecuteQuery('DELETE FROM card_info WHERE Credit_card_id=?', int(test))
+        cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
+        print(cardlist)
+        if cardlist != []:
+            constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",cardlist[-1][0])
+        print(query('SELECT * FROM card_info'))
+        return "[]"
+    except:
+        return redirect(url_for('myAccount'))
+
+# User Account route #
 @app.route('/myAccount', methods=['GET', 'POST'])
 def myAccount():
     form = UpdateAccountForm()
-    # Entering the Myaccount Page 
     if request.method == 'GET':
         if "user_id" not in session: 
             return redirect(url_for('home'))
         else:
+            old_password = request.args.get('old')
+            if old_password != None:
+                current_password = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0][3]
+                if old_password != current_password:
+                    return "wrong"
             user_id = session['user_id']
-            print(user_id)
             user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
-            print(user)
             card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
             address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
             prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', str(user_id))
@@ -718,68 +631,59 @@ def myAccount():
         return redirect(url_for('myAccount'))
     return render_template('myAccount.html', form=form, user=user[0],credit_cards = card_info, addresses=address_info, transactions=transactions)
 
+# Change Password route #
 @app.route("/changePassword", methods=["GET", "POST"])
 def changePassword():
-    user = current_user
+    user = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0]
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        if user and bcrypt.check_password_hash(user.password, form.current_password.data):
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            oldpassowrds = ast.literal_eval(current_user.previousPasswords)
-            for i in oldpassowrds:
-                if bcrypt.check_password_hash(i, form.password.data):
+        if user[3] == form.current_password.data:
+            oldpasswords = ast.literal_eval(user[6])
+            for i in oldpasswords:
+                if i == form.password.data:
                     print('old password')
                     flash('You cannot reuse any of your previous 5 passwords!', 'danger')
                     return render_template('changePassword.html', form=form)
             else:
-                if len(oldpassowrds) == 5:
-                    oldpassowrds = []
-                    oldpassowrds.append(hashed_password)
-                    current_user.password = hashed_password
-                    current_user.previousPasswords = str(oldpassowrds)
-                    db.session.commit()
+                if len(oldpasswords) == 5:
+                    oldpasswords = []
+                    oldpasswords.append(form.password.data)
+                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',form.password.data,str(oldpasswords), session['user_id'])
                 else:    
-                    oldpassowrds.append(hashed_password)
-                    current_user.password = hashed_password
-                    current_user.previousPasswords = str(oldpassowrds)
-                    db.session.commit()
+                    oldpasswords.append(form.password.data)
+                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',form.password.data,str(oldpasswords), session['user_id'])
                 return redirect(url_for('myAccount'))
     return render_template('changePassword.html', form=form)
 
-
 @app.route("/disable", methods=["GET", "POST"])
 def disable():
-    # user = current_user
-    # try: 
-    #     email = current_user.email
-    # except:
-    #     return redirect(url_for('login'))
-    # form = Disable()
-    # if form.validate_on_submit():
-    #     if user and bcrypt.check_password_hash(user.password, form.password.data):
-    #         current_user.active = "Inactive"
-    #         db.session.commit()
-    #         logout_user()
-    #         return redirect(url_for('home'))
-    #     else:
-    #         flash('Password is inncorrect. Please retype your password.', 'danger')
-    #         return redirect(url_for('disable'))
+    form = Disable()
+    if form.validate_on_submit():
+        user = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])
+        if form.password.data == user[0][3]:
+            constructAndExecuteQuery('UPDATE user_accounts SET account_status=? WHERE Id=?',0, session['user_id'])
+            session.pop('user_id', None)
+            return redirect(url_for('home'))
+        else:
+            flash('Password is inncorrect. Please retype your password.', 'danger')
+            return redirect(url_for('disable'))
     return render_template('disable.html', form=form)
 
 @app.route("/activate", methods=["GET", "POST"])
 def activate():
-        form = Activate()
-        # if form.validate_on_submit():
-        #     user = User.query.filter_by(email=form.email.data).first()
-        #     if user and bcrypt.check_password_hash(user.password, form.password.data):
-        #         login_user(user)
-        #         user.active = "Active"
-        #         db.session.commit()
-        #         return redirect(url_for('home'))
-        #     else:
-        #         flash('Password is inncorrect. Please retype your password.', 'danger')
-        #         return redirect(url_for('activate'))
-        return render_template('activate.html', form=form)
+    form = Activate()
+    if form.validate_on_submit():
+        stripped_email = form.email.data.strip()
+        user = query('SELECT * FROM user_accounts WHERE email=?', stripped_email)
+        print(user)
+        if form.password.data == user[0][3]:
+            constructAndExecuteQuery('UPDATE user_accounts SET account_status=? WHERE email=?',1,stripped_email)
+            session['user_id'] = user[0][0]
+            return redirect(url_for('home'))
+        else:
+            flash('Password is inncorrect. Please retype your password.', 'danger')
+            return redirect(url_for('disable'))
+    return render_template('activate.html', form=form)
 
 @app.route("/activateask", methods=["GET", "POST"])
 def activateask():
@@ -789,79 +693,6 @@ def activateask():
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('home'))
-
-@app.route('/defaultAddress', methods=['GET', 'POST'])
-def defaultAddress():
-    address = request.args.get('address')
-    print(address)
-    if address == None:
-        return redirect(url_for('home'))
-    try:
-        addressList = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
-        print(addressList)
-        test = address.strip()
-        for i in addressList:
-            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",int(i[0]))
-        constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",int(address))
-        print(query('SELECT * FROM Addresses'))
-        return "[]"
-    except:
-        return redirect(url_for('home'))
-
-@app.route('/defaultCard', methods=['GET', 'POST'])
-def defaultCard():
-    card = request.args.get('card')
-    print(card)
-    if card == None: 
-        return redirect(url_for('home'))
-    try:
-        cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
-        print(cardlist)
-        for i in cardlist:
-            constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
-        test = card.strip()
-        constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",int(test))
-        print(query('SELECT * FROM card_info'))
-        return "[]"
-    except:
-        return redirect(url_for('home'))
-
-@app.route('/removeCard')
-def removeCard():
-    card = request.args.get('card')
-    print(card)
-    if card == None: 
-        return redirect(url_for('myAccount'))
-    try:
-        test = card.strip()
-        constructAndExecuteQuery('DELETE FROM card_info WHERE Credit_card_id=?', int(test))
-        cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
-        print(cardlist)
-        if cardlist != []:
-            constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",cardlist[-1][0])
-        print(query('SELECT * FROM card_info'))
-        return "[]"
-    except:
-        return redirect(url_for('myAccount'))
-
-@app.route('/removeAddress')
-def removeAddress():
-    address = request.args.get('address')
-    print(address)
-    if address == None: 
-        return redirect(url_for('myAccount'))
-    try:
-        test = address.strip()
-        constructAndExecuteQuery('DELETE FROM Addresses WHERE Id=?', int(test))
-        addresslist = query('SELECT * FROM Addresses WHERE user_id=?',session['user_id'])
-        print(addresslist)
-        if addresslist != []:
-            constructAndExecuteQuery('UPDATE Addresses SET "default_address"=? WHERE Id=?',"True",addresslist[-1][0])
-        print(query('SELECT * FROM Addresses'))
-        return "[]"
-    except:
-        return redirect(url_for('myAccount'))
-
 
 """
 Shop Related Routes 
@@ -1411,7 +1242,8 @@ def stock():
 """Reset Password token routes"""
 
 def send_reset_email(user):
-    token = user.get_reset_token()
+    s = Serializer(current_app.config['SECRET_KEY'], expires_sec=600)
+    token =s.dumps({'user_id': user[0]}).decode('utf-8')
     msg = Message('Password Reset Request', sender='testemailnyp@gmail.com', recipients=[user.email])
     msg.body = f'''To reset your password, visit the following link:
 {url_for('reset_token', token=token, _external=True)}
@@ -1423,6 +1255,17 @@ If you did not make this request then simply ignore this email and no changes wi
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
     form = RequestResetForm()
+    if "attempts" not in session:
+        session['attempts'] = 5
+    if "user_id" in session:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        email = form.email.data.strip()
+        user = query('SELECT * FROM user_accounts WHERE email=?',email)
+        send_reset_email(user)
+        flash('An email has been sent with instructions to reset your password.', 'info')
+        return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
