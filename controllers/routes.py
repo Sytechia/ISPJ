@@ -29,6 +29,8 @@ import logging
 from controllers.qr import send_qr_code
 import random
 import pyodbc
+from flask_bcrypt import generate_password_hash, check_password_hash
+
 
 # Database #
 server = 'ispj-database.database.windows.net'
@@ -293,13 +295,14 @@ def register():
     if request.method == 'POST' and form.validate_on_submit():
         name = form.fullname.data
         password = form.password.data
+        hash_pasword = generate_password_hash(password, 10)
         email = form.email.data.strip()
         if query('SELECT * FROM user_accounts WHERE email=?', email) != []:
             flash('This email has been taken already!', 'danger')
             return redirect(url_for('login'))
         previousPass = []
-        previousPass.append(password)
-        constructAndExecuteQuery('INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?)', random.randint(100000, 999999), 1, email, password, 0, '../static/img/profile_pic/default.jpg', str(previousPass), name)
+        previousPass.append(hash_pasword)
+        constructAndExecuteQuery('INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?)', random.randint(100000, 999999), 1, email, hash_pasword, 0, '../static/img/profile_pic/default.jpg', str(previousPass), name)
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -324,7 +327,10 @@ def login():
             flash('Please check your credentials again', 'danger')
             return render_template('login.html', form=form)
         user_password = user[0][3]
-        if user and user_password == form.password.data:
+        # hashing of password
+        password = form.password.data
+        hash_successful = check_password_hash(user_password, password)
+        if user and hash_successful == True:
             user_id = user[0][0]
             user_active = user[0][1]
             user_email = user[0][2]
