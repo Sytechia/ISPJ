@@ -597,7 +597,8 @@ def myAccount():
             old_password = request.args.get('old')
             if old_password != None:
                 current_password = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0][3]
-                if old_password != current_password:
+                compare_old_pw = check_password_hash(current_password, old_password)
+                if not compare_old_pw:
                     return "wrong"
             user_id = session['user_id']
             user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
@@ -643,7 +644,10 @@ def changePassword():
     user = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0]
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        if user[3] == form.current_password.data:
+        user_current_pw = form.current_password.data
+        db_pw = user[3]
+        compare_current_hash = check_password_hash(db_pw, user_current_pw)
+        if compare_current_hash == True:
             oldpasswords = ast.literal_eval(user[6])
             for i in oldpasswords:
                 if i == form.password.data:
@@ -653,11 +657,13 @@ def changePassword():
             else:
                 if len(oldpasswords) == 5:
                     oldpasswords = []
-                    oldpasswords.append(form.password.data)
-                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',form.password.data,str(oldpasswords), session['user_id'])
-                else:    
-                    oldpasswords.append(form.password.data)
-                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',form.password.data,str(oldpasswords), session['user_id'])
+                    new_pw = generate_password_hash(form.current_password.data, 10)
+                    oldpasswords.append(new_pw)
+                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
+                else:
+                    new_pw = generate_password_hash(form.current_password.data, 10)
+                    oldpasswords.append(new_pw)
+                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
                 return redirect(url_for('myAccount'))
     return render_template('changePassword.html', form=form)
 
