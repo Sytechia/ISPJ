@@ -1,29 +1,199 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
 {% block content %}
+<div class="modal fade mx-auto" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body-1">
+                <div class="shopping-cart mx-auto " id="shopping-cart">
+                    <div class="title text-center ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button><span>Cart</span>
+                    </div>
+                <div class="products">
+                    
+                    <!--Single Product layout template displayed on cart -->
+                    <!-- {% for product in cartItems %} -->
+                    <div class="item">
+                        <div class="image">
+                          <!-- {{ product.img }} -->
+                            <img src="https://i.redd.it/w3kr4m2fi3111.png" height="80px">
+                           
+                        </div>
+                        <div class="description">
+                          <!-- {{ product.prod_name }} -->
+                            <span>Product Name</span>
+                            
+                        </div>
+                         <div class="quantity">
+                          <!-- {{ product.prod_quantity }} -->
+                            <input type="text" name="name" class="quan" value="1">
+                        </div>
+                        <!-- {{ product.prod_price }} -->
+                        <div class="total-price">$15.00</div>
+                        <div class="remove-product">
+                            <a href="#"><i class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- {% endfor %} -->
+                     <!--End of Single Product layout template displayed on cart -->
 
-<h1>Product Name</h1>
+                    <div class="Subtotal">
+                        <span>Subtotal:</span>
+                        <span class='totalPrice'>$0</span><br>
+                        <span>Total Quantity:</span>
+                        <span class='totalQuantity'>0</span>
+                    </div>
+                </div>
+                    <div class="checkout mx-auto">
+                        <a href="/checkout" class="checkout-button">Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <!-- <div><a href="/shop">Back To Shop</a></div> -->
+        <div class="row">
+            <div class="col-6">
+                <div class="thumb-holder">
+                    <img class="thumbnail" src="https://mrreiha.keybase.pub/codepen/hover-fx/1.jpg">
+                    <!-- {{current2}} -->
+                    <span class="active1" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="singleProductTitlePrice">
+                    <div class="singleProductTitle">
+                        <h2>Product Name</h2>
+                    </div>
+                    <div class="singleProductPrice">
+                        <h4>$15.00</h4>
+                    </div>
+                </div>
+                <div class="singleProductQuantity">
+                    <p>Quantity</p>
+                    <div >
+                        <input type="number" value="1" class="singleProductQuantityAmount">
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <span>Dota 2 is a multiplayer online battle arena (MOBA) video game developed and published by Valve. The game is a sequel to Defense of the Ancients (DotA), which was a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos and its expansion pack, The Frozen Throne.</span>
+                </div>
+                <div class="singleProductCheckout">
+                    <span style="display: none;"></span>
+                    <button type="button" class='singleProductBtn'>Add to cart</button>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAe1BMVEX///8dHRsAAAAZGRcuLi3Ly8sbGxnOzs4VFROpqakQEA21tbVpaWjBwcHx8fHp6elgYGAHBwA5OTednZzV1dXm5ubU1NTb29smJiRdXVy6urlWVlWYmJeKiorz8/Ourq5MTEt5eXlvb26Ojo2bm5oxMS+Dg4NERENJSUiSrgQ+AAADIElEQVR4nO3ZZ3uiQBSGYRwQEUtCMGIsiylL8v9/4RICIypTMEXIPve3cHH28C6TKcRxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8J9L1uM4Hs/uf6bbeuAphHNVTaqs8Vxzw1shPS709z6tlI0KK++Psd9MuCpCmXCsKTL0G0ciHFT8ULxpX+Q0UjZ6F0bKR5SGYqCkS6gu0rab3wn/+P5AxLqEYXOXsvaTAb8hYSKChorHCxO64sYYcKkL+PUJb4TbWPJ8UUJXmGeqxemQ+eaEXsMbLGqWFyT0LQIm+oBfnrBWFebzaCRfqOu1T+iLxBhwIWqqwqh+0ZxQnFM3DH3ZZBpPJs8r2VXMFCUPTc8YFD+ZAzrDg1H1yNHzqHZZWVrdLtb12w1F8pde7Mork+pKeKuoWdQfsrw72Czzn9ruFpbyka1ulwnNk1lD0fYQQIa2+QfKm8Npi6ZS9f8jJu0etk3CXVQW1bYhmQgLFrNGDxJmVcLaQB5tbgubX5HwRVSzoF2TM51PKPdPvgh3yhVQ4yoJ18fz6Ej/hHL59fNFaZq2nQ6vkfB0PVxpq+KjfUK+6A8y9drS4CoJj7l3+rLXkx2Km7/Knf1A70FC5+9ZXT5en8yH2A99SOhMG04XoeU2ox8JnaHXcETUHoIP+pHQcWYbIU5PDMqd95Huz6WVefr+Lar+Kv3u7kvT2THrhss4PxhF7cbpVRKavwTpmmZyuAavFvd3fdc2r4byS+3iU5vjU9cTVpu24Gg62gf2o6HzCT23YeJsM947n7A6H/r1qsew46N0PTql3kvLTxbu4QxcnajcgUXXLqyH+m9tr9US6Iu3NJnP72dyookyi64d2NMYhlvtC/vHB8HD3sbm22APEjqZqix8sOnag4TOPmqscYXVAaoPCZ19U2FgNUZ7ktDZnR+exMryg80nE/oF64S+imlhS/Yiqv1BKJ9ytoYKqWx6acKgYJ0wUDEv3UnmH9aWTWr/kGXT6KKEP+xmmMbbbby2+/0DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAD/wD54Mp1IWvHPUAAAAASUVORK5CYII=">
+    <div class="singleProductCheckout" style="margin-left:26%;">
+        <button type="button" class="singleProductBtnr" data-toggle="modal" data-target="#myModal">Write a Review&nbsp;&nbsp;</button>
+    </div>
+   
 
-<a href="https://www.google.com" id="AddToCart">Add To Cart</a>
+    <div class="modal fade" id="myModal" role="dialog"> <!--CHANGES HERE-->
+        <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+                
+            <div class="modal-header">
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <h4 class="modal-title" style="color: #171726;">Write a Review</h4>
+            </div>
+            <div class="rate">
+                <input type="radio" id="star5" checked name="rate" value="5" />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
+            </div>
+            <div class="modal-body">
+                <textarea cols="40" class='comment' rows="5" style="border: 2px solid #171726;" required></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default submit-review" data-dismiss="modal">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
-<style>
-h1 {
-color: white;
-margin-left: auto;
-margin-right: auto;
-    }
-#AddToCart {
-  background-color: #008CBA;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: auto;
-}
-</style>
+
+    <div class="container">
+    <div class="testimonial-container" style="background-color: #171726!important;">
+        
+        <div class="dk-container" style="background-color: #171726!important;">
+            
+            <div class="cd-testimonials-wrapper cd-container">
+                <h2>Reviews for Product Name</h2>
+                <ul class="cd-testimonials">
+
+                    <!-- {% for i in reviews%} -->
+                    <li>
+                        <div class="testimonial-content">
+                          <!-- {{i[2]}} -->
+                            <p>5 Stars</p>
+                            <!-- {{i[3]}} -->
+                            <p>~3~</p>
+                            <div class="cd-author">
+                                <!-- <img src="http://placehold.it/350x350/222222/222222" alt="Author image"> -->
+                                <ul class="cd-author-info">
+                                  <!-- {{i[4]}} -->
+                                    <li><strong>4</strong><br></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- {% endfor %} -->
+
+                    <!-- <li>
+                        <div class="testimonial-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Cras mattis consectetur purus sit amet fermentum.</p>
+                            <div class="cd-author">
+                                <img src="http://placehold.it/350x350/222222/222222" alt="Author image">
+                                <ul class="cd-author-info">
+                                    <li>Lorem<strong>Ipsum</strong><br><span>@twitterhandle</span></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li> -->
+
+                    <!-- <li>
+                        <div class="testimonial-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Cras mattis consectetur purus sit amet fermentum.</p>
+                            <div class="cd-author">
+                                <img src="http://placehold.it/350x350/222222/222222" alt="Author image">
+                                <ul class="cd-author-info">
+                                    <li>Lorem<strong>Ipsum</strong><br><span>@twitterhandle</span></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li> -->
+
+
+                </ul>
+            </div>
+            <!-- cd-testimonials -->
+        </div>
+    </div>
+    </div>
 
 {% endblock %}
+
+
