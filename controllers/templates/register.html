@@ -79,11 +79,12 @@
                                 {% else %}
                                     {{ form.confirm_password(placeholder="Retype Password") }}
                                 {% endif %}
-
-                                    <br><br>
+                                        <br>    
+                                        <p class="forgot-password"><a href="{{ url_for('reset_request') }}"><strong>Generate Password</strong></a></p>
                                 </div>
                                 </div>
                                 {{ form.submit(class="btnRegister", disabled="true") }}
+                                
                                 
                             </form>
                         </div>

@@ -750,7 +750,8 @@ Shop Related Routes
 """
 @app.route('/shop')
 def shop():
-    return render_template("shop.html")
+    allProducts = query('SELECT * FROM products')
+    return render_template("shop.html", allProducts = allProducts)
 
 @app.route('/single_product/<int:id>')
 def single_product(id):
@@ -949,32 +950,24 @@ def downloadcsv():
 
 @app.route('/trans')
 def trans():
-    if current_user.email == 'admin@gmail.com':
-        transactions = PreviousTransactions.query.all()
-        tran_list = []
-        for i in transactions:
-            total = 0
-            date = i.transaction_date
-            items = ast.literal_eval(i.cartItems)
-            for j in items:
-                total += int(j['prod_price']*j['prod_quantity'])
-            tran_list.append({'user_id':i.user_id,'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})
-        return render_template('admin/adminTranList.html', trans = tran_list)
+    previous_transactions = query('SELECT * FROM prev_transactions')
+    transactions = []
+    for y in previous_transactions:
+        total = 0
+        for z in ast.literal_eval(y[1]):
+            total += (z[1] * z[2])
+        transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), y[-1],total))
+    return render_template('admin/adminTranList.html', trans = transactions)
 
 @app.route('/adminIndvTran')
 def indv():
-    id = request.args.get('id')
-    trans = PreviousTransactions.query.filter_by(transactionId=id).first()
+    previous_transactions = query('SELECT * FROM prev_transactions')
     transactions = []
-    transactions.append(trans)
-    tran_list = []
-    for i in transactions:
+    for y in previous_transactions:
         total = 0
-        date = i.transaction_date
-        items = ast.literal_eval(i.cartItems)
-        for j in items:
-            total += int(j['prod_price']*j['prod_quantity'])
-        tran_list.append({'user_id':i.user_id,'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})
+        for z in ast.literal_eval(y[1]):
+            total += (z[1] * z[2])
+        transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), y[-1],total))
     return render_template('admin/adminTransactions.html', trans = tran_list)
 
 @app.route('/Calendar')
@@ -1111,19 +1104,17 @@ def events():
 @app.route('/viewIndividualUser', methods=['GET', 'POST'])
 def viewIndividualUser():
         id = request.args.get('id')
-        user = User.query.filter_by(id=int(id)).first()
-        address = user.address_info
-        reviews = user.review 
-        previous_transactions = user.previousTransactions
-        tran_list = []
-        for i in previous_transactions:
+        # user = query)
+        user = query('SELECT * FROM user_accounts WHERE Id=?', id)[0]
+        previous_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', id)
+        reviews = []
+        transactions = []
+        for y in previous_transactions:
             total = 0
-            date = i.transaction_date
-            items = ast.literal_eval(i.cartItems)
-            for j in items:
-                total += int(j['prod_price']*j['prod_quantity'])
-            tran_list.append({'id':i.transactionId, 'total':total ,'date': str(date), 'status': i.status,'items':ast.literal_eval(i.cartItems)})
-        return render_template('admin/viewIndividualUser.html', user=user, address=address, reviews=reviews, previous_transactions = tran_list)
+            for z in ast.literal_eval(y[1]):
+                total += (z[1] * z[2])
+            transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), total))
+        return render_template('admin/viewIndividualUser.html', user=user, reviews=reviews, previous_transactions = transactions)
 
 @app.route('/orderStatus', methods=['GET', 'POST'])
 def orderStatus():
@@ -1163,25 +1154,21 @@ def viewProduct():
 def adminAdd():
     form = AdminAddProductForm()
     if request.method == "POST":
+        latest_id = query('SELECT * FROM PRODUCTS')[-1][0]
         image = request.files['image']
         filename = request.files['image'].filename
-        print(filename)
-        image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
-        print("Image saved")
         new_product_name = form.name.data
         new_product_price = form.price.data
         new_product_description = form.description.data
         new_product_id = form.id.data
-        new_product_img = f"../static/product_img/{filename}"
-        constructAndExecuteQuery("INSERT INTO products VALUES(?,?,?,?,?,?),")
-        return redirect(url_for('admin'))
+        new_game_genre = form.genre.data
+        image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
+        image_file = f'../static/img/product_img/{filename}' 
+        constructAndExecuteQuery('INSERT INTO products(prod_id, prod_name,prod_quantity, prod_price,prod_desc,prod_img,genre1) VALUES(?,?,?,?,?,?,?)', int(new_product_id),new_product_name, 100,float(new_product_price), new_product_description,image_file, new_game_genre)
+        return redirect(url_for('productList'))
     else:
-        # with open('json_files/product.json', 'r') as f: 
-        #     data = json.load(f)
-        #     latest_id = len(data)
-        query =  "SELECT * FROM products"
-        latest_id = len(query(query))
-    return render_template('admin/adminAddProduct.html', latest_id = latest_id+1, form=form)
+        latest_id = query('SELECT * FROM PRODUCTS')[-1][0]
+    return render_template('admin/adminAddProduct.html', latest_id = int(latest_id)+1, form=form)
 
 @app.route('/adminUpdateproduct', methods=['POST', 'GET'])
 def update():
@@ -1206,8 +1193,8 @@ def update():
         else: 
             if filename != None:
                 image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
-                image_file = f'../static/img/profile_pic/{filename}'    
-                constructAndExecuteQuery('UPDATE products SET prod_name=?,prod_desc=?,prod_price=?,prod_img=? WHERE prod_id=?', item_name, item_desc,float(item_price), image_file, int(item_id))
+                image_file = f'../static/img/product_img/{filename}'    
+                constructAndExecuteQuery('UPDATE products SET prod_name=?,prod_desc=?,prod_price=?,prod_img=? WHERE prod_id=?', item_name, item_desc,float(item_price), image_file, int(productId))
                 return redirect(url_for('productList'))
         constructAndExecuteQuery('UPDATE products SET prod_name=?,prod_desc=?,prod_price=? WHERE prod_id=?', item_name, item_desc,float(item_price), int(productId))
         return redirect(url_for('productList'))
@@ -1224,8 +1211,8 @@ def stock():
     else:
         productId = request.args.get('id')
         cun = request.form['quant[1]']
-        orginal = query('SELECT prod_quantity FOM products WHERE prod_id=?', int(productId))[0][0]
-        constructAndExecuteQuery('UPDATE products prod_quantity SET =? WHERE prod_id=?', orginal + int(cun), int(productId))
+        orginal = query('SELECT prod_quantity FROM products WHERE prod_id=?', int(productId))[0][0]
+        constructAndExecuteQuery('UPDATE products SET prod_quantity=? WHERE prod_id=?', orginal + int(cun), int(productId))
         return redirect(url_for('admin'))
 
 """Reset Password token routes"""

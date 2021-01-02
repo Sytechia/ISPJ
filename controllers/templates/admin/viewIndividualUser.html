@@ -117,7 +117,7 @@
 
   <!-- sidebar-wrapper  -->
   <main class="page-content">
-    <h1>User: {{user.fullname}}</h1>
+    <h1>User: {{user[7]}}</h1>
     <a href="/listUser" style="text-decoration: underline;">&larr;Back to User List</a>
 
     <div class="container emp-profile">
@@ -125,7 +125,7 @@
           <div class="row">
               <div class="col-md-4">
                   <div class="profile-img">
-                      <img src="{{user.image_file}}"" alt=""/>
+                      <img src="{{user[5]}}" alt=""/>
                       <!-- <div class="file btn btn-lg btn-primary">
                           Change Photo
                           <input type="file" name="file"/>
@@ -135,7 +135,7 @@
               <div class="col-md-6">
                   <div class="profile-head">
                               <h5>
-                                  {{user.fullname}}
+                                  {{user[7]}}
                               </h5>
                               <h6>
                                   Member
@@ -165,7 +165,7 @@
                                           <label>Name</label>
                                       </div>
                                       <div class="col-md-6">
-                                          <p>{{user.fullname}}</p>
+                                          <p>{{user[7]}}</p>
                                       </div>
                                   </div>
                                   <div class="row">
@@ -173,7 +173,7 @@
                                           <label>Email</label>
                                       </div>
                                       <div class="col-md-6">
-                                          <p>{{user.email}}</p>
+                                          <p>{{user[2]}}</p>
                                       </div>
                                   </div>
                                   <div class="row">
@@ -181,58 +181,13 @@
                                           <label>Status</label>
                                       </div>
                                       <div class="col-md-6">
-                                          <p>{{user.active}}</p>
+                                          <p>{{ 'Active' if user[1]==1 else 'Inactive'}}</p>
                                       </div>
                                   </div>
                       </div>
 
                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                  <!-- <div class="row">
-                                      <div class="col-md-6">
-                                          <label>Experience</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <p>Expert</p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <label>Hourly Rate</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <p>10$/hr</p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <label>Total Projects</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <p>230</p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <label>English Level</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <p>Expert</p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <label>Availability</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <p>6 months</p>
-                                      </div>
-                                  </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <label>Your Bio</label><br/>
-                                  <p>Your detail description</p>
-                              </div>
-                          </div> -->
+                                 
                       </div>
 
                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -298,30 +253,30 @@
         <tr>
             <td>
                 <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
-                <input type="text" id="orderDate" class='trans_date' name="orderDate" value="{{ i.date }}" readonly>
+                <input type="text" id="orderDate" class='trans_date' name="orderDate" value="{{ i[1] }}" readonly>
             </td>
             <td>
                 <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
-                <input type="text" id="order" name="order" value="#{{i.id}}" readonly>
+                <input type="text" id="order" name="order" value="#{{i[0]}}" readonly>
             </td>
             <td>
                 <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
-                <input type="text" class="orderStatuss" name="orderStatus" value="{{i.status}}" readonly>
+                <input type="text" class="orderStatuss" name="orderStatus" value="{{i[2]}}" readonly>
             </td>
             <td>
                 <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
-                <input type="text" id="orderTotal" name="orderTotal" value="${{i.total}}" readonly>
+                <input type="text" id="orderTotal" name="orderTotal" value="${{i[4]}}" readonly>
             </td>
             <td class="arrowStyle">
                 <button class="showOrderDetails" onclick="showOrderDetails()"><i class="arrow down" id="arrowStyle"></i></button>
             </td>
         </tr>
-        {% for j in i['items'] %}   
+        {% for j in i[3] %}   
         <tr>
             <td class='previousTran'>
                 <div class="orderDetails" style="display: none;">
-                    <img src="{{ j.img }}" width="100px" height="100px" style="float: left;">
-                    <span class="itemDesc"><p><span class="name">{{ j.prod_name }}</span><br>Quantity: {{ j.prod_quantity }} <br><br>
+                    <img src="{{ j[3] }}" width="100px" height="100px" style="float: left;">
+                    <span class="itemDesc"><p><span class="name">{{ j[0] }}</span><br>Quantity: {{ j[2] }} <br><br>
                 </div>
             </td>
         </tr>

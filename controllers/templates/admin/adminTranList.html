@@ -145,12 +145,12 @@
       <tbody>
         {% for i in trans %}
         <tr class="add">
-          <td>{{i.user_id}}</td>
-          <td>{{i.date}}</td>
-          <td>#{{i.id}}</td>
-          <td>{{i.status}}</td>
-          <td data-order="1000">${{i.total}}</td>
-          <td><a href="/adminIndvTran?id={{i.id}}" style="color:black">View</a></td>
+          <td>{{i[4]}}</td>
+          <td>{{i[1]}}</td>
+          <td>#{{i[0]}}</td>
+          <td>{{i[2]}}</td>
+          <td data-order="1000">${{i[-1]}}</td>
+          <td><a href="/adminIndvTran?id={{i[0]}}" style="color:black">View</a></td>
         </tr>
         {% endfor %}
         

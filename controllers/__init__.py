@@ -23,7 +23,7 @@ app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # images
-app.config['IMAGE_UPLOADS'] = 'controllers\static\product_img'
+app.config['IMAGE_UPLOADS'] = 'controllers\static\img\product_img'
 app.config['PROFILE_UPLOADS'] = 'controllers\static\img\profile_pic'
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ['JPEG', 'PNG', 'JPG', 'GIF']
 # db = SQLAlchemy(app)

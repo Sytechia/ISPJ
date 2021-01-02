@@ -311,26 +311,30 @@ class ContactUsForm(FlaskForm):
 class AdminUpdateProductForm(FlaskForm):
     id = StringField('id')
     
-    name = StringField('Item Name', validators=[data_required(), Length(min=5, max=30)])
+    name = StringField('Game Name', validators=[data_required(), Length(min=5, max=30)])
 
-    description = StringField('Item desciption', validators=[data_required(), Length(min=5, max=30)])
+    img = FileField('Image Source', validators=[FileRequired()])
 
-    price = StringField('Item Price', validators=[data_required(), Length(min=5, max=30)])
+    description = StringField('Game Desciption', validators=[data_required(), Length(min=5, max=30)])
 
-    stock = StringField('Stock', validators=[data_required(), Length(min=5, max=30)])
+    price = StringField('Game Price', validators=[data_required(), Length(min=5, max=30)])
+
+    genre = StringField('Game Genre', validators=[data_required(), Length(min=5, max=30)])
 
     submit = SubmitField('Submit')
 
 class AdminAddProductForm(FlaskForm):
     id = StringField('id')
 
-    name = StringField('Item Name', validators=[data_required(), Length(min=5, max=30)])
+    name = StringField('Game Name', validators=[data_required(), Length(min=5, max=30)])
 
     img = FileField('Image Source', validators=[FileRequired()])
 
-    description = StringField('Item desciption', validators=[data_required(), Length(min=5, max=30)])
+    description = StringField('Game Desciption', validators=[data_required(), Length(min=5, max=30)])
 
-    price = StringField('Item Price', validators=[data_required(), Length(min=5, max=30)])
+    price = StringField('Game Price', validators=[data_required(), Length(min=5, max=30)])
+
+    genre = StringField('Game Genre', validators=[data_required(), Length(min=5, max=30)])
 
     submit = SubmitField('Add Item')
 

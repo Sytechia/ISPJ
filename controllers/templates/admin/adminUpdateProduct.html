@@ -586,6 +586,18 @@ fieldset {
       {% endif %}
       <label for="input" class="control-label" style="color:white"><i class="fas fa-info-circle"></i>Product Description: </label><i class="bar"></i>
 
+      <div class="form-group">
+        {% if form.description.errors %}
+        {{ form.genre(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.name.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+            {{ form.genre(value=product.genre1, required=required) }}
+        {% endif %}
+        <label for="input" class="control-label" style="color:white"><i class="fas fa-info-circle"></i>Game Genre: </label><i class="bar"></i>
       
     </div>
   <div class="btn-container">

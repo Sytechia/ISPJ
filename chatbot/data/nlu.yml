@@ -1818,6 +1818,7 @@ nlu:
     - will I pay taxes for international shipping
     - international shipping
     - shipping locations
+    - what countries can i ship to
 
 - intent: ship_time
   examples: |

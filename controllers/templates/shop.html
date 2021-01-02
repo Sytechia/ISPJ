@@ -78,13 +78,13 @@
         <div class="row products">
 
             <!-- Start of product template -->
-            {% for products in data %}
+            {% for products in allProducts %}
             <div class="col-10 col-sm-6 col-lg-4 mx-auto my-3">
                 <div class="img-container">
-                    <a href='/single_product/{{ products.id }}'>
-                        <img src="{{ products.prod_img}}" class="card-img-top store-img" alt="" height="300px" data-toggle="modal"
+                    <a href='/single_product/{{ products[0] }}'>
+                        <img src="{{ products.prod_img}}" class="card-img-top store-img" alt="" height="50%" width="30%" data-toggle="modal"
                             data-target="#exampleModalCenter">
-                        <span style="display:none;">{{ products.id }}</span>
+                        <span style="display:none;">{{ products[0] }}</span>
                     </a>
                     <span class="store-item-icon">
                         <button style="display: inline;" , class="cartBtn">Add to cart</button>
@@ -93,10 +93,10 @@
                 </div>
                 <div class="card-body">
                     <div class="card-text d-flex text-capitalize">
-                        <h5 id="store-item-name" class='itemNames'style="text-transform: capitalize;">{{ products.prod_name}}</h5>
+                        <h5 id="store-item-name" class='itemNames'style="text-transform: capitalize;">{{ products[2]}}</h5>
                     </div>
                     <div>
-                        <h6 id="store-item-value">${{ products.prod_price }}</h6>
+                        <h6 id="store-item-value">${{ products[3] }}</h6>
                     </div>
                 </div>
             </div>
