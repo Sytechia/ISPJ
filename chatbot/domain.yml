@@ -64,6 +64,11 @@ intents:
 - cannot_change_password
 - customer_service
 - not_home
+- ship_where
+- ship_time
+- backordered
+- store_address
+- contact_hours
 responses:
   utter_bothelp:
   - text: Hi, how may I assist you?
@@ -294,7 +299,7 @@ responses:
   - text: "Members who ship their orders within Singapore should expect to receive\
       \ their orders within five (5) to ten (10) working days upon payment verification\
       \ depending on the volume of orders received. \n\nIf you experience delays in\
-      \ receiving your order, contact us immediately at (+65) 68991082 and we will\
+      \ receiving your order, contact us immediately at +65 3159 3099 and we will\
       \ help to confirm the status of your order."
   utter_orders_ship:
   - text: All your orders are sent via Singapore Post Limited (SingPost).
@@ -361,7 +366,7 @@ responses:
   utter_missing_products:
   - text: "In the event you have received your order with missing product(s), we will\
       \ require you to email us a clear photo proof of your D.O (Delivery Order) to\
-      \ help@idea.com and after which, kindly give us a call at (+65) 68991082 and\
+      \ help@idea.com and after which, kindly give us a call at +65 3159 3099 and\
       \ our customer service officer will attend to you to find out more before a\
       \ decision is made to re-send the missing product to you at no cost, subject\
       \ to availability.\n\nWe take such matters very seriously and will investigate\
@@ -397,10 +402,25 @@ responses:
       least 2 uppercase letters, 2 numbers and 2 special characters. You are also
       not allowed to reuse any of your previous 5 passwords that you have used before.
   utter_customer_service:
-  - text: You can share any queries or comments by calling (+65) 68991082 or by emailing
-      us at help@idea.com.
+  - text: "You can share any queries or comments by calling +65 3159 3099 or by emailing us at help@idea.com."
   utter_not_home:
   - text: "If no one is at the address when delivery is attempted, we will leave the package in a secure location. We'll make three delivery attempts on consecutive days. If the third delivery attempt is unsuccessful your package will be returned to IDEA for a refund."
-  
+  utter_ship_where:
+  - text: We only ship within Singapore
+  utter_ship_time:
+  - text: "Once we receive an order, we expect it to ship out one business day later barring any unforeseen issues.  If your order is placed over the weekend, this means if standard delivery is selected, we expect that package to ship out no later than Tuesday."
+  utter_backordered:
+  - text: "If you have questions about your order status, please call IDEA Customer Care at +65 3159 3099."
+
+  utter_store_address:
+  - text: "Store Address: 545 Orchard Road, Far East Shopping Centre #05-11, Singapore 238882. Opened from 12PM to 8PM daily."
+
+  utter_contact_hours:
+  - text: "Monday – 08:00AM to 09:00PM\n\n\nTuesday – 08:00AM to 09:00PM\n\n\nWednesday – 08:00AM to 09:00PM\n\n\nThursday – 08:00AM to 09:00PM\n\n\nFriday – 08:00AM to 09:00PM\n\n\nSaturday – 09:00AM to 07:00PM\n\n\nSunday – Closed"
+
+
+
+
+
 
 

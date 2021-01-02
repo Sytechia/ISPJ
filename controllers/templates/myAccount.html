@@ -220,7 +220,7 @@
                     <hr class = "lineBreak"> -->
 
                    
-                    <a href="{{ url_for('registerStep2') }}" class="btnRegister" style="text-decoration:none;">Add Address</a>
+                    <a href="{{ url_for('addAddress') }}" class="btnRegister" style="text-decoration:none;">Add Address</a>
                     
                 </div>
                 <div class="myAccount tabcontent" id="Spain">
@@ -266,7 +266,7 @@
                         <tr>
                             <td class="padding">
                                 <span style="display: none;">{{card[0]}}</span>
-                                <a href='/editCardInfo?card={{card[0]}}' class='editWallet'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='removeWallet'>Remove</button>
+                                <a href='/editCard?card={{card[0]}}' class='editWallet'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='removeWallet'>Remove</button>
                             </td>
                         </tr>
                     </table>
