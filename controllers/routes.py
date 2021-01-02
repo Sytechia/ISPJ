@@ -220,7 +220,7 @@ def item():
 
 # All Products Page #
 @app.route('/catalog')
-def item():
+def catalog():
     return render_template('catalog.html')
 
 # FAQ Page #
