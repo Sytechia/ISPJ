@@ -202,6 +202,11 @@ output = [("message stark", {"text":"Hi, how may I assist you?"})]
 def home():
     return render_template('homepage.html')
 
+# Individual Product Page #
+@app.route('/item')
+def item():
+    return render_template('product.html')
+
 # FAQ Page #
 @app.route('/faq')
 def faq():
