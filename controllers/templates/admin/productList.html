@@ -149,9 +149,9 @@
             <tr style="color: white;">
                 <th scope="row">{{data.id}}</th>
                 <td><img src="{{data.prod_img}}" width="150px"></td>
-                <td>{{data.prod_name}}</td>
-                <td>${{data.prod_price}}</td>
-                <td>{{data.stock}}</td>
+                <td>{{data[2]}}</td>
+                <td>${{data[3]}}</td>
+                <td>{{data}}</td>
                 <td>{% if data.stock != 0 %}<span class="badge badge-success">In Stock</span> {% else %} <span class="badge badge-danger">Out Of Stock</span> {% endif %}</td>
                 <td>
                   <li><a style="text-decoration: none;   font-size: 20px;" href="/adminViewproduct?id={{data.id}}"><i class="fas fa-eye"></i> </a></li>

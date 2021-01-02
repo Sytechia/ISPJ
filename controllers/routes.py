@@ -1108,14 +1108,6 @@ def events():
     return jsonify(data)
 
 ## Admin User Section Routes##
-@app.route('/viewUser')
-def viewUser():
-    try:
-        if current_user.email == 'admin@gmail.com':
-            return render_template('admin/viewUser.html')
-    except:
-        return redirect(url_for('home'))
-
 @app.route('/viewIndividualUser', methods=['GET', 'POST'])
 def viewIndividualUser():
         id = request.args.get('id')
@@ -1150,18 +1142,12 @@ def orderStatus():
 @app.route('/listUser')
 def listUser():
     users = query('SELECT * FROM user_accounts')
-    # users = User.query.all()
-    # users = query()
-    # for i in users:
-    #     if i.email == 'admin@gmail.com':
-    #         users.remove(i)
-
     return render_template('admin/usersList.html', users = users)
 
 ## Admin E-commerce Section Routes ##
 @app.route('/productList')
 def productList():
-    data = refresh()
+    data = query('SELECT * FROM products')
     return render_template('admin/productList.html', data = data)
 
 @app.route('/adminViewproduct', methods=['GET', 'POST'])
@@ -1199,8 +1185,7 @@ def adminAdd():
         new_product_description = form.description.data
         new_product_id = form.id.data
         new_product_img = f"../static/product_img/{filename}"
-        query = "INSERT INTO products VALUES(?,?,?,?,?,?)"
-        constructAndExecuteQuery()
+        constructAndExecuteQuery("INSERT INTO products VALUES(?,?,?,?,?,?),")
         return redirect(url_for('admin'))
     else:
         # with open('json_files/product.json', 'r') as f: 
