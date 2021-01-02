@@ -1153,22 +1153,10 @@ def productList():
 @app.route('/adminViewproduct', methods=['GET', 'POST'])
 def viewProduct():
     id = request.args.get('id')
-    with open('json_files/product.json', 'r') as f:
-        data = json.load(f)
-        for i in data: 
-            if i['id'] ==  int(id):
-                product = i 
-                break 
-    review = Review.query.filter_by(prod_name=product['prod_name'])
-    if str(review).find('SELECT') != None:
-        review = None
-    num = 0 if review == None else len(review) 
-    with open('json_files/analytics.json', 'r') as f:
-        data = json.load(f)
-        for i in data: 
-            if i['id'] ==  int(id):
-                analytics = i 
-                break 
+    product = query('SELECT * FROM products WHERE prod_id=?',int(id))[0]
+    review = None 
+    analytics = None
+    num = int(id)
     return render_template('admin/productDetail.html', product= product, review = review, analytics = analytics, num=num)
 
 @app.route('/adminAddproduct', methods=['GET', 'POST'])
@@ -1204,73 +1192,40 @@ def update():
         item_name = form.name.data 
         item_desc = form.description.data
         item_price = form.price.data
+        print(item_price)
         image = request.files['image']
-        filename = request.files['image'].filename    
-        if filename:
-            image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
-        imagesrc = f'../static/img/profile_pic/{filename}'
-        with open('json_files/product.json', 'r') as f:
-            data = json.load(f)
-            for i in data:
-                if i["id"] == int(item_id):
-                    i['prod_img'] = imagesrc
-                    i['prod_name'] = item_name
-                    i['prod_price'] = int(item_price)
-                    i['prod_desc'] = item_desc
-                    break
-        with open('json_files/product.json', 'w') as f:
-            json.dump(data, f)
-        return redirect(url_for('admin'))
-    elif productId != None:
-        with open('json_files/product.json') as f:
-            data = json.load(f)
-            for i in data: 
-                if i["id"] == int(productId):
-                    product = i
-                    break
-            f.close()
-        return render_template('admin/adminUpdateProduct.html', product = product, form=form)
+        filename = request.files['image'].filename 
+        if filename.find('.') == -1: 
+            filename = None
+            bool_image = False
+        else:
+            bool_image = allowed_image(filename)
+        if bool_image == False and filename != None:
+            flash('Invalid file type for images', 'danger')
+            return redirect(request.referrer)
+        else: 
+            if filename != None:
+                image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
+                image_file = f'../static/img/profile_pic/{filename}'    
+                constructAndExecuteQuery('UPDATE products SET prod_name=?,prod_desc=?,prod_price=?,prod_img=? WHERE prod_id=?', item_name, item_desc,float(item_price), image_file, int(item_id))
+                return redirect(url_for('productList'))
+        constructAndExecuteQuery('UPDATE products SET prod_name=?,prod_desc=?,prod_price=? WHERE prod_id=?', item_name, item_desc,float(item_price), int(productId))
+        return redirect(url_for('productList'))
     else:
-        with open('json_files/product.json') as f:
-            data = json.load(f)
-            for i in data: 
-                if i["id"] == 1:
-                    product = i
-                    break
+        product = query('SELECT * FROM products WHERE prod_id=?',int(productId))[0]
         return render_template('admin/adminUpdateProduct.html', product = product, form=form)
 
 @app.route('/addStock', methods=['POST', 'GET'])
 def stock():
     if request.method == 'GET':
-        id = request.args.get('id')
-        data = refresh()
-        for i in data: 
-            if i['id'] == int(id):
-                current = i
-                break
-        return render_template('admin/adminStock.html', data = current)
+        productId = request.args.get('id')
+        product = query('SELECT * FROM products WHERE prod_id=?',int(productId))[0]
+        return render_template('admin/adminStock.html', data = product)
     else:
-        with open('json_files/product.json', 'r') as f:
-                data = json.load(f)
-                productId = request.args.get('id')
-                cun = request.form['quant[1]']
-                for i in data: 
-                    if i["id"] == int(productId):
-                        i['stock'] += int(cun)
-                        break
-        with open('json_files/product.json', 'w') as f:
-            json.dump(data, f)
-
-        with open('json_files/analytics.json', 'r') as f:
-                data = json.load(f)
-                productId = request.args.get('id')
-                cun = request.form['quant[1]']
-                for i in data: 
-                    if i["id"] == int(productId):
-                        i['stock'] += int(cun)
-                        break
-        with open('json_files/analytics.json', 'w') as f:
-            json.dump(data, f)
+        productId = request.args.get('id')
+        cun = request.form['quant[1]']
+        orginal = query('SELECT prod_quantity FOM products WHERE prod_id=?', int(productId))[0][0]
+        constructAndExecuteQuery('UPDATE products prod_quantity SET =? WHERE prod_id=?', orginal + int(cun), int(productId))
         return redirect(url_for('admin'))
 
 """Reset Password token routes"""

@@ -151,13 +151,13 @@
                 <td><img src="{{data.prod_img}}" width="150px"></td>
                 <td>{{data[2]}}</td>
                 <td>${{data[3]}}</td>
-                <td>{{data}}</td>
+                <td>{{data[1]}}</td>
                 <td>{% if data.stock != 0 %}<span class="badge badge-success">In Stock</span> {% else %} <span class="badge badge-danger">Out Of Stock</span> {% endif %}</td>
                 <td>
-                  <li><a style="text-decoration: none;   font-size: 20px;" href="/adminViewproduct?id={{data.id}}"><i class="fas fa-eye"></i> </a></li>
-                  <li><a style="text-decoration: none;   font-size: 20px;"href="/delete?id={{data.id}}"><i class="fas fa-trash"></i> </a></li>
-                  <li><a style="text-decoration: none;   font-size: 20px;"href="/adminUpdateproduct?id={{data.id}}"><i class="fas fa-edit"></i> </a></li>
-                  <li> <a style="text-decoration: none;  font-size: 20px;"href="/addStock?id={{data.id}}"><i class="fas fa-plus"></i> </a></li>
+                  <li><a style="text-decoration: none;   font-size: 20px;" href="/adminViewproduct?id={{data[0]}}"><i class="fas fa-eye"></i> </a></li>
+                  <li><a style="text-decoration: none;   font-size: 20px;"href="/delete?id={{data[0]}}"><i class="fas fa-trash"></i> </a></li>
+                  <li><a style="text-decoration: none;   font-size: 20px;"href="/adminUpdateproduct?id={{data[0]}}"><i class="fas fa-edit"></i> </a></li>
+                  <li> <a style="text-decoration: none;  font-size: 20px;"href="/addStock?id={{data[0]}}"><i class="fas fa-plus"></i> </a></li>
                 </td>
             </tr>
            {% endfor %}
