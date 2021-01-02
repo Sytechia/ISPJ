@@ -29,6 +29,7 @@ import logging
 from controllers.qr import send_qr_code
 import random
 import pyodbc
+from flask_bcrypt import generate_password_hash, check_password_hash
 
 # Database #
 server = 'ispj-database.database.windows.net'
@@ -230,10 +231,12 @@ def register():
         name = form.fullname.data
         password = form.password.data
         email = form.email.data
+        # hashing of password
+        hash_password = generate_password_hash(password, 10)
         previousPass = []
-        previousPass.append(password)
+        previousPass.append(hash_password)
         query = 'INSERT INTO user_accounts VALUES(?, ?, ?, ?, ?, ?, ?, ?);'
-        constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, 0, '../../static/img/profile_pic/default.jpg', str(previousPass), name)
+        constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, hash_password, 0, '../../static/img/profile_pic/default.jpg', str(previousPass), name)
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -479,7 +482,10 @@ def login():
             flash('Please check your credentials again', 'danger')
             return render_template('login.html', form=form)
         user_password = user[0][3]
-        if user and user_password == form.password.data:
+        # hashing of password to confirm identity
+        password = form.password.data
+        hash_successful = check_password_hash(user_password, password)
+        if user and hash_successful == True:
             user_id = user[0][0]
             user_active = user[0][1]
             user_email = user[0][2]
