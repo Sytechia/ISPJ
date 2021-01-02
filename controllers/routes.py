@@ -5,7 +5,7 @@ All dynamic routing belongs here
 import os, json, ast, random, requests
 from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort, Response, get_template_attribute
 from flask_login import current_user, login_user, logout_user, login_required
-from controllers import app, bcrypt, mail
+from controllers import app, bcrypt, mail, oauth
 from datetime import timedelta
 from controllers.forms import RegistrationForm, LoginForm, Billing, PaymentInfo, ContactUsForm, PasswordForm, Disable, Activate, ChangePasswordForm
 from controllers.forms import RegistrationForm, LoginForm, AdminAddProductForm, AdminUpdateProductForm, UpdateAccountForm, UpdateBilling, RequestResetForm, ResetPasswordForm, UpdateCard
@@ -364,6 +364,32 @@ def login():
             return redirect(url_for('home'))
         form = LoginForm()
         return render_template('login.html', title='Login', form=form)
+
+@app.route("/googlelogin")
+def googlelogin():
+    google = oauth.create_client('google')
+    redirect_uri = url_for('authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@app.route("/login/callback")
+def authorize():
+    google = oauth.create_client('google')
+    token = google.authorize_access_token()
+    resp = google.get('userinfo')
+    user_info = resp.json()
+    user = oauth.google.userinfo()
+    session['profile'] = user_info
+    session.permanent = True
+    user = query('SELECT * FROM user_accounts WHERE Id = ?', session['profile']['id'])
+    if not user:
+        constructAndExecuteQuery("""Insert into user_accounts(Id,email,profile_image,fullname,account_status,isadmin) values (?,?,?,?,1,0)""",session['profile']['id'],session['profile']['email'],session['profile']['picture'],session['profile']['given_name'])
+        user = query('SELECT * FROM user_accounts WHERE Id = ?', session['profile']['id'])
+        session['user_id'] = user[0][0]
+        return redirect('/myAccount')
+    if user:
+        session['user_id'] = user[0][0]
+        print(session)
+    return redirect('/myAccount')
 
 # Adding Address route #
 @app.route('/addAddress', methods=['GET', 'POST'])
