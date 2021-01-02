@@ -213,16 +213,6 @@ output = [("message stark", {"text":"Hi, how may I assist you?"})]
 def home():
     return render_template('homepage.html')
 
-# Individual Product Page #
-@app.route('/item')
-def item():
-    return render_template('product.html')
-
-# All Products Page #
-@app.route('/catalog')
-def catalog():
-    return render_template('catalog.html')
-
 # FAQ Page #
 @app.route('/faq')
 def faq():
