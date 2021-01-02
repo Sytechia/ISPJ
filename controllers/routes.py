@@ -1210,6 +1210,17 @@ def stock():
         constructAndExecuteQuery('UPDATE products SET prod_quantity=? WHERE prod_id=?', orginal + int(cun), int(productId))
         return redirect(url_for('admin'))
 
+@app.route('/delete', methods=['POST', 'GET'])
+def delete():
+    form = AdminUpdateProductForm()
+    productId = request.args.get('id')
+    if request.method == 'POST':
+        product = query('DELETE FROM products WHERE Id=?', int(productId))
+        return redirect(url_for('admin'))
+    else:
+        product = query('SELECT * FROM products WHERE Id=?', int(productId))
+        return render_template('admin/adminDeleteProduct.html', product=product, form=form)
+
 """Reset Password token routes"""
 
 def send_reset_email(user):

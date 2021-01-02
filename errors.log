@@ -582,3 +582,8 @@
 2021-01-03 01:00:11,361 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/null userID:guest
 2021-01-03 01:00:12,759 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/null userID:guest
 2021-01-03 01:07:08,556 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 01:16:03,445 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 01:26:53,094 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 01:30:09,195 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 01:30:19,327 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 01:30:25,434 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
