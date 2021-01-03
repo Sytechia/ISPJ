@@ -628,3 +628,6 @@
 2021-01-03 16:29:02,410 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/static/js/chart-area-demo.js userID:guest
 2021-01-03 16:29:02,551 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/static/js/chart-area-demo.js userID:guest
 2021-01-03 16:44:28,985 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/action_page.php userID:guest
+2021-01-03 16:54:29,882 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 17:44:45,323 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://127.0.0.1:5000/favicon.ico userID:guest
+2021-01-03 17:44:50,954 ERROR 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. Route:http://localhost:5000/favicon.ico userID:guest
