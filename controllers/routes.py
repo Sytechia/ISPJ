@@ -324,7 +324,7 @@ def login():
     if "attempts" not in session:
         session['attempts'] = 5
     if form.validate_on_submit():
-        email = form.email.data
+        email = form.email.data.strip()
         print(form.email.data)     
         user = query('SELECT * FROM user_accounts WHERE email = ?', email)
         print(user)
@@ -956,14 +956,15 @@ def trans():
 
 @app.route('/adminIndvTran')
 def indv():
-    previous_transactions = query('SELECT * FROM prev_transactions')
+    id = request.args.get('id')
+    previous_transactions = query('SELECT * FROM prev_transactions WHERE transactionid=?', id)
     transactions = []
     for y in previous_transactions:
         total = 0
         for z in ast.literal_eval(y[1]):
             total += (z[1] * z[2])
         transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), y[-1],total))
-    return render_template('admin/adminTransactions.html', trans = tran_list)
+    return render_template('admin/adminTransactions.html', trans = transactions)
 
 @app.route('/Calendar')
 def Calander():
@@ -1115,14 +1116,18 @@ def viewIndividualUser():
 def orderStatus():
     if request.method == 'GET':
         id = request.args.get('id')
-        transaction = PreviousTransactions.query.filter_by(transactionId=id).first()
-        return render_template('admin/orderStatus.html', transaction=transaction)
+        previous_transactions = query('SELECT * FROM prev_transactions WHERE transactionid=?', id)
+        transactions = []
+        for y in previous_transactions:
+            total = 0
+            for z in ast.literal_eval(y[1]):
+                total += (z[1] * z[2])
+            transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), y[-1],total))
+        return render_template('admin/orderStatus.html', transaction=transactions)
     else:
         option = request.form['options']
-        id = request.form['id']
-        transaction = PreviousTransactions.query.filter_by(transactionId=id).first()
-        transaction.status = option
-        db.session.commit()
+        id = request.args.get('id')
+        constructAndExecuteQuery('UPDATE prev_transactions SET transaction_status = ?  WHERE transactionid = ?', option, id)
         return redirect(url_for('admin'))
 
 @app.route('/listUser')
@@ -1210,15 +1215,16 @@ def stock():
         constructAndExecuteQuery('UPDATE products SET prod_quantity=? WHERE prod_id=?', orginal + int(cun), int(productId))
         return redirect(url_for('admin'))
 
+# Admin delete route#
 @app.route('/delete', methods=['POST', 'GET'])
 def delete():
     form = AdminUpdateProductForm()
     productId = request.args.get('id')
     if request.method == 'POST':
-        product = query('DELETE FROM products WHERE Id=?', int(productId))
+        product = query('DELETE FROM products WHERE prod_id=?', int(productId))
         return redirect(url_for('admin'))
     else:
-        product = query('SELECT * FROM products WHERE Id=?', int(productId))
+        product = query('SELECT * FROM products WHERE prod_id=?', int(productId))[0]
         return render_template('admin/adminDeleteProduct.html', product=product, form=form)
 
 """Reset Password token routes"""

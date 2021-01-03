@@ -40,7 +40,7 @@
         </div>
         <div class="user-info">
           <span class="user-name">
-            <strong>{{current_user.fullname}}</strong>
+            <strong></strong>
           </span>
           <span class="user-role">Administrator</span>
         </div>
@@ -127,9 +127,9 @@
     <form method="POST">
 
       <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Transaction ID</label>
+          <label for="staticEmail" class="col-sm-2 col-form-label">Transaction ID #{{ transaction[0][0] }}</label>
       
-            <input type="text" id="staticEmail" style='color:#d4af37;'name='id' value="{{ transaction.transactionId }}" readonly>
+         
          
         </div>
           <div class="form-group row">

@@ -162,41 +162,41 @@
       </div>
     
     <div class="myAccount" style='display: block;'="Paris">
-        <h2><strong>Transaction #{{trans[0]['id']}}</strong></h2>
+        <h2><strong>Transaction #{{trans[0][0]}}</strong></h2>
         <hr>
         {% for i in trans %}
         <table>
             <tr>
                 <td>
                     <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;User ID</label>
-                    <input type="text" id="orderDate" class='trans_id' name="orderDate" value="#{{ i.user_id }}" readonly>
+                    <input type="text" id="orderDate" class='trans_id' name="orderDate" value="#{{ i[4] }}" readonly>
                 </td>
                 <td>
                     <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
-                    <input type="text" id="orderDate" class='trans_date' name="orderDate" value="{{ i.date }}" readonly>
+                    <input type="text" id="orderDate" class='trans_date' name="orderDate" value="{{ i[1] }}" readonly>
                 </td>
                 <td>
                     <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
-                    <input type="text" id="order" name="order" value="#{{i.id}}" readonly>
+                    <input type="text" id="order" name="order" value="#{{i[0]}}" readonly>
                 </td>
                 <td>
                     <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
-                    <input type="text" class="orderStatus" name="orderStatus" value="{{i.status}}" readonly>
+                    <input type="text" class="orderStatus" name="orderStatus" value="{{i[2]}}" readonly>
                 </td>
                 <td>
                     <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
-                    <input type="text" id="orderTotal" name="orderTotal" value="${{i.total}}" readonly>
+                    <input type="text" id="orderTotal" name="orderTotal" value="${{i[-1]}}" readonly>
                 </td>
                 <td class="arrowStyle">
                     <button class="showOrderDetails" onclick="showOrderDetails()"><i class="arrow down" id="arrowStyle"></i></button>
                 </td>
             </tr>
-            {% for j in i['items'] %}   
+            {% for j in i[3] %}   
             <tr>
                 <td class='previousTran'>
                     <div class="orderDetails" style="display: none;">
-                        <img src="{{ j.img }}" width="100px" height="100px" style="float: left;">
-                        <span class="itemDesc"><p><span class="name">{{ j.prod_name }}</span><br>Quantity: {{ j.prod_quantity }} <br><br>
+                        <img src="{{ j[3] }}" width="100px" height="100px" style="float: left;">
+                        <span class="itemDesc"><p><span class="name">{{ j[0] }}</span><br>Quantity: {{ j[2] }} <br><br>
                     </div>
                 </td>
             </tr>
