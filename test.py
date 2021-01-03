@@ -37,9 +37,9 @@ cursor = conn.cursor()
 # result = query('SELECT * FROM Addresses WHERE user_id=? AND address=?', '2037560', strip_address)
 # print(result)
 
-# def constructAndExecuteQuery(query, *args):
-#     cursor.execute(query, *args)
-#     conn.commit()
+def constructAndExecuteQuery(query, *args):
+    cursor.execute(query, *args)
+    conn.commit()
 
 """Deleting user from database"""
 # cursor.execute("DELETE FROM user_accounts WHERE Id = 349568")
@@ -79,13 +79,13 @@ import datetime
 
 
 
-# query = "INSERT INTO prev_transactions VALUES(?,?,?,?,?,?)"
+query = "INSERT INTO prev_transactions VALUES(?,?,?,?,?,?)"
 
-# constructAndExecuteQuery(query,2, '[("Hades",22,1,"https://upload.wikimedia.org/wikipedia/en/c/cc/Hades_cover_art.jpg"), ("GTA V",41,2,"https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Grand_Theft_Auto_V.png/220px-Grand_Theft_Auto_V.png"), ("Phasmophobia",14,3,"https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Phasmophobia_VG.jpg/330px-Phasmophobia_VG.jpg")]',random.randint(100000,999999),str(datetime.datetime.now())[:11],"Awaiting Order",203756)
-# constructAndExecuteQuery(query,3,'[("Resident Evil 3", 20, 2, "https://upload.wikimedia.org/wikipedia/en/d/dc/Resident_Evil_3.jpg"), ("The Last of Us Part II", 30, 1, "https://upload.wikimedia.org/wikipedia/en/4/4f/TLOU_P2_Box_Art_2.png")]',random.randint(100000,999999),str(datetime.datetime.now())[:11], "Awaiting Order", 203756)
-# cursor.execute("SELECT * FROM prev_transactions WHERE fk_user_id=?", 203756)
-# for row in cursor.fetchall():
-#     print(row)
+constructAndExecuteQuery(query,2, '[("Hades",22,1,"https://upload.wikimedia.org/wikipedia/en/c/cc/Hades_cover_art.jpg"), ("GTA V",41,2,"https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Grand_Theft_Auto_V.png/220px-Grand_Theft_Auto_V.png"), ("Phasmophobia",14,3,"https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Phasmophobia_VG.jpg/330px-Phasmophobia_VG.jpg")]',random.randint(100000,999999),str(datetime.datetime.now())[:11],"Awaiting Order","895904")
+constructAndExecuteQuery(query,3,'[("Resident Evil 3", 20, 2, "https://upload.wikimedia.org/wikipedia/en/d/dc/Resident_Evil_3.jpg"), ("The Last of Us Part II", 30, 1, "https://upload.wikimedia.org/wikipedia/en/4/4f/TLOU_P2_Box_Art_2.png")]',random.randint(100000,999999),str(datetime.datetime.now())[:11], "Awaiting Order", "895904")
+cursor.execute("SELECT * FROM prev_transactions WHERE fk_user_id=?", "895904")
+for row in cursor.fetchall():
+    print(row)
 # cursor.execute("DELETE FROM prev_transactions")
 # conn.commit()
 # cursor.execute("SELECT * FROM Addresses")
