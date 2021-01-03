@@ -244,12 +244,6 @@ class UpdateAccountForm(FlaskForm):
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
 
-    
-    def validate_email(self, email):
-        user = query('SELECT * FROM user_accounts WHERE email = ?', email.data)
-        if user != []:
-            raise ValidationError('That email is taken. Please choose a different one.')
-
 class UpdateBilling(FlaskForm):
     address = StringField('Address', validators=[DataRequired(), Length(min=8, max=100)])
     country = SelectField('Country', choices=countries)

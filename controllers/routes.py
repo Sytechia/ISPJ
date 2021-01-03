@@ -645,10 +645,16 @@ def myAccount():
     if form.validate_on_submit():
         user_id = session['user_id']
         user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))[0]
+        print(user)
         card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
         address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
         new_fullname = form.fullname.data 
-        new_email = form.email.data 
+        new_email = form.email.data.strip()
+        print(user[2])
+        existing_email = query('SELECT * FROM user_accounts WHERE email=?', new_email)
+        if user[2] != new_email and existing_email != []:
+            flash('This email has already been added', 'danger')
+            return redirect(url_for('myAccount'))
         image = request.files['image']
         filename = request.files['image'].filename   
         if filename.find('.') == -1: 
@@ -667,6 +673,18 @@ def myAccount():
         constructAndExecuteQuery('UPDATE user_accounts SET fullname=? WHERE Id = ?', new_fullname, user_id)
         constructAndExecuteQuery('UPDATE user_accounts SET email=? WHERE Id = ?', new_email, user_id)
         return redirect(url_for('myAccount'))
+    else:
+        user_id = session['user_id']
+        user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
+        address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
+        card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
+        prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', str(user_id))
+        transactions = []
+        for y in prev_transactions:
+            total = 0
+            for z in ast.literal_eval(y[1]):
+                total += (z[1] * z[2])
+            transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), total))
     return render_template('myAccount.html', form=form, user=user[0],credit_cards = card_info, addresses=address_info, transactions=transactions)
 
 # Change Password route #
@@ -1135,12 +1153,15 @@ def listUser():
     users = query('SELECT * FROM user_accounts')
     return render_template('admin/usersList.html', users = users)
 
-## Admin E-commerce Section Routes ##
+""" Admin E-commerce Section Routes """
+
+# Admin view all games route #
 @app.route('/productList')
 def productList():
     data = query('SELECT * FROM products')
     return render_template('admin/productList.html', data = data)
 
+# Admin view game route #
 @app.route('/adminViewproduct', methods=['GET', 'POST'])
 def viewProduct():
     id = request.args.get('id')
@@ -1150,6 +1171,7 @@ def viewProduct():
     num = int(id)
     return render_template('admin/productDetail.html', product= product, review = review, analytics = analytics, num=num)
 
+# Admin add game route #
 @app.route('/adminAddproduct', methods=['GET', 'POST'])
 def adminAdd():
     form = AdminAddProductForm()
@@ -1170,6 +1192,7 @@ def adminAdd():
         latest_id = query('SELECT * FROM PRODUCTS')[-1][0]
     return render_template('admin/adminAddProduct.html', latest_id = int(latest_id)+1, form=form)
 
+# Admin update game route #
 @app.route('/adminUpdateproduct', methods=['POST', 'GET'])
 def update():
     form = AdminUpdateProductForm()
@@ -1202,6 +1225,7 @@ def update():
         product = query('SELECT * FROM products WHERE prod_id=?',int(productId))[0]
         return render_template('admin/adminUpdateProduct.html', product = product, form=form)
 
+# Admin add stock route #
 @app.route('/addStock', methods=['POST', 'GET'])
 def stock():
     if request.method == 'GET':
@@ -1215,13 +1239,13 @@ def stock():
         constructAndExecuteQuery('UPDATE products SET prod_quantity=? WHERE prod_id=?', orginal + int(cun), int(productId))
         return redirect(url_for('admin'))
 
-# Admin delete route#
+# Admin delete game route #
 @app.route('/delete', methods=['POST', 'GET'])
 def delete():
     form = AdminUpdateProductForm()
     productId = request.args.get('id')
     if request.method == 'POST':
-        product = query('DELETE FROM products WHERE prod_id=?', int(productId))
+        product = constructAndExecuteQuery('DELETE FROM products WHERE prod_id=?', int(productId))
         return redirect(url_for('admin'))
     else:
         product = query('SELECT * FROM products WHERE prod_id=?', int(productId))[0]
@@ -1229,6 +1253,7 @@ def delete():
 
 """Reset Password token routes"""
 
+# Send email to user to reset password route #
 def send_reset_email(user):
     s = Serializer(current_app.config['SECRET_KEY'], 600)
     token =s.dumps({'user_id': user[0]}).decode('utf-8')
@@ -1239,7 +1264,8 @@ def send_reset_email(user):
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
-   
+
+# Reset password route #
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
     form = RequestResetForm()
@@ -1256,6 +1282,7 @@ def reset_request():
         return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
 
+# Reset password with token route #
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
     form = ResetPasswordForm()
