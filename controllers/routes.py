@@ -122,8 +122,8 @@ def allowed_image(filename):
 def qr():
     request_xhr_key = request.headers.get('X-Requested-With')
     if request_xhr_key and request_xhr_key == 'XMLHttpRequest':
-        email = current_user.email
-        fullname = current_user.fullname
+        email = query('SELECT email FROM user_accounts WHERE Id=?', session['user_id'])[0][0]
+        fullname = query('SELECT fullname FROM user_accounts WHERE Id=?', session['user_id'])[0][0]
         global otp
         otp = send_qr_code(email, fullname)
         threading.Thread(target=tasks).start()
@@ -176,7 +176,7 @@ def lock_timerr():
 @app.before_request
 def make_session_permanent():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=15)
+    app.permanent_session_lifetime = timedelta(minutes=60)
 
 # Check Password ajax route #
 @app.route('/checkPassword')
@@ -406,6 +406,8 @@ def addAddress():
         new_state = form.state.data 
         new_postal = form.postal.data
         all_address_list = query('SELECT * FROM Addresses')
+        if all_address_list == []:
+            all_address_list = [(0,)]
         strip_address = new_address.strip()
         existing_address = query('SELECT * FROM Addresses WHERE user_id=? AND address=?', session['user_id'], strip_address)
         print(existing_address)
@@ -414,7 +416,7 @@ def addAddress():
             if user_exisiting_addresses != []:
                 for i in user_exisiting_addresses:
                     constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",i[0])
-            constructAndExecuteQuery('INSERT INTO Addresses VALUES(?,?,?,?,?,?,?)',int(all_address_list[-1][0])+1,new_address,new_state,new_country,new_postal,"True",int(session['user_id']))
+            constructAndExecuteQuery('INSERT INTO Addresses VALUES(?,?,?,?,?,?,?)',int(all_address_list[-1][0])+1,new_address,new_state,new_country,new_postal,"True",session['user_id'])
             print(query('SELECT * FROM Addresses'))
             return redirect(url_for('myAccount'))
         else:
@@ -519,13 +521,15 @@ def addCard():
         card_year = form.year.data
         exisiting_card_no = query('SELECT card_no FROM card_info WHERE card_no=?', card_no)
         all_card_list = query('SELECT * FROM card_info')
+        if all_card_list == []:
+            all_card_list = [(0,)]
         print(all_card_list)
         print(exisiting_card_no)
         if exisiting_card_no == []:
-            cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',int(session['user_id']))
+            cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
             for i in cardlist:
                 constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
-            constructAndExecuteQuery('INSERT INTO card_info VALUES(?,?,?,?,?,?,?,?)', int(all_card_list[-1][0])+1, card_name,card_no,card_type,card_exp,card_year,int(session['user_id']),'True')
+            constructAndExecuteQuery('INSERT INTO card_info VALUES(?,?,?,?,?,?,?,?)', int(all_card_list[-1][0])+1, card_name,card_no,card_type,card_exp,card_year,session['user_id'],'True')
             return redirect(url_for('myAccount'))
         else:
             flash('Card number already exist! Please add a different card', 'danger')
@@ -555,7 +559,7 @@ def editCard():
         edited_cardexp = form.exp.data 
         edited_cardexpyear = form.year.data
         stripped_cardno = edited_cardno.strip()
-        user_existing_cards = query('SELECT * FROM card_info WHERE fk_user_id=?', int(session['user_id']))
+        user_existing_cards = query('SELECT * FROM card_info WHERE fk_user_id=?', session['user_id'])
         if len(user_existing_cards) == 1:
             constructAndExecuteQuery('UPDATE card_info SET card_name=?,card_no=?,exp_month=?,exp_year=?,card_type=? WHERE Credit_card_id=?',edited_cardname,edited_cardno,edited_cardexp,edited_cardexpyear,edited_cardtype,int(card_id))
             return redirect(url_for('myAccount'))
@@ -808,6 +812,7 @@ def confirm():
     request_xhr_key = request.headers.get('X-Requested-With')
     if request_xhr_key and request_xhr_key == 'XMLHttpRequest':
         if request.method == 'POST':
+            print('here!')
             transaction_list = []
             li = []
             bought_products = list(current_user.products)
@@ -849,37 +854,25 @@ def checkout():
         global stop_threads
         stop_threads = True
         print(request.referrer)
-    elif  request.referrer == 'http://localhost:5000/userOTP':
+    elif request.referrer == 'http://localhost:5000/userOTP':
         stop_threads = True
         print(request.referrer)
     else:
         stop_threads = False
-    try:
-        email = current_user.email
-    except:
-        return redirect(url_for('shop'))
-    fullname = current_user.fullname
-    card = None
-    cartItems = current_user.products 
-    if cartItems == []:
-        return redirect(url_for('shop'))
-    cardinfo = CardInfo.query.filter_by(user_id=current_user.id, default='True').first()
-    print(cardinfo)
-    try:
-        cardnum = cipher_suite.decrypt(cardinfo.cardno)
-        cardn = str(cardnum)
-        cardnss = cardn[1:]
-        cardns = cardnss[1:-1]
-        card = {'card_name':cardinfo.card_name, 'cardno':cardns, 'exp':cardinfo.exp, 'year':cardinfo.year}
-    except:
-        pass
-    address_info = AddressInfo.query.filter_by(user_id=current_user.id, default='True').first()
-    print(address_info)
-    if address_info == None:
-        country = 'Singapore'
-    else:
-        country = address_info.country
-    return render_template('checkout.html', cartItems = cartItems, address = address_info, card = card, fullname=fullname, email = email, country = country)
+    email = query('SELECT email FROM user_accounts WHERE Id=?', session['user_id'])[0]
+    fullname = query('SELECT fullname FROM user_accounts WHERE Id=?', session['user_id'])[0]
+    # cartItems = query() 
+    # if cartItems == []:
+    #     return redirect(url_for('shop'))
+    cartItems = []
+    default_address = query('SELECT * FROM Addresses WHERE default_address=? AND user_id=?', "True", session['user_id'])
+    default_card = query('SELECT * FROM card_info WHERE "default"=? AND fk_user_id=?', "True", session['user_id'])
+    if default_address != []:
+        default_address = default_address[0]
+    if default_card != []:
+        default_card = default_card[0]
+    print(default_address, default_card)
+    return render_template('checkout.html', cartItems = cartItems, address = default_address, card = default_card, fullname=fullname, email = email)
 
 stop_threads = False
 timer = 0
@@ -904,8 +897,8 @@ def enter_otp():
         stop_threads = False
         global otp
         if request.method == 'GET':
-            email = current_user.email
-            fullname = current_user.fullname
+            email = query('SELECT email FROM user_accounts WHERE Id=?', session['user_id'])[0][0]
+            fullname = query('SELECT fullname FROM user_accounts WHERE Id=?', session['user_id'])[0][0]
             otp =  send_qr_code(email, fullname)
             threading.Thread(target=tasks).start()
             return redirect(url_for('u'))

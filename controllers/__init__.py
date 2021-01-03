@@ -17,7 +17,6 @@ from datetime import timedelta
 app = Flask(__name__)
 app.logger.removeHandler(default_handler)
 app.config['SECRET_KEY'] = '1250886c25d8cdc3533957d2f96a4b03'
-app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=60)
 app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
