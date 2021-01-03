@@ -644,6 +644,11 @@ nlu:
     - who are you
     - what are you
     - who am I talking to
+    - who is this
+    - are you a bot
+    - are you human
+    - what is this
+    - are you a chatbot?
 
 # FAQs
 - intent: how_long_arrive
@@ -2350,3 +2355,15 @@ nlu:
     - can sgd be used for payment
     - can usd be used to pay
 
+- intent: out_of_scope
+  examples: |
+    - I want to order food
+    - What is 2 + 2
+    - Who's the Singapore President
+    - How to be a smart shopper
+    - how do i place an order
+    - what is store credit
+    - where can i find the invoice for my order
+    - what is a collection point
+    - how can i know the exact time and date of the delivery
+    - what is store credit

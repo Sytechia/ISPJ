@@ -22,6 +22,9 @@ pipeline:
 #   - name: FallbackClassifier
 #     threshold: 0.3
 #     ambiguity_threshold: 0.1
+  # - name: FallbackClassifier
+  #   threshold: 0.6
+  #   ambiguity_threshold: 0.1
   # - name: WhitespaceTokenizer
   # - name: RegexFeaturizer
   # - name: LexicalSyntacticFeaturizer
@@ -35,9 +38,10 @@ pipeline:
   # - name: EntitySynonymMapper
   # - name: ResponseSelector
   #   epochs: 100
-#   - name: FallbackClassifier
-#     threshold: 0.3
-#     ambiguity_threshold: 0.1
+  # - name: FallbackClassifier
+  #   threshold: 0.6
+  #   ambiguity_threshold: 0.1
+
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
@@ -55,3 +59,12 @@ policies:
   #   max_history: 5
   #   epochs: 100
   # - name: RulePolicy
+  
+  # - name: "FallbackPolicy"
+  #   # min confidence needed to accept an NLU prediction
+  #   nlu_threshold: 0.6
+  #   # min confidence needed to accept an action prediction from Rasa Core
+  #   core_threshold: 0.6
+  #   # name of the action to be called if the confidence of intent / action
+  #   # is below the threshold
+  #   fallback_action_name: 'action_default_fallback'
