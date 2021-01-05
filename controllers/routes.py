@@ -123,7 +123,13 @@ def allowed_image(filename):
         return True
     else:
         return False
-
+@app.context_processor
+def inject_dict_for_all_templates():
+    test = query("select prod_name from products")
+    game_list = []
+    for row in test:
+        game_list.append(row[0])
+    return dict(game_list=game_list)
 # Sends a qr code to the user upon payment and starts an internal thread #
 @app.route('/qr')
 def qr():
@@ -152,7 +158,6 @@ def task():
 # Send an email to the admin email #
 def emailTask():
     global email
-    print(email)
     with app.app_context():
         adminEmail(email)
     return "sent"
@@ -163,7 +168,6 @@ def timerr():
     request_xhr_key = request.headers.get('X-Requested-With')
     if request_xhr_key and request_xhr_key == 'XMLHttpRequest': 
         global timer
-        print("actual", timer)
         return str(timer)
     else:
         return redirect(url_for('home'))
@@ -192,7 +196,6 @@ def checkpassword():
     if request_xhr_key and request_xhr_key == 'XMLHttpRequest':
         datas = {"data":[]}
         password = request.args.get('pass')
-        print(password)
         policy = PasswordPolicy.from_names(
             length = 8,
             uppercase = 2,
@@ -223,19 +226,20 @@ def home():
 # FAQ Page #
 @app.route('/faq')
 def faq():
-    return render_template('faq.html', result=output)
+    test = query("select prod_name from products")
+    game_list = []
+    for row in test:
+        game_list.append(row[0])
+    return render_template('faq.html', result=output,game_list=game_list)
 
 # Chatbot #
 @app.route('/result',methods=["POST","GET"])
 def Result():
     global output
     if request.method=="POST":
-        print('happened!')
-        print(list(request.form.values()))
         result=list(request.form.values())[0]
         if request.args.get('game') != None:
             result = request.args.get('game')
-        print(result)
         if result.lower()=="restart":
             output = [("message stark", {"text":"Hi, how may I assist you?"})]
         elif result == '':
@@ -342,9 +346,7 @@ def login():
         session['attempts'] = 5
     if form.validate_on_submit():
         email = form.email.data.strip()
-        print(form.email.data)     
         user = query('SELECT * FROM user_accounts WHERE email = ?', email)
-        print(user)
         if user == []: 
             flash('Please check your credentials again', 'danger')
             return render_template('login.html', form=form)
@@ -383,7 +385,6 @@ def login():
         return render_template('login.html', form=form)
     else:
         if "user_id" in session:
-            print('here')
             return redirect(url_for('home'))
         form = LoginForm()
         return render_template('login.html', title='Login', form=form)
@@ -411,7 +412,6 @@ def authorize():
         return redirect('/myAccount')
     if user:
         session['user_id'] = user[0][0]
-        print(session)
     return redirect('/myAccount')
 
 # Adding Address route #
@@ -428,14 +428,12 @@ def addAddress():
             all_address_list = [(0,)]
         strip_address = new_address.strip()
         existing_address = query('SELECT * FROM Addresses WHERE user_id=? AND address=?', session['user_id'], strip_address)
-        print(existing_address)
         if existing_address == []:
             user_exisiting_addresses = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
             if user_exisiting_addresses != []:
                 for i in user_exisiting_addresses:
                     constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",i[0])
             constructAndExecuteQuery('INSERT INTO Addresses VALUES(?,?,?,?,?,?,?)',int(all_address_list[-1][0])+1,new_address,new_state,new_country,new_postal,"True",session['user_id'])
-            print(query('SELECT * FROM Addresses'))
             return redirect(url_for('myAccount'))
         else:
             flash('Address already added! Please add a different address', 'danger')
@@ -465,13 +463,11 @@ def editAddress():
         editted_postal = form.postal.data
         stripped_address = editted_address.strip()
         old_addresses = query('SELECT * FROM Addresses WHERE user_id=?', int(session['user_id']))
-        print(old_addresses)
         if len(old_addresses) == 1:
             constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
             return redirect(url_for('myAccount'))
         else:
             check_existing_address = query('SELECT * FROM Addresses WHERE address=? AND user_id=?', stripped_address, int(session['user_id']))
-            print(check_existing_address)
             if check_existing_address == []:
                 constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
                 return redirect(url_for('myAccount'))
@@ -493,17 +489,14 @@ def editAddress():
 @app.route('/defaultAddress', methods=['GET', 'POST'])
 def defaultAddress():
     address = request.args.get('address')
-    print(address)
     if address == None:
         return redirect(url_for('home'))
     try:
         addressList = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
-        print(addressList)
         test = address.strip()
         for i in addressList:
             constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",int(i[0]))
         constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",int(address))
-        print(query('SELECT * FROM Addresses'))
         return "[]"
     except:
         return redirect(url_for('home'))
@@ -512,17 +505,14 @@ def defaultAddress():
 @app.route('/removeAddress')
 def removeAddress():
     address = request.args.get('address')
-    print(address)
     if address == None: 
         return redirect(url_for('myAccount'))
     try:
         test = address.strip()
         constructAndExecuteQuery('DELETE FROM Addresses WHERE Id=?', int(test))
         addresslist = query('SELECT * FROM Addresses WHERE user_id=?',session['user_id'])
-        print(addresslist)
         if addresslist != []:
             constructAndExecuteQuery('UPDATE Addresses SET "default_address"=? WHERE Id=?',"True",addresslist[-1][0])
-        print(query('SELECT * FROM Addresses'))
         return "[]"
     except:
         return redirect(url_for('myAccount'))
@@ -541,8 +531,6 @@ def addCard():
         all_card_list = query('SELECT * FROM card_info')
         if all_card_list == []:
             all_card_list = [(0,)]
-        print(all_card_list)
-        print(exisiting_card_no)
         if exisiting_card_no == []:
             cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
             for i in cardlist:
@@ -590,7 +578,6 @@ def editCard():
                 constructAndExecuteQuery('UPDATE card_info SET card_name=?,card_no=?,exp_month=?,exp_year=?,card_type=? WHERE Credit_card_id=?',edited_cardname,edited_cardno,edited_cardexp,edited_cardexpyear,edited_cardtype,int(card_id))
                 return redirect(url_for('myAccount'))
             else:
-                print('here')
                 flash('This card number has already been added! Please add a different card number')
                 return render_template('editCard.html', form=form, card=card[0])
     else:
@@ -605,17 +592,15 @@ def editCard():
 @app.route('/defaultCard', methods=['GET', 'POST'])
 def defaultCard():
     card = request.args.get('card')
-    print(card)
     if card == None: 
         return redirect(url_for('home'))
     try:
         cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
-        print(cardlist)
+
         for i in cardlist:
             constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"False",int(i[0]))
         test = card.strip()
         constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",int(test))
-        print(query('SELECT * FROM card_info'))
         return "[]"
     except:
         return redirect(url_for('home'))
@@ -624,17 +609,14 @@ def defaultCard():
 @app.route('/removeCard')
 def removeCard():
     card = request.args.get('card')
-    print(card)
     if card == None: 
         return redirect(url_for('myAccount'))
     try:
         test = card.strip()
         constructAndExecuteQuery('DELETE FROM card_info WHERE Credit_card_id=?', int(test))
         cardlist = query('SELECT * FROM card_info WHERE fk_user_id=?',session['user_id'])
-        print(cardlist)
         if cardlist != []:
             constructAndExecuteQuery('UPDATE card_info SET "default"=? WHERE Credit_card_id=?',"True",cardlist[-1][0])
-        print(query('SELECT * FROM card_info'))
         return "[]"
     except:
         return redirect(url_for('myAccount'))
@@ -667,12 +649,11 @@ def myAccount():
     if form.validate_on_submit():
         user_id = session['user_id']
         user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))[0]
-        print(user)
+
         card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
         address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
         new_fullname = form.fullname.data 
         new_email = form.email.data.strip()
-        print(user[2])
         existing_email = query('SELECT * FROM user_accounts WHERE email=?', new_email)
         if user[2] != new_email and existing_email != []:
             flash('This email has already been added', 'danger')
@@ -722,7 +703,6 @@ def changePassword():
             oldpasswords = ast.literal_eval(user[6])
             for i in oldpasswords:
                 if i == form.password.data:
-                    print('old password')
                     flash('You cannot reuse any of your previous 5 passwords!', 'danger')
                     return render_template('changePassword.html', form=form)
             else:
@@ -760,7 +740,6 @@ def activate():
     if form.validate_on_submit():
         stripped_email = form.email.data.strip()
         user = query('SELECT * FROM user_accounts WHERE email=?', stripped_email)
-        print(user)
         if form.password.data == user[0][3]:
             constructAndExecuteQuery('UPDATE user_accounts SET account_status=? WHERE email=?',1,stripped_email)
             session['user_id'] = user[0][0]
@@ -816,6 +795,18 @@ def shop():
         prev_transactions = []
     print(prev_transactions)
     return render_template("shop.html", allProducts = allProducts, cartItems=prev_transactions)
+    return render_template("shop.html",allProducts=allProducts)
+
+
+@app.route('/checking',methods=['POST'])
+def checking():
+    if request.method == 'POST':
+        data = request.form
+        get_game_id = conn.execute('select prod_id from products where prod_name = ?',data['myCountry']).fetchone()
+        if get_game_id:
+            return redirect(url_for('single_product',id=get_game_id[0]))
+        else:
+            print("Game not found!")
 
 @app.route('/single_product/<int:id>')
 def single_product(id):
@@ -864,7 +855,6 @@ def confirm():
     request_xhr_key = request.headers.get('X-Requested-With')
     if request_xhr_key and request_xhr_key == 'XMLHttpRequest':
         if request.method == 'POST':
-            print('here!')
             transaction_list = []
             li = []
             bought_products = query('SELECT * FROM cart WHERE user_id=?', session['user_id'])
@@ -889,11 +879,9 @@ def confirm():
     
 @app.route('/checkout')
 def checkout():
-    print(request.referrer)
     if request.referrer == 'http://127.0.0.1:5000/userOTP':
         global stop_threads
         stop_threads = True
-        print(request.referrer)
     elif request.referrer == 'http://localhost:5000/userOTP':
         stop_threads = True
         print(request.referrer)
@@ -946,7 +934,6 @@ def enter_otp():
             if timer == 0:
                 otp = ''
             if otp == '':
-                print("expired ")
                 return "expired"
             elif int(user_otp) ==  otp:
                 return "successful"
@@ -1050,7 +1037,6 @@ def Logs():
         for i in line:
             dic = {}
             splitted = i.split(' ')
-            print(splitted)
             dic["date"] = splitted[0]
             dic["time"] = splitted[1]
             dic["error"] = splitted[2]+ " " + splitted[3]
@@ -1234,7 +1220,6 @@ def update():
         item_name = form.name.data 
         item_desc = form.description.data
         item_price = form.price.data
-        print(item_price)
         image = request.files['image']
         filename = request.files['image'].filename 
         if filename.find('.') == -1: 
@@ -1321,7 +1306,6 @@ def reset_token(token):
     if "user_id" in session: 
         return redirect(url_for('home'))
     user = verify_reset_token(token)
-    print(user)
     if user is None:
         flash('That is an invalid or expired token', 'danger')
         return redirect(url_for('reset_request'))
@@ -1331,7 +1315,6 @@ def reset_token(token):
         oldpasswords = ast.literal_eval(user[6])
         for i in oldpasswords:
             if i == hashed_password:
-                print('old password')
                 flash('You cannot reuse any of your previous 5 passwords!', 'danger')
                 return redirect(request.referrer)
         else:
@@ -1367,15 +1350,4 @@ def page_not_found500(x):
     errors.error(f"{x}")
     return render_template('feedbackError.html'), 500
 
-# @app.route('/set/')
-# def set():
-#     session['key'] = 'value'
-#     return 'ok'
 
-# @app.route('/get/')
-# def get():
-#     if 'user_id' in session: 
-#         resulr = True
-#     else:
-#         resulr = False
-#     return str(resulr)
