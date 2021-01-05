@@ -116,14 +116,13 @@ def allowed_image(filename):
         return True
     else:
         return False
-# @app.context_processor
-# def inject_dict_for_all_templates():
-#     allProducts = query('SELECT * FROM products')
-#     test = query("select prod_name from products")
-#     game_list = []
-#     for row in test:
-#         game_list.append(row[0])
-#     return dict(game_list=game_list,allProducts=allProducts)
+@app.context_processor
+def inject_dict_for_all_templates():
+    test = query("select prod_name from products")
+    game_list = []
+    for row in test:
+        game_list.append(row[0])
+    return dict(game_list=game_list)
 # Sends a qr code to the user upon payment and starts an internal thread #
 @app.route('/qr')
 def qr():
@@ -215,12 +214,7 @@ output = [("message stark", {"text":"Hi, how may I assist you?"})]
 # Home Page #
 @app.route('/')
 def home():
-    test = query("select prod_name from products")
-    game_list = []
-    for row in test:
-        game_list.append(row[0])
-    print(game_list)
-    return render_template('homepage.html',game_list=game_list)
+    return render_template('homepage.html')
 
 # FAQ Page #
 @app.route('/faq')
@@ -752,15 +746,18 @@ Shop Related Routes
 @app.route('/shop')
 def shop():
     allProducts = query('SELECT * FROM products')
-    game_list = []
-    for row in allProducts:
-        game_list.append(row[2])
-    return render_template("shop.html",game_list=game_list,allProducts=allProducts)
+    return render_template("shop.html",allProducts=allProducts)
+
+
 @app.route('/checking',methods=['POST'])
 def checking():
-    data=request.form
-    print(data)
-    return "hello"
+    if request.method == 'POST':
+        data = request.form
+        get_game_id = conn.execute('select prod_id from products where prod_name = ?',data['myCountry']).fetchone()
+        if get_game_id:
+            return redirect(url_for('single_product',id=get_game_id[0]))
+        else:
+            print("Game not found!")
 
 @app.route('/single_product/<int:id>')
 def single_product(id):
