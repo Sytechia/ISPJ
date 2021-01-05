@@ -905,7 +905,7 @@ Shop
     bottom: 0;
     right: 0;
     padding: 0.75rem;
-    background: #ffd300;
+    background: #660cf4;
     border-top-left-radius: 1px;
     transition: all 0.3s ease-in-out;
     transform: translate(100%, 100%);
@@ -970,7 +970,7 @@ Shop
 /* Cart */
 
 .shopping-cart {
-    width: 750px;
+    width: 900px;
     height: 100%;
     background: #36454F;
     box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
@@ -979,6 +979,10 @@ Shop
     flex-direction: column;
     padding-bottom: 10px;
     ;
+}
+
+.price {
+    bottom:-30px
 }
 
 .title {
@@ -1179,7 +1183,7 @@ button:focus, input:focus {
 }
 
 .cd-img-replace {
-    background: black url("../img/cd-cart.svg") no-repeat center;
+    background:url("../img/cd-cart.svg") no-repeat center;
     display: inline-block;
     overflow: hidden;
     text-indent: 100%;

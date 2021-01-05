@@ -19,9 +19,21 @@ pipeline:
   - name: EntitySynonymMapper
   - name: ResponseSelector
     epochs: 100
+    # ambiguity_threshold: 0.1'
+  - name: ResponseSelector
+    retrieval_intent: out_of_scope
+    scale_loss: false
+    epochs: 100
+  # - name: RegexEntityExtractor
+  #   # text will be processed with case insensitive as default
+  #   case_sensitive: False
+  #   # use lookup tables to extract entities
+  #   use_lookup_tables: True
+  #   # use regexes to extract entities
+  #   use_regexes: True
+  #   # use match word boundaries for lookup table
   - name: FallbackClassifier
     threshold: 0.7
-    ambiguity_threshold: 0.1
 
 
 # Configuration for Rasa Core.
@@ -40,12 +52,28 @@ policies:
   #   max_history: 5
   #   epochs: 100
   # - name: RulePolicy
+  - name: TEDPolicy
+    max_history: 10
+    epochs: 20
+    batch_size:
+    - 32
+    - 64
+  - max_history: 6
+    name: AugmentedMemoizationPolicy
   
   # - name: "FallbackPolicy"
   #   # min confidence needed to accept an NLU prediction
-  #   nlu_threshold: 0.6
+  #   nlu_threshold: 0.7
   #   # min confidence needed to accept an action prediction from Rasa Core
-  #   core_threshold: 0.6
+  #   core_threshold: 0.7
   #   # name of the action to be called if the confidence of intent / action
   #   # is below the threshold
-  #   fallback_action_name: 'action_default_fallback'
+  #   fallback_action_name: 'utter_out_of_scope'
+
+  - name: RulePolicy
+    # Confidence threshold for the `core_fallback_action_name` to apply.
+    # The action will apply if no other action was predicted with
+    # a confidence >= core_fallback_threshold
+    core_fallback_threshold: 0.7
+    core_fallback_action_name: "utter_out_of_scope"
+    enable_fallback_prediction: True

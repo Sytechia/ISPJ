@@ -11,12 +11,16 @@
 
 # for index, content in enumerate(sample): 
 
-li = []
+# li = []
 
-for i in range(0, 11, 2):
-    print('=========')
-    print(i)
-    print(i+1)
-    print('=========')
+# for i in range(0, 11, 2):
+#     print('=========')
+#     print(i)
+#     print(i+1)
+#     print('=========')
 
-print(li)
+# print(li)
+
+import requests
+
+print(requests.get('http://localhost:5000/getUserID').text)

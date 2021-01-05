@@ -1,18 +1,13 @@
 const active2 = document.querySelector('.active1');
 $('.singleProductBtn').click(function (event) {
     const id = event.target.parentElement.children[0].innerText
+    let ef = document.querySelector('#platform')
+    let platform = ef.options[ef.selectedIndex].text;
     $.ajax({
         type: "GET",
-        url: `/shop?id=${id}`
+        url: `/shop?id=${id}&platform=${platform}`
     })
 });
-
-(() => {
-    if(active2.innerHTML.includes('flask_login')){
-        singlebtn.disabled = true
-        document.querySelector('.checkout-button').href = '#'    
-    }
-})();
 
 //Variables
 const btn = document.querySelectorAll('.singleProductBtn');
@@ -45,6 +40,9 @@ function addToCart(e){
     let price = e.target.parentElement.parentElement.children[0].children[1].innerText
     let slicedprice = price.substring(1)
     let sliced = parseInt(slicedprice)
+    let ef = document.querySelector('#platform')
+    let platform = ef.options[ef.selectedIndex].text;
+    console.log(platform)
     let img = e.target.parentElement.parentElement.parentElement.children[0].children[0].children[0].src
     let position = img.indexOf("static");
     let partPath = img.slice(position);
@@ -65,6 +63,15 @@ function addToCart(e){
             </div>
             <div class="quantity">
                 <input type="text" name="name" class="quan" value="${item.quantity}">
+            </div>
+            <div class="quantity">
+                <select name="cars" id="platform">
+                <option value="${platform}">${platform}</option>
+                <option value="volvo">PC</option>
+                <option value="saab">PS4</option>
+                <option value="mercedes">XBOX</option>
+                <option value="audi">Nitendo Switch</option>
+                </select>
             </div>
             <div class="total-price">$${item.price}</div>
             <div class="remove-product">
@@ -121,11 +128,12 @@ function total(){
     let quantity = 0
     let cartItems = document.querySelectorAll('.item')
     Array.from(cartItems).forEach(item => {
-        let itemprice = item.children[3].innerText
+        let itemprice = item.children[4].innerText
         var sliced = itemprice.substring(1)
-        var slicedPrice = parseInt(sliced)
+        var slicedPrice = parseFloat(sliced)
         let quantityValue = parseInt(item.children[2].children[0].value)
         total += (quantityValue*slicedPrice)
+        console.log(slicedPrice, quantityValue, total)
         quantity += quantityValue
         document.querySelector('.totalPrice').textContent = `$${total}`
         document.querySelector('.totalQuantity').textContent = quantity
@@ -149,35 +157,3 @@ jQuery(document).ready(function($) {
 	});
 });
 
-document.querySelector('.submit-review').addEventListener('click', postReview)
-
-function postReview(event) {
-    console.log('fired')
-    let rating; 
-    let comment = document.querySelector('.comment').value
-    let reviewInputs = document.querySelectorAll('input[type="radio"]')
-    Array.from(reviewInputs).forEach(radio => {
-      if(radio.checked){
-        rating = radio.value
-      }
-    })
-    if(rating){
-      $.ajax({
-        type: "GET",
-        url: `/productReview?rating=${rating}&comment=${comment}`,
-    })
-    } 
-}
-
-$('.delete').click(()=>{
-    $.ajax({
-        type:'GET',
-        url:'/deleteReview'
-    })
-    swal({
-        title: `Deleted Review`,
-        text: "Review has been deleted!",
-        icon: "success",
-        button: "okay",
-    })
-})

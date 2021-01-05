@@ -209,8 +209,6 @@ responses:
     text: Would you like to add any of these games to your cart? (Type one of the following options below)
   utter_any_help:
   - text: How else may I assist you?
-  utter_added:
-  - text: Product has been added to your cart :)
   utter_addMore:
   - buttons:
     - payload: /yes
@@ -446,4 +444,32 @@ responses:
   utter_out_of_scope:
     - text: "I'm sorry, I didn't quite understand that. Could you rephase?"
 
+actions:
+  - action_addSkyrim
+  - action_addGTA
+  - action_addFantasy
+  - adventure_addMinecraft
+  - adventure_addUncharted
+  - adventure_addAssassin
+  - horror_addResident
+  - horror_addTheLastOfUs
+  - horror_addPhasmophobia
+  - indie_addStardewValley
+  - indie_addOvercooked2
+  - indie_addFallGuys
+  - multiplayer_addAnimalCrossing
+  - multiplayer_addCOD
+  - multiplayer_addPUBG
+  - racing_addMarioKart8
+  - racing_addForza
+  - racing_addDirt
+  - rpg_addWitcher
+  - rpg_addPersona
+  - rpg_addZelda
+  - simulation_addSims
+  - simulation_addWWE
+  - simulation_addfifa
+  - sport_addNBA
+  - sport_addFifa
+  - sport_addRocketLeague
 

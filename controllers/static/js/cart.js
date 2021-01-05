@@ -127,6 +127,18 @@ if (searchField != null){
             url: `/shop?delete=true&name=${names}`,
         })
     })
+    Array.from(document.querySelectorAll('.platform_change')).forEach(element => {
+        element.onchange = function() {
+            var index = this.selectedIndex;
+            var inputText = this.children[index].innerHTML.trim();
+            const name = this.parentElement.parentElement.children[1].innerText
+            console.log(name)
+            $.ajax({
+                type: "GET",
+                url: `/shop?name=${name}&platform=${inputText}`,
+            })
+        }
+    })
 })();
 
 
@@ -231,9 +243,9 @@ function total(){
     let quantity = 0
     let cartItems = document.querySelectorAll('.item')
     Array.from(cartItems).forEach(item => {
-        let itemprice = item.children[3].innerText
+        let itemprice = item.children[4].innerText
         var sliced = itemprice.substring(1)
-        var slicedPrice = parseInt(sliced)
+        var slicedPrice = parseFloat(sliced)
         let quantityValue = parseInt(item.children[2].children[0].value)
         total += (quantityValue*slicedPrice)
         quantity += quantityValue
@@ -242,19 +254,20 @@ function total(){
     })
 }
 
+
 //Remove Cart Item functionality 
 function removeItem(e){ 
     let item = e.target.parentElement.parentElement.parentElement
     console.log(item)
-    let itemprice = item.children[3].innerText
+    let itemprice = item.children[4].innerText
     var sliced2 = itemprice.substring(1)
-    var slicedPrice2 = parseInt(sliced2)
+    var slicedPrice2 = parseFloat(sliced2)
     let quantityValue = parseInt(item.children[2].children[0].value)
     let amt = (quantityValue*slicedPrice2)
     item.remove()
     var total = document.querySelector('.totalPrice').textContent
     let sliced = total.substring(1)
-    var slicedtotal = parseInt(sliced)
+    var slicedtotal = parseFloat(sliced)
     document.querySelector('.totalPrice').textContent = `$${slicedtotal -= amt}`
     document.querySelector('.totalQuantity').textContent -= quantityValue
     check()

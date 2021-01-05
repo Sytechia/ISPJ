@@ -58,3 +58,4 @@ app.config['MAIL_PASSWORD'] = 'ValentiaTest2@@1'
 mail = Mail(app)
 
 from controllers import routes
+session_id = routes.session_id

@@ -26,15 +26,16 @@ cursor = conn.cursor()
 """ Inserting into database """
 # constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, isadmin, profile_image, previous_passwords, fullname)
 
-# def query(query, *args):
-#     try:
-#         cursor.execute(query, *args)
-#         result = cursor.fetchall()
-#     except: 
-#         result = []
-#     return result
-# strip_address = '528 bishan road'
-# result = query('SELECT * FROM Addresses WHERE user_id=? AND address=?', '2037560', strip_address)
+def query(query, *args):
+    # try:
+    cursor.execute(query, *args)
+    result = cursor.fetchall()
+    # except: 
+    #     result = []
+    return result
+strip_address = '528 bishan road'
+cursor.execute('DELETE FROM cart WHERE user_id=? AND prod_name=?',str(392504), "The Elder Scrolls V: Skyrim")
+conn.commit()
 # print(result)
 
 def constructAndExecuteQuery(query, *args):
@@ -114,4 +115,4 @@ import ast
 #     transactions.append([(y[2], str(y[3]),y[4], y[1], total)])
 # print(transactions)
 
-constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?)',1,1,)
+# constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?)',1,1,)

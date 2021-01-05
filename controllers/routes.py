@@ -1,6 +1,7 @@
 """
 All dynamic routing belongs here 
 """
+session_id = None
 
 import os, json, ast, random, requests
 from flask import render_template, redirect, flash, url_for, request, jsonify, Request, send_file, make_response, session, abort, Response, get_template_attribute
@@ -105,6 +106,12 @@ def query(query, *args):
     except: 
         result = []
     return result
+
+
+
+@app.route('/getUserID')
+def getSessionUser():
+    return str(session_id)
 
 # Ensures that allowed images are accepted #
 def allowed_image(filename):
@@ -246,6 +253,13 @@ def Result():
                     if 'buttons' in i:
                         for x in i['buttons']:
                             li.append((x['title'], "button"))
+                count = 0
+                for i in li: 
+                    if "I'm sorry, I didn't quite understand that. Could you rephase?" == i:
+                        count += 1
+                if count > 1: 
+                    li = [li[0]]
+                # print(li)
                 sample = [("message parker",{"text":result})] 
                 buttons = []
                 for count, msg in enumerate(li): 
@@ -258,7 +272,9 @@ def Result():
                 if buttons != []:
                     sample.append(("message stark", {"button":buttons}))
                 output.extend(sample)
-                print("output at here", output)
+                print(output)
+                # for i in sample: 
+                #     if 
             except:
                 output.extend([("message parker", result), ("message stark", "We are unable to process your request at the moment. Please try again...")])
         return render_template("faq.html",result=output)
@@ -317,6 +333,7 @@ def register():
 def login():
     form = LoginForm()
     global email
+    global session_id
     if lock_timer != 0:
         form = LoginForm()
         flash('Please re-attempt login in 5 mins','danger')
@@ -342,6 +359,7 @@ def login():
             if user_active == False:
                 return redirect(url_for('activateask'))
             session['user_id'] = user_id
+            session_id = user_id
             infos.info('%s logged in successfully', user_email)
             session['attempts'] = 5
             return redirect(url_for('home'))
@@ -767,12 +785,46 @@ Shop Related Routes
 """
 @app.route('/shop')
 def shop():
+    item_name = request.args.get('name')
+    item_id = request.args.get('id')
+    if item_id != None:
+        product = query('SELECT * FROM products WHERE prod_id=?', int(item_id))[0]
+    item_quantity = request.args.get('quantity')
+    item_platform = request.args.get('platform')
+    item_delete = request.args.get('delete')
+    latest_cart_id = query('SELECT * FROM cart')
+    if latest_cart_id == []:
+        latest_cart_id = 1
+    else:
+        latest_cart_id = (latest_cart_id[-1][0] + 1)
+    if item_id != None:
+        print('here')
+        constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],session['user_id'], item_platform)
+    if item_name != None and item_delete != None: 
+        constructAndExecuteQuery('DELETE FROM cart WHERE prod_name=? AND user_id=?', item_name, session['user_id'])
+    if item_name != None and item_quantity != None:
+        item_name = item_name.strip()
+        constructAndExecuteQuery('UPDATE cart SET prod_quantity = ? WHERE prod_name=? AND user_id=?', int(item_quantity), item_name, session['user_id'])
+    if item_name != None and item_platform != None:
+        item_name = item_name.strip()
+        item_platform = item_platform.strip()
+        constructAndExecuteQuery('UPDATE cart SET platform = ? WHERE prod_name=? AND user_id=?', item_platform, item_name, session['user_id'])
     allProducts = query('SELECT * FROM products')
-    return render_template("shop.html", allProducts = allProducts)
+    try:
+        prev_transactions = query('SELECT * FROM cart WHERE user_id=?', session['user_id'])
+    except:
+        prev_transactions = []
+    print(prev_transactions)
+    return render_template("shop.html", allProducts = allProducts, cartItems=prev_transactions)
 
 @app.route('/single_product/<int:id>')
 def single_product(id):
-    return render_template("single_product.html")
+    product = query('SELECT * FROM products WHERE prod_id=?', int(id))[0]
+    try:
+        prev_transactions = query('SELECT * FROM cart WHERE user_id=?', session['user_id'])
+    except:
+        prev_transactions = []
+    return render_template("single_product.html", data=product, cartItems=prev_transactions)
 
 def sum_digits(digit):
             if digit < 10:
@@ -815,33 +867,21 @@ def confirm():
             print('here!')
             transaction_list = []
             li = []
-            bought_products = list(current_user.products)
-            data = refreshAnalytics()
-            data2 = refresh()
+            bought_products = query('SELECT * FROM cart WHERE user_id=?', session['user_id'])
             total = 0
-            for index, i in enumerate(bought_products): 
-                transaction_list.append({'prod_name':i.prod_name, 'prod_quantity':i.prod_quantity, 'prod_price':i.prod_price, 'img':i.img})
-                for y in data:
-                    if y['name'] == i.prod_name:  
-                        y['stock'] -= int(i.prod_quantity)  
-                        y['count'] += int(i.prod_quantity)
-                        y['amount_earned'] += (int(i.prod_quantity)*int(i.prod_price))
-                for x in data2:
-                    if x['prod_name'] == i.prod_name:   
-                        x['stock'] -= int(i.prod_quantity)
-            with open('json_files/analytics.json', 'w') as f:
-                    json.dump(data, f)
-            with open('json_files/product.json', 'w') as f:
-                    json.dump(data2, f)
-            unique = random.randint(100000000000,999999999999)
-            transaction = PreviousTransactions(cartItems = str(transaction_list), transactionId = unique,transaction_date= datetime.utcnow()+timedelta(hours=8),user_id=current_user.id)
-            db.session.add(transaction)
-            db.session.commit()
             for i in bought_products:
-                db.session.delete(i)
-                db.session.commit()
-            criticals.critical(f'Transaction #{unique} has been made by userID:{current_user.id}')
+                total += (i[1] * i[3])
+                transaction_list.append((i[2], i[3], i[1], i[4],i[-1]))
+            unique = random.randint(100000000000,999999999999)
+            latest_id = query('SELECT * FROM prev_transactions')
+            if latest_id != []:
+                latest_id = (latest_id[-1][0] + 1)
+            else:
+                latest_id = 1
+            constructAndExecuteQuery('INSERT INTO prev_transactions VALUES(?,?,?,?,?,?)', latest_id, str(transaction_list), unique, str(datetime.now()), 'Awaiting Order', session['user_id'])
+            criticals.critical(f'Transaction #{unique} has been made by userID:{session["user_id"]}')
             print('Successful Transaction')
+            constructAndExecuteQuery('DELETE FROM cart WHERE user_id=?', session['user_id'])
             global stop_threads
             stop_threads = True
     else:
@@ -861,10 +901,9 @@ def checkout():
         stop_threads = False
     email = query('SELECT email FROM user_accounts WHERE Id=?', session['user_id'])[0]
     fullname = query('SELECT fullname FROM user_accounts WHERE Id=?', session['user_id'])[0]
-    # cartItems = query() 
-    # if cartItems == []:
-    #     return redirect(url_for('shop'))
-    cartItems = []
+    cartItems = query('SELECT * FROM cart WHERE user_id=?', session['user_id']) 
+    if cartItems == []:
+        return redirect(url_for('shop'))
     default_address = query('SELECT * FROM Addresses WHERE default_address=? AND user_id=?', "True", session['user_id'])
     default_card = query('SELECT * FROM card_info WHERE "default"=? AND fk_user_id=?', "True", session['user_id'])
     if default_address != []:
