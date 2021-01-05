@@ -116,7 +116,13 @@ def allowed_image(filename):
         return True
     else:
         return False
-
+@app.context_processor
+def inject_dict_for_all_templates():
+    test = conn.execute("select prod_name from dbo.products").fetchall()
+    game_list = []
+    for row in test:
+        game_list.append(row[0])
+    return dict(game_list=game_list)
 # Sends a qr code to the user upon payment and starts an internal thread #
 @app.route('/qr')
 def qr():
@@ -768,6 +774,7 @@ Shop Related Routes
 @app.route('/shop')
 def shop():
     allProducts = query('SELECT * FROM products')
+    print(allProducts)
     return render_template("shop.html", allProducts = allProducts)
 
 @app.route('/single_product/<int:id>')
