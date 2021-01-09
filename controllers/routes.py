@@ -59,10 +59,10 @@ def setup_logger(name, log_file, level):
     return logger
     
 
-errors = setup_logger('Error_logger', 'errors.log', logging.ERROR)
-infos = setup_logger('Info_logger', 'infos.log', logging.INFO)
-criticals = setup_logger('Criticals_logger', 'criticals.log', logging.CRITICAL)
-debugs = setup_logger('debugs_logger', 'debugs.log', logging.DEBUG)
+errors = setup_logger('Error_logger', 'logs/errors.log', logging.ERROR)
+infos = setup_logger('Info_logger', 'logs/infos.log', logging.INFO)
+criticals = setup_logger('Criticals_logger', 'logs/criticals.log', logging.CRITICAL)
+debugs = setup_logger('debugs_logger', 'logs/debugs.log', logging.DEBUG)
 
 """
 Functions/Utilities 
@@ -218,6 +218,9 @@ Home, contact-us, about pages, Chatbot
 # Chatbot starting Output #
 output = [("message stark", {"text":"Hi, how may I assist you?"})]
 
+# Chatbot starting latest response #
+latest = []
+
 # Home Page #
 @app.route('/')
 def home():
@@ -232,10 +235,24 @@ def faq():
         game_list.append(row[0])
     return render_template('faq.html', result=output,game_list=game_list)
 
+# ajax fetch route to retrive latest bot rrsponse #
+@app.route('/latest', methods=['GET', 'POST'])
+def fetch():
+    if request.method == 'GET':
+        global latest
+        count = 0
+        for i in latest: 
+            if "I'm sorry, I didn't quite understand that. Could you rephase?" == i:
+                count += 1
+            if count > 1: 
+                latest = [latest[0]]
+        return str(latest)
+
 # Chatbot #
 @app.route('/result',methods=["POST","GET"])
 def Result():
     global output
+    global latest
     if request.method=="POST":
         result=list(request.form.values())[0]
         if request.args.get('game') != None:
@@ -249,11 +266,13 @@ def Result():
             try:
                 r = requests.post('http://localhost:5002/webhooks/rest/webhook', json={"message": result})
                 li = []
+                latest = []
                 for i in r.json():
                     if 'image' in i:
                         li.append({"pic": i['image']})
                     if 'text' in i:
                         li.append(i['text'])
+                        latest.append(i['text'])
                     if 'buttons' in i:
                         for x in i['buttons']:
                             li.append((x['title'], "button"))
@@ -772,12 +791,16 @@ def shop():
     item_platform = request.args.get('platform')
     item_delete = request.args.get('delete')
     latest_cart_id = query('SELECT * FROM cart')
+    removeAll = request.args.get('removeAll')
+    if removeAll != None:
+        constructAndExecuteQuery('DELETE FROM cart WHERE user_id=?', session['user_id'])
     if latest_cart_id == []:
         latest_cart_id = 1
     else:
         latest_cart_id = (latest_cart_id[-1][0] + 1)
     if item_id != None:
         print('here')
+        item_platform = 'PS4'
         constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],session['user_id'], item_platform)
     if item_name != None and item_delete != None: 
         constructAndExecuteQuery('DELETE FROM cart WHERE prod_name=? AND user_id=?', item_name, session['user_id'])
@@ -862,6 +885,9 @@ def confirm():
             for i in bought_products:
                 total += (i[1] * i[3])
                 transaction_list.append((i[2], i[3], i[1], i[4],i[-1]))
+                current_product = query('SELECT * FROM analytics WHERE prod_name=?', i[2])
+                current_product_quantity, current_product_count, current_product_amount_earned = current_product[0][4], current_product[0][2], current_product_amount_earned[0]
+                # constructAndExecuteQuery('UPDATE analytics SET count=?, amount_earned=?, stock=?')
             unique = random.randint(100000000000,999999999999)
             latest_id = query('SELECT * FROM prev_transactions')
             if latest_id != []:

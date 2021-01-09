@@ -45,9 +45,11 @@ cursor = conn.cursor()
 For insert, delete, update statements 
 """
 def constructAndExecuteQuery(query, *args):
-    cursor.execute(query, *args)
-    conn.commit()
-
+    try:
+        cursor.execute(query, *args)
+        conn.commit()
+    except:
+        pass
 """
 For select statements
 """
@@ -82,6 +84,8 @@ class AddActionSkyrim(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -106,6 +110,8 @@ class AddActionGrandTheftAutoV(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -130,6 +136,8 @@ class AddActionFantasy(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -156,6 +164,8 @@ class AddAdventureMinecraft(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -180,6 +190,8 @@ class AddAdventureUncharted(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -204,6 +216,8 @@ class AddAdventureAssassinCreed(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -230,6 +244,8 @@ class AddHorrorResidentEvil3(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -254,6 +270,8 @@ class AddHorrorTheLastOfUs(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -278,6 +296,8 @@ class AddHorrorPhasmophobia(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -304,6 +324,8 @@ class AddIndieStardewValley(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -328,6 +350,8 @@ class AddIndieOvercooked2(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -352,6 +376,8 @@ class AddIndieFallGuys(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -378,7 +404,11 @@ class AddMultiplayerAnimalCrossing(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
+        if data == "None":
+            text = "You need to be signed in first"
         return []
 
 class AddMultiplayerCOD(Action): 
@@ -402,6 +432,8 @@ class AddMultiplayerCOD(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -426,6 +458,8 @@ class AddMultiplayerPUBG(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
         return []
 
@@ -452,6 +486,8 @@ class AddRacingMarioKart8(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddRacingForza(Action): 
@@ -475,6 +511,8 @@ class AddRacingForza(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddRacingDirt(Action): 
@@ -498,6 +536,8 @@ class AddRacingDirt(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 """RPG games"""
@@ -522,6 +562,8 @@ class AddRPGWitcher(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddRPGPersona(Action): 
@@ -545,6 +587,8 @@ class AddRPGPersona(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddRPGZelda(Action): 
@@ -568,6 +612,8 @@ class AddRPGZelda(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 """Simulation Games"""
@@ -593,6 +639,8 @@ class AddSimulationSims(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddSimulationWWE(Action): 
@@ -616,6 +664,8 @@ class AddSimulationWWE(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddSimulationFifa(Action): 
@@ -639,6 +689,8 @@ class AddSimulationFifa(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 """sports games"""
@@ -663,6 +715,8 @@ class AddSportsNBA(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddSportsFifa(Action): 
@@ -686,6 +740,8 @@ class AddSportsFifa(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")
 
 class AddSportsRocketLeague(Action): 
@@ -709,4 +765,6 @@ class AddSportsRocketLeague(Action):
         else:
             constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?,?)',latest_cart_id,1,product[2],product[3],product[5],data, item_platform)
             text = "Product have been added :)"
+        if data == "None":
+            text = "You need to be signed in first"
         dispatcher.utter_message(text=f"{text}")

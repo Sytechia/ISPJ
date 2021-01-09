@@ -76,6 +76,7 @@ intents:
 - refund_time
 - refund_status
 - currency
+- fee_price
 - out_of_scope
 responses:
   utter_bothelp:
@@ -403,6 +404,8 @@ responses:
       and confirm your new password. Your password must be alphanumeric with a minimum
       of 8 characters including at least 2 uppercase letters, 2 numbers and 2 special
       characters.
+  utter_fee_price:
+  - text: We have three different shipping options, express delivery, postal mail and standard delivery. The prices vary according to the weight of your package and your shipping options. For more information, please refer to shipping fee table on the faq page.
   utter_cannot_change_password:
   - text: Make sure that the password contains at least 8 characters including at
       least 2 uppercase letters, 2 numbers and 2 special characters. You are also

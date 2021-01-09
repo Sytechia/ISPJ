@@ -10,9 +10,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../static/css/main.css">
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <!-- <link rel="stylesheet" href="../../static/css/style.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <style>
+            <style>
+               .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid#01E693;
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #01E693
+}
+
+.container1 input[type=file]{
+    padding:0px;
+    paddin-top:5px;
+    background:none;
+}
+    </style>
 
 </head>
 <body>
@@ -46,7 +66,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.1/jquery.flexslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.0/masonry.pkgd.min.js"></script>
-    <script src="../static/js/singleprorductCart.js"></script>
+    <script src="../../static/js/singleprorductCart.js"></script>
 
     <script>
         var u =
@@ -165,6 +185,11 @@
         /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     </script>
 
+    <script type="text/javascript" src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+    <script src="../../static/js/useAlan.js"></script>
+    <!-- <script src="../../static/js/test.js">
+    </script> -->
 {% endblock %}
 </body>
 </html>
+

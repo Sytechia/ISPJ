@@ -655,3 +655,8 @@ stories:
   steps:
   - intent: currency
   - action: utter_currency
+
+- story: shipping fee price 
+  steps:
+  - intent: fee_price
+  - action: utter_fee_price

@@ -2130,6 +2130,22 @@ nlu:
     - what time can I call customer service department
     - what time is it possible to call customer service
 
+- intent: fee_price 
+  examples: |
+    - How much is the shipping fee 
+    - what is the cost for shipping fee 
+    - what are delivery options 
+    - what is price of the shipping fee
+    - how much does the shipping cost
+    - Is there a shipping fee
+    - shipping fee
+    - shipping cost 
+    - shipping price 
+    - where can i see the shipping fee
+    - is there a shipping fee 
+    - shipping fee rates 
+    - what are the shipping fees 
+
 - intent: how_return
   examples: |
     - how do I return my order
@@ -2844,3 +2860,6 @@ nlu:
     - DJF2ASV
     - fascmo doasmsd
     - amca,cmw e moafe
+    - Gabe's
+    - height
+    - are you on

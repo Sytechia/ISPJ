@@ -1,17 +1,26 @@
 import os, logging
 from flask import Flask
 from authlib.integrations.flask_client import OAuth
-# from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_manager
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
 from flask_mail import Mail
 from logging.config import dictConfig
 from datetime import timedelta
 from flask.logging import default_handler
 from flask import Flask, session
-# from flask_session import Session
 from datetime import timedelta
+
+import sentry_sdk
+from flask import Flask
+from sentry_sdk.integrations.flask import FlaskIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
+
+sentry_sdk.init(
+    dsn="https://5a1db76b79294f1eb4dc1f0b70656479@o500206.ingest.sentry.io/5579704",
+    integrations=[RedisIntegration()],
+    traces_sample_rate=1.0
+)
+
 
 #sqlite database setup and configurations
 app = Flask(__name__)

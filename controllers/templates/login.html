@@ -1,7 +1,26 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <!-- <link rel="stylesheet" href="../../static/css/style.css"> -->
+    <style>
+               .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-bottom: 1px solid#01E693;
+  border-radius: 3px;
+  background: none;
+  border-top:none;
+  border-right:none;
+  color: #01E693
+}
+
+.container1 input[type=file]{
+    padding:0px;
+    paddin-top:5px;
+    background:none;
+}
+    </style>
 {% endblock %}
 {% block content %}
 
