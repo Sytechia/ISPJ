@@ -13,3 +13,5 @@ Flask_Mail==0.9.1
 Flask==1.1.1
 Pillow==8.0.1
 rasa_sdk==2.2.0
+sentry_sdk
+redis

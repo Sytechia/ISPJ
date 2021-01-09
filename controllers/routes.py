@@ -224,7 +224,8 @@ latest = []
 # Home Page #
 @app.route('/')
 def home():
-    return render_template('homepage.html')
+    allProducts = query('SELECT * FROM products')
+    return render_template('homepage.html',allProducts=allProducts,enumerate=enumerate)
 
 # FAQ Page #
 @app.route('/faq')
@@ -818,7 +819,6 @@ def shop():
         prev_transactions = []
     print(prev_transactions)
     return render_template("shop.html", allProducts = allProducts, cartItems=prev_transactions)
-    return render_template("shop.html",allProducts=allProducts)
 
 
 @app.route('/checking',methods=['POST'])
