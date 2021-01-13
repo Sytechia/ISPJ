@@ -51,9 +51,10 @@ User account Management:
         -> password: VX7nz#40
 
 - Our customer email:
-    - Logged onto gmail to view customer enquiries & notification of suspicious activities:
+    - On your machine, you would need to into the following credentials to forward 2fa requests, forget password requests
     -> email: testemailnyp@gmail.com
     -> password: ValentiaTest2@@1
+    - Logged onto gmail to get notified of suspicious activities:
 
 
 

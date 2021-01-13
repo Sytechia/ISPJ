@@ -52,7 +52,8 @@ def constructAndExecuteQuery(query, *args):
 # # user = query("SELECT * FROM user WHERE user_id = ?", session["user_id"])
 #
 #
-# # user = query("SELECT * FROM user WHERE user_id = ?", session["user_id"])
+user = query("SELECT * FROM cart WHERE user_id = ?", str(392504))
+print(user)
 #
 # # user = query("SELECT * FROM user_accounts WHERE email = ?", email)
 # # user_id = user[0][0]
@@ -114,16 +115,16 @@ def constructAndExecuteQuery(query, *args):
 # #     transactions.append([(y[2], str(y[3]),y[4], y[1], total)])
 # # print(transactions)
 #
-constructAndExecuteQuery('DELETE FROM analytics')
+# constructAndExecuteQuery('DELETE FROM analytics')
 #
-li = [(i[2],i[1]) for i in query('SELECT * FROM products')]
-# print(li)
+# li = [(i[2],i[1]) for i in query('SELECT * FROM products')]
+# # print(li)
 
-id = 1
+# id = 1
 
-for i in li:
-    constructAndExecuteQuery('INSERT INTO analytics VALUES(?,?,?,?,?)', id, i[0], 0, 0, i[1])
-    id += 1
+# for i in li:
+#     constructAndExecuteQuery('INSERT INTO analytics VALUES(?,?,?,?,?)', id, i[0], 0, 0, i[1])
+#     id += 1
 
 # list = [1,2,3,4,5,6,7]
 # for i,x in enumerate(list):
