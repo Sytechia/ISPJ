@@ -1,13 +1,13 @@
-# import random
-# import pyodbc
-# server = "ispj-database.database.windows.net"
-# database = "ISPJ Database"
-# username = "Peter"
-# password = "p@ssw0rd"
-# driver= "{ODBC Driver 17 for SQL Server}"
-# conn = pyodbc.connect("DRIVER="+driver+";SERVER="+server+";PORT=1433;DATABASE="+database+";UID="+username+";PWD="+password)
-#
-# cursor = conn.cursor()
+import random
+import pyodbc
+server = "ispj-database.database.windows.net"
+database = "ISPJ Database"
+username = "Peter"
+password = "p@ssw0rd"
+driver= "{ODBC Driver 17 for SQL Server}"
+conn = pyodbc.connect("DRIVER="+driver+";SERVER="+server+";PORT=1433;DATABASE="+database+";UID="+username+";PWD="+password)
+
+cursor = conn.cursor()
 #
 # # cursor.execute('DELETE FROM user_accounts WHERE fullname=?',"Marcus")
 # # conn.commit()
@@ -25,21 +25,21 @@
 # """ Inserting into database """
 # # constructAndExecuteQuery(query, random.randint(100000, 999999), 1, email, password, isadmin, profile_image, previous_passwords, fullname)
 #
-# def query(query, *args):
-#     # try:
-#     cursor.execute(query, *args)
-#     result = cursor.fetchall()
-#     # except:
-#     #     result = []
-#     return result
+def query(query, *args):
+    # try:
+    cursor.execute(query, *args)
+    result = cursor.fetchall()
+    # except:
+    #     result = []
+    return result
 # strip_address = '528 bishan road'
 # cursor.execute('DELETE FROM cart WHERE user_id=? AND prod_name=?',str(392504), "The Elder Scrolls V: Skyrim")
 # conn.commit()
 # # print(result)
 #
-# def constructAndExecuteQuery(query, *args):
-#     cursor.execute(query, *args)
-#     conn.commit()
+def constructAndExecuteQuery(query, *args):
+    cursor.execute(query, *args)
+    conn.commit()
 #
 # """Deleting user from database"""
 # # cursor.execute("DELETE FROM user_accounts WHERE Id = 349568")
@@ -114,19 +114,19 @@
 # #     transactions.append([(y[2], str(y[3]),y[4], y[1], total)])
 # # print(transactions)
 #
-# # constructAndExecuteQuery('INSERT INTO cart VALUES(?,?,?,?,?,?)',1,1,)
+constructAndExecuteQuery('DELETE FROM analytics')
 #
-# li = [(i[2],i[1]) for i in query('SELECT * FROM products')]
-# # print(li)
-#
-# id = 1
-#
-# for i in li:
-#     constructAndExecuteQuery('INSERT INTO analytics VALUES(?,?,?,?,?)', id, i[0], 0, 0, i[1])
-#     id += 1
+li = [(i[2],i[1]) for i in query('SELECT * FROM products')]
+# print(li)
 
-list = [1,2,3,4,5,6,7]
-for i,x in enumerate(list):
-    if i<4:
-        print(x)
+id = 1
+
+for i in li:
+    constructAndExecuteQuery('INSERT INTO analytics VALUES(?,?,?,?,?)', id, i[0], 0, 0, i[1])
+    id += 1
+
+# list = [1,2,3,4,5,6,7]
+# for i,x in enumerate(list):
+#     if i<4:
+#         print(x)
 #

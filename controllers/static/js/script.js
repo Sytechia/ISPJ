@@ -17,16 +17,16 @@ $.ajax({
     var totals_quantity = 0
     var totals_amount = 0
     Array.from(datas).forEach(data => {
-    totals_amount += data['amount_earned']
-    totals_quantity += data['count']
+    totals_amount += data[3]
+    totals_quantity += data[2]
   })
   total_amount = totals_amount
   total_quantity = totals_quantity
-  const max = datas.reduce((prev, current) => (prev.count > current.count) ? prev : current)
-  popular_product_name = max.name
-  popular_amount_earned = max['amount_earned']
-  popular_quantity = max.count
-  popular_perc = 100* (max.count/total_quantity)
+  const max = datas.reduce((prev, current) => (prev[2] > current[2]) ? prev : current)
+  popular_product_name = max[1]
+  popular_amount_earned = max[3]
+  popular_quantity = max[2]
+  popular_perc = 100* (max[2]/total_quantity)
   },
   async: false,
   error: function(){
