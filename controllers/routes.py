@@ -123,6 +123,7 @@ def allowed_image(filename):
         return True
     else:
         return False
+
 @app.context_processor
 def inject_dict_for_all_templates():
     test = query("select prod_name from products")
@@ -130,6 +131,7 @@ def inject_dict_for_all_templates():
     for row in test:
         game_list.append(row[0])
     return dict(game_list=game_list)
+
 # Sends a qr code to the user upon payment and starts an internal thread #
 @app.route('/qr')
 def qr():
@@ -571,11 +573,13 @@ def editCard():
         card_id = request.args.get('card')
         if card_id != None:
             card = query('SELECT * FROM card_info WHERE Credit_card_id=?', int(card_id))
-            if card[0][6] != int(session['user_id']):
+            if card[0][6] != session['user_id']:
                 card = []
+                return redirect(url_for('myAccount'))
+            else:
+                return render_template('editcard.html', form=form, card=card[0])
         else:
             return redirect(url_for('home'))
-        return render_template('editCard.html', form=form, card=card[0])
     if form.validate_on_submit():
         card_id = request.args.get('card')
         card = query('SELECT * FROM card_info WHERE Credit_card_id=?', int(card_id))
@@ -886,9 +890,10 @@ def confirm():
                 total += (i[1] * i[3])
                 transaction_list.append((i[2], i[3], i[1], i[4],i[-1]))
                 current_product = query('SELECT * FROM analytics WHERE prod_name=?', i[2])
-                current_product_quantity, current_product_count, current_product_amount_earned = current_product[0][4], current_product[0][2], current_product_amount_earned[0]
-                # constructAndExecuteQuery('UPDATE analytics SET count=?, amount_earned=?, stock=?')
+                current_product_quantity, current_product_count, current_product_amount_earned = current_product[0][4], current_product[0][2], current_product[0][3]
+                constructAndExecuteQuery('UPDATE analytics SET count=?, amount_earned=?, stock=? WHERE prod_name=?', current_product_count + i[1], current_product_amount_earned + (i[1] * i[3]), current_product_quantity-i[1], i[2])
             unique = random.randint(100000000000,999999999999)
+            constructAndExecuteQuery('DELETE FROM cart WHERE user_id=?', session['user_id'])
             latest_id = query('SELECT * FROM prev_transactions')
             if latest_id != []:
                 latest_id = (latest_id[-1][0] + 1)
@@ -897,7 +902,6 @@ def confirm():
             constructAndExecuteQuery('INSERT INTO prev_transactions VALUES(?,?,?,?,?,?)', latest_id, str(transaction_list), unique, str(datetime.now()), 'Awaiting Order', session['user_id'])
             criticals.critical(f'Transaction #{unique} has been made by userID:{session["user_id"]}')
             print('Successful Transaction')
-            constructAndExecuteQuery('DELETE FROM cart WHERE user_id=?', session['user_id'])
             global stop_threads
             stop_threads = True
     else:
@@ -993,18 +997,20 @@ def admin():
 # Admin Analytics Page #    
 @app.route('/adminAnalytics')
 def analytics():
-    data = refreshAnalytics()
+    data = query('SELECT * FROM analytics')
     return render_template('admin/adminAnalytics.html', data = data)
 
 @app.route('/stats')
 def stats():
-    data = refreshAnalytics()
-    return jsonify(data)
+    data = query('SELECT * FROM analytics')
+    li = [list(i) for i in data]
+    return jsonify(li)
 
 @app.route('/downloadcsvs')
 def downloadcsv():
-    data = refreshAnalytics()
-    return send_csv(data,"data.csv", ["id", "name","stock","count","amount_earned"])
+    data = query('SELECT * FROM analytics')
+    li = [{"ID":i[0],"Product Name":i[1], "Stock":i[4] ,"Amount Sold":i[2], "Sales Revenue":i[3]} for i in data]
+    return send_csv(li,"data.csv", ["ID", "Product Name","Stock","Amount Sold","Sales Revenue"])
 
 @app.route('/trans')
 def trans():

@@ -177,13 +177,18 @@ btn.addEventListener('submit', e => {
     })
     document.querySelector('.checkout').disabled = true;
     console.log('fired')
+    // $.ajax({
+    //     type: "GET",
+    //     url: `/otp`,
+    //     success: function(){
+    //         window.location.href = '/userOTP'
+    //     }
+    // })
     $.ajax({
-        type: "GET",
-        url: `/otp`,
-        success: function(){
-            window.location.href = '/userOTP'
-        }
+        type:"POST",
+        url:"/paymentConfirmation"
     })
+    window.location.href = '/myAccount'
 });
 
 
