@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="container-fluid" style="width: 80%;padding-top: 30px">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -51,7 +52,7 @@
         <div class="row">
             {% for index,products in enumerate(allProducts) %}
                 {% if index < 6 %}
-                <div class="col-2">
+                    <div class="col-2">
                         <div class="wrapper">
                             <div class="cards">
                                 <figure class="card">
@@ -62,7 +63,7 @@
                                 </figure>
                             </div>
                         </div>
-                </div>
+                    </div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -72,10 +73,10 @@
                 <h2 class="pl-5" style="color: #01E693;">Featured</h2>
             </div>
         </div>
-    <div class="row">
+        <div class="row">
             {% for index,products in enumerate(allProducts) %}
                 {% if index > 5 and index < 12 %}
-                <div class="col-2">
+                    <div class="col-2">
                         <div class="wrapper">
                             <div class="cards">
                                 <figure class="card">
@@ -86,7 +87,7 @@
                                 </figure>
                             </div>
                         </div>
-                </div>
+                    </div>
                 {% endif %}
             {% endfor %}
         </div>

@@ -972,7 +972,7 @@ Shop
 .shopping-cart {
     width: 900px;
     height: 100%;
-    background: #36454F;
+    background: #171726;
     box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
     border-radius: 6px;
     display: flex;
@@ -1188,7 +1188,6 @@ button:focus, input:focus {
     overflow: hidden;
     text-indent: 100%;
     white-space: nowrap;
-    padding-top: 10px;
 }
 
 #cart-trigger a {

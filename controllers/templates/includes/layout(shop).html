@@ -14,24 +14,22 @@
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <style>
-            <style>
-               .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border-bottom: 1px solid#01E693;
-  border-radius: 3px;
-  background: none;
-  border-top:none;
-  border-right:none;
-  color: #01E693
-}
+        .container1 input[type=text], .container1 input[type=email], .container1 input[type=password] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border-bottom: 1px solid #01E693;
+            border-radius: 3px;
+            background: none;
+            border-top: none;
+            border-right: none;
+            color: #01E693
+        }
 
-.container1 input[type=file]{
-    padding:0px;
-    paddin-top:5px;
-    background:none;
-}
+        .container1 input[type=file] {
+            padding: 0px;
+            background: none;
+        }
     </style>
 
 </head>
@@ -75,6 +73,7 @@
             document.querySelector('.delete').style.display = 'None'
         }
     </script>
+
     <script>
         function autocomplete(inp, arr) {
             /*the autocomplete function takes two arguments,
@@ -181,7 +180,7 @@
 
         /*An array containing all the country names in the world:*/
         var games_list = {{ game_list|safe }}
-        autocomplete(document.getElementById("myInput"), games_list );
+            autocomplete(document.getElementById("myInput"), games_list);
         /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     </script>
 
