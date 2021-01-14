@@ -2,6 +2,9 @@
 {% block title %}{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
@@ -10,7 +13,7 @@
             transition: background-color 5000s ease-in-out 0s;
             -webkit-text-fill-color: #01E693!important;
         }
-    </style> 
+    </style>
 {% endblock %}
 {% block content %}
 <div class="container1">
@@ -80,7 +83,7 @@
                                     {{ form.confirm_password(placeholder="Retype Password") }}
                                 {% endif %}
                                         <br>    
-                                        <p class="forgot-password"><a href="{{ url_for('reset_request') }}"><strong>Generate Password</strong></a></p>
+                                        <p class="forgot-password"><a data-toggle="modal" href="#myModal"><strong>Generate Password</strong></a></p>
                                 </div>
                                 </div>
                                 {{ form.submit(class="btnRegister", disabled="true") }}
@@ -93,6 +96,24 @@
                 <br><br>
             </div>
         </section>
-    </main>
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" style="left: 5.5%;">
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="text-align: left;">Password Generator</h4>
+        </div>
+        <div class="modal-body">
+            <p>Password Generated: </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
 </div>
+    </main>
 {% endblock %}

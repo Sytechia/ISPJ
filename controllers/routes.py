@@ -34,14 +34,15 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 
 
 # Database #
-server = 'ispj-database.database.windows.net'
-database = 'ISPJ Database'
-username = 'Peter'
-password = 'p@ssw0rd'
-driver= '{ODBC Driver 17 for SQL Server}'
-conn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+password)
-
-cursor = conn.cursor()
+def start_connection():
+    server = 'ispj-database.database.windows.net'
+    database = 'ISPJ Database'
+    username = 'Peter'
+    password = 'p@ssw0rd'
+    driver= '{ODBC Driver 17 for SQL Server}'
+    conn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+password)
+    cursor = conn.cursor()
+    return cursor, conn
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 ###Create Log file ###
@@ -93,6 +94,7 @@ def verify_reset_token(token):
 For insert, delete, update statements 
 """
 def constructAndExecuteQuery(query, *args):
+    cursor, conn = start_connection()
     cursor.execute(query, *args)
     conn.commit()
 
@@ -100,6 +102,7 @@ def constructAndExecuteQuery(query, *args):
 For select statements
 """
 def query(query, *args):
+    cursor, conn = start_connection()
     try:
         cursor.execute(query, *args)
         result = cursor.fetchall()
@@ -470,31 +473,31 @@ def editAddress():
     if request.method == 'GET':
         address_id = request.args.get('address')
         if address_id != None:
-            address = query('SELECT * FROM Addresses WHERE Id=?', int(address_id))
-            if address[0][-1] != int(session['user_id']):
+            address = query('SELECT * FROM Addresses WHERE Id=?', address_id)
+            if address[0][-1] != session['user_id']:
                 address = []
         else:
             return redirect(url_for('home'))
         return render_template('editAddress.html', form=form, address=address[0])
     if form.validate_on_submit():
         address_id = request.args.get('address')
-        address = query('SELECT * FROM Addresses WHERE Id=?', int(address_id))
+        address = query('SELECT * FROM Addresses WHERE Id=?', address_id)
         editted_address = form.address.data 
         editted_country = form.country.data 
         editted_state = form.state.data 
         editted_postal = form.postal.data
         stripped_address = editted_address.strip()
-        old_addresses = query('SELECT * FROM Addresses WHERE user_id=?', int(session['user_id']))
+        old_addresses = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
         if len(old_addresses) == 1:
-            constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
+            constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, address_id)
             return redirect(url_for('myAccount'))
         else:
-            check_existing_address = query('SELECT * FROM Addresses WHERE address=? AND user_id=?', stripped_address, int(session['user_id']))
+            check_existing_address = query('SELECT * FROM Addresses WHERE address=? AND user_id=?', stripped_address, session['user_id'])
             if check_existing_address == []:
-                constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
+                constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, address_id)
                 return redirect(url_for('myAccount'))
-            elif check_existing_address[0][0] == int(address_id):
-                constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, int(address_id))
+            elif check_existing_address[0][0] == address_id:
+                constructAndExecuteQuery('UPDATE Addresses SET address=?,state=?,Country=?,PostalCode=? WHERE Id=?',stripped_address, editted_state, editted_country, editted_postal, address_id)
                 return redirect(url_for('myAccount'))
             else:
                 flash('You have already added this address! Please add a different address', 'danger')
@@ -502,7 +505,7 @@ def editAddress():
     else:
         address_id = request.args.get('address')
         if address_id != None:
-            address = query('SELECT * FROM Addresses WHERE Id=?', int(address_id))
+            address = query('SELECT * FROM Addresses WHERE Id=?', address_id)
         else:
             return redirect(url_for('home'))
         return render_template('editAddress.html', form=form, address=address[0])
@@ -517,8 +520,8 @@ def defaultAddress():
         addressList = query('SELECT * FROM Addresses WHERE user_id=?', session['user_id'])
         test = address.strip()
         for i in addressList:
-            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",int(i[0]))
-        constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",int(address))
+            constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"False",i[0])
+        constructAndExecuteQuery('UPDATE Addresses SET default_address=? WHERE Id=?',"True",address)
         return "[]"
     except:
         return redirect(url_for('home'))
@@ -531,7 +534,7 @@ def removeAddress():
         return redirect(url_for('myAccount'))
     try:
         test = address.strip()
-        constructAndExecuteQuery('DELETE FROM Addresses WHERE Id=?', int(test))
+        constructAndExecuteQuery('DELETE FROM Addresses WHERE Id=?',test)
         addresslist = query('SELECT * FROM Addresses WHERE user_id=?',session['user_id'])
         if addresslist != []:
             constructAndExecuteQuery('UPDATE Addresses SET "default_address"=? WHERE Id=?',"True",addresslist[-1][0])
@@ -652,24 +655,17 @@ def myAccount():
     if request.method == 'GET':
         if "user_id" not in session: 
             return redirect(url_for('home'))
-        else:
-            old_password = request.args.get('old')
-            if old_password != None:
-                current_password = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])[0][3]
-                compare_old_pw = check_password_hash(current_password, old_password)
-                if not compare_old_pw:
-                    return "wrong"
-            user_id = session['user_id']
-            user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
-            card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
-            address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
-            prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', str(user_id))
-            transactions = []
-            for y in prev_transactions:
-                total = 0
-                for z in ast.literal_eval(y[1]):
-                    total += (z[1] * z[2])
-                transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), total))
+        user_id = session['user_id']
+        user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))
+        card_info = query('SELECT * FROM card_info WHERE fk_user_id=?', str(user_id))
+        address_info = query('SELECT * from Addresses WHERE user_id=?', str(user_id))
+        prev_transactions = query('SELECT * FROM prev_transactions WHERE fk_user_id=?', str(user_id))
+        transactions = []
+        for y in prev_transactions:
+            total = 0
+            for z in ast.literal_eval(y[1]):
+                total += (z[1] * z[2])
+            transactions.append((y[2], str(y[3]),y[4], ast.literal_eval(y[1]), total))
     if form.validate_on_submit():
         user_id = session['user_id']
         user = query('SELECT * FROM user_accounts WHERE Id = ?', str(user_id))[0]
@@ -722,24 +718,27 @@ def changePassword():
     if form.validate_on_submit():
         user_current_pw = form.current_password.data
         db_pw = user[3]
-        compare_current_hash = check_password_hash(db_pw, user_current_pw)
-        if compare_current_hash == True:
-            oldpasswords = ast.literal_eval(user[6])
-            for i in oldpasswords:
-                if i == form.password.data:
-                    flash('You cannot reuse any of your previous 5 passwords!', 'danger')
-                    return render_template('changePassword.html', form=form)
+        compare_old_pw = check_password_hash(db_pw, user_current_pw)
+        if not compare_old_pw:
+            flash('wrong password!', 'danger')
+            return render_template('changePassword.html', form=form)
+        oldpasswords = ast.literal_eval(user[6])
+        for i in oldpasswords:
+            compare_current_hash = check_password_hash(i, form.password.data)
+            if compare_current_hash:
+                flash('You cannot reuse any of your previous 5 passwords!', 'danger')
+                return render_template('changePassword.html', form=form)
+        else:
+            if len(oldpasswords) == 5:
+                oldpasswords = []
+                new_pw = generate_password_hash(form.password.data, 10)
+                oldpasswords.append(new_pw)
+                constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
             else:
-                if len(oldpasswords) == 5:
-                    oldpasswords = []
-                    new_pw = generate_password_hash(form.password.data, 10)
-                    oldpasswords.append(new_pw)
-                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
-                else:
-                    new_pw = generate_password_hash(form.password.data, 10)
-                    oldpasswords.append(new_pw)
-                    constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
-                return redirect(url_for('myAccount'))
+                new_pw = generate_password_hash(form.password.data, 10)
+                oldpasswords.append(new_pw)
+                constructAndExecuteQuery('UPDATE user_accounts SET password=?,previous_passwords=? WHERE Id=?',new_pw,str(oldpasswords), session['user_id'])
+            return redirect(url_for('myAccount'))
     return render_template('changePassword.html', form=form)
 
 # Disable account route #
@@ -748,7 +747,8 @@ def disable():
     form = Disable()
     if form.validate_on_submit():
         user = query('SELECT * FROM user_accounts WHERE Id=?', session['user_id'])
-        if form.password.data == user[0][3]:
+        compare_old_pw = check_password_hash(user[0][3], form.password.data)
+        if compare_old_pw:
             constructAndExecuteQuery('UPDATE user_accounts SET account_status=? WHERE Id=?',0, session['user_id'])
             session.pop('user_id', None)
             return redirect(url_for('home'))
@@ -764,7 +764,8 @@ def activate():
     if form.validate_on_submit():
         stripped_email = form.email.data.strip()
         user = query('SELECT * FROM user_accounts WHERE email=?', stripped_email)
-        if form.password.data == user[0][3]:
+        compare_old_pw = check_password_hash(user[0][3], form.password.data)
+        if compare_old_pw:
             constructAndExecuteQuery('UPDATE user_accounts SET account_status=? WHERE email=?',1,stripped_email)
             session['user_id'] = user[0][0]
             return redirect(url_for('home'))
@@ -904,6 +905,7 @@ def confirm():
             print('Successful Transaction')
             global stop_threads
             stop_threads = True
+            return "success"
     else:
         return redirect(url_for('home'))
     
@@ -992,7 +994,7 @@ def admin():
         if i[4] == 'Awaiting order':
             li.append(i)
     number = len(previousTransaction)
-    return render_template('admin/admin.html', previousTransaction = previousTransaction, number = number)
+    return render_template('admin/admin.html', previousTransaction = [], number = number)
 
 # Admin Analytics Page #    
 @app.route('/adminAnalytics')
@@ -1064,7 +1066,7 @@ def Calander():
 @app.route('/Logs')
 def Logs():
     errors_logs = []
-    with open('errors.log') as f: 
+    with open('logs/errors.log') as f: 
         line = f.readlines()
         for i in line:
             dic = {}
@@ -1089,7 +1091,7 @@ def Logs():
             dic["route"] = sen
             errors_logs.append(dic)
     info_logs =[]
-    with open('infos.log') as f: 
+    with open('logs/infos.log') as f: 
         line = f.readlines()
         for i in line:
             dicd = {}
@@ -1104,7 +1106,7 @@ def Logs():
             eddited = sentence.replace('\n', '')
             dicd["message"] = eddited
             info_logs.append(dicd)
-    with open('criticals.log', 'r+') as f: 
+    with open('logs/criticals.log', 'r+') as f: 
         lines = f.readlines()
         critical_logs = []
         for i in lines:
@@ -1126,7 +1128,7 @@ def Logs():
             eddited = sentence.replace('\n', '')
             dicdd["message"] = eddited
             critical_logs.append(dicdd)
-    return render_template('admin/adminlogs.html', errors=errors_logs, info=info_logs, criticals = critical_logs)
+    return render_template('admin/adminlogs.html', errors=[], info=[], criticals = [])
 
 @app.route('/announcement')
 def announcement():
@@ -1200,7 +1202,7 @@ def orderStatus():
 
 @app.route('/listUser')
 def listUser():
-    users = query('SELECT * FROM user_accounts')
+    users = []
     return render_template('admin/usersList.html', users = users)
 
 """ Admin E-commerce Section Routes """
