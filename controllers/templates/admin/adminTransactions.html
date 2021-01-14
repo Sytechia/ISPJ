@@ -1,221 +1,230 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sidebar template</title>
-  <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'> -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
-  <link rel="stylesheet" href="../../static/css/admin.css">
-  <link rel="stylesheet" href="../../static/css/main.css">
-  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-  <link rel="stylesheet" href="../../static/css/style.css">
-  <style>
-    .showOrderDetails{
-      background-color: #1e2229!important;
-    }
-    label{
-      color:white
-    }
+    <meta charset="UTF-8">
+    <title>Sidebar template</title>
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
+    <link rel="stylesheet" href="../../static/css/admin.css">
+    <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <style>
+        .showOrderDetails {
+            background-color: #1e2229 !important;
+        }
 
-    h2, #example_info{
-      color:white
-    }
+        label {
+            color: white
+        }
 
-    .btn-group {
-      display: none;
-    }
-    td, tr{
-    color:#d4af37!important;
-    }
-    table{
-        padding-bottom: 0px;
-    }
-  </style>
+        h2, #example_info {
+            color: white
+        }
+
+        .btn-group {
+            display: none;
+        }
+
+        td, tr {
+            color: #d4af37 !important;
+        }
+
+        table {
+            padding-bottom: 0px;
+        }
+    </style>
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <div class="page-wrapper chiller-theme toggled">
-  <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
-    <i class="fas fa-bars"></i>
-  </a>
-  <nav id="sidebar" class="sidebar-wrapper">
-    <div class="sidebar-content">
-      <div class="sidebar-brand">
-        <a href="#">Admin</a>
-        <div id="close-sidebar">
-          <i class="fas fa-times"></i>
-        </div>
-      </div>
-      <div class="sidebar-header">
-        <div class="user-pic">
-          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-            alt="User picture">
-        </div>
-        <div class="user-info">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a href="#">Admin</a>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                         src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                         alt="User picture">
+                </div>
+                <div class="user-info">
           <span class="user-name">John
             <strong>Smith</strong>
           </span>
-          <span class="user-role">Administrator</span>
+                    <span class="user-role">Administrator</span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+
+                    <li>
+                        <a href="/admin">
+                            <i class="fa fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/productList">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>E-commerce</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/adminAnalytics">
+                            <i class="fa fa-chart-line"></i>
+                            <span>Data</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/listUser">
+                            <i class="fa fa-globe"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Calendar">
+                            <i class="fa fa-calendar"></i>
+                            <span>Calendar</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Logs">
+                            <i class="fa fa-calendar"></i>
+                            <span>Logs</span>
+                        </a>
+                    </li>
+            </div>
+            <!-- sidebar-menu  -->
         </div>
-      </div>
-      <!-- sidebar-header  -->
-      
-      <!-- sidebar-search  -->
-      <div class="sidebar-menu">
-        <ul>
-          <li class="header-menu">
-            <span>General</span>
-          </li>
-          
-          <li>
-            <a href="/admin">
-              <i class="fa fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-              
-            </a>
-          </li>
-          <li>
-            <a href="/productList">
-              <i class="fa fa-shopping-cart"></i>
-              <span>E-commerce</span>
-            </a>
-          </li>
-          
-          <li>
-            <a href="/adminAnalytics">
-              <i class="fa fa-chart-line"></i>
-              <span>Data</span>
-            </a>
-          </li>
-          
-          <li>
-            <a href="/listUser">
-              <i class="fa fa-globe"></i>
-              <span>Users</span>
-            </a>
-          </li>
+        <!-- sidebar-content  -->
+        <!-- <div class="sidebar-footer">
+          <a href="#">
+            <i class="fa fa-bell"></i>
+            <span class="badge badge-pill badge-warning notification">3</span>
+          </a>
+          <a href="#">
+            <i class="fa fa-envelope"></i>
+            <span class="badge badge-pill badge-success notification">7</span>
+          </a>
+          <a href="#">
+            <i class="fa fa-cog"></i>
+            <span class="badge-sonar"></span>
+          </a>
+          <a href="#">
+            <i class="fa fa-power-off"></i>
+          </a>
+        </div> -->
+    </nav>
 
-          <li>
-            <a href="/Calendar">
-              <i class="fa fa-calendar"></i>
-              <span>Calendar</span>
-            </a>
-          </li>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <h1></h1>
 
-          <li>
-            <a href="/Logs">
-              <i class="fa fa-calendar"></i>
-              <span>Logs</span>
-            </a>
-         </li>
-      </div>
-      <!-- sidebar-menu  -->
-    </div>
-    <!-- sidebar-content  -->
-    <!-- <div class="sidebar-footer">
-      <a href="#">
-        <i class="fa fa-bell"></i>
-        <span class="badge badge-pill badge-warning notification">3</span>
-      </a>
-      <a href="#">
-        <i class="fa fa-envelope"></i>
-        <span class="badge badge-pill badge-success notification">7</span>
-      </a>
-      <a href="#">
-        <i class="fa fa-cog"></i>
-        <span class="badge-sonar"></span>
-      </a>
-      <a href="#">
-        <i class="fa fa-power-off"></i>
-      </a>
-    </div> -->
-  </nav>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <defs>
+                <symbol id="arrow" viewBox="0 0 100 100">
+                    <path d="M12.5 45.83h64.58v8.33H12.5z"/>
+                    <path d="M59.17 77.92l-5.84-5.84L75.43 50l-22.1-22.08 5.84-5.84L87.07 50z"/>
+                </symbol>
+            </defs>
+        </svg>
 
-  <!-- sidebar-wrapper  -->
-  <main class="page-content">
-    <h1></h1>
 
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-      <defs>
-        <symbol id="arrow" viewBox="0 0 100 100">
-          <path d="M12.5 45.83h64.58v8.33H12.5z"/>
-            <path d="M59.17 77.92l-5.84-5.84L75.43 50l-22.1-22.08 5.84-5.84L87.07 50z"/>
-        </symbol>
-      </defs>
-    </svg>
-    
-    
-      
-      <div class="content">
-        
-        <a href="/trans" class="button">
-          View Other Transactions
-          <span>
+        <div class="content">
+
+            <a href="/trans" class="button">
+                View Other Transactions
+                <span>
             <svg>
               <use xlink:href="#arrow" href="#arrow"></use>
             </svg>
           </span>
-        </a>
-        
-      </div>
-    
-    <div class="myAccount" style='display: block;'="Paris">
-        <h2><strong>Transaction #{{trans[0][0]}}</strong></h2>
-        <hr>
-        {% for i in trans %}
-        <table>
-            <tr>
-                <td>
-                    <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;User ID</label>
-                    <input type="text" id="orderDate" class='trans_id' name="orderDate" value="#{{ i[4] }}" readonly>
-                </td>
-                <td>
-                    <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
-                    <input type="text" id="orderDate" class='trans_date' name="orderDate" value="{{ i[1] }}" readonly>
-                </td>
-                <td>
-                    <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
-                    <input type="text" id="order" name="order" value="#{{i[0]}}" readonly>
-                </td>
-                <td>
-                    <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
-                    <input type="text" class="orderStatus" name="orderStatus" value="{{i[2]}}" readonly>
-                </td>
-                <td>
-                    <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
-                    <input type="text" id="orderTotal" name="orderTotal" value="${{i[-1]}}" readonly>
-                </td>
-                <td class="arrowStyle">
-                    <button class="showOrderDetails" onclick="showOrderDetails()"><i class="arrow down" id="arrowStyle"></i></button>
-                </td>
-            </tr>
-            {% for j in i[3] %}   
-            <tr>
-                <td class='previousTran'>
-                    <div class="orderDetails" style="display: none;">
-                        <img src="{{ j[3] }}" width="100px" height="100px" style="float: left;">
-                        <span class="itemDesc"><p><span class="name">{{ j[0] }}</span><br>Quantity: {{ j[2] }} <br><br>
-                    </div>
-                </td>
-            </tr>
+            </a>
+
+        </div>
+
+        <div class="myAccount" style='display: block;'>
+            <h2><strong>Transaction #{{ trans[0][0] }}</strong></h2>
+            <hr>
+            {% for i in trans %}
+                <table>
+                    <tr>
+                        <td>
+                            <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;User ID</label>
+                            <input type="text" id="orderDate" class='trans_id' name="orderDate" value="#{{ i[4] }}"
+                                   readonly>
+                        </td>
+                        <td>
+                            <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
+                            <input type="text" id="orderDate" class='trans_date' name="orderDate" value="{{ i[1] }}"
+                                   readonly>
+                        </td>
+                        <td>
+                            <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
+                            <input type="text" id="order" name="order" value="#{{ i[0] }}" readonly>
+                        </td>
+                        <td>
+                            <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
+                            <input type="text" class="orderStatus" name="orderStatus" value="{{ i[2] }}" readonly>
+                        </td>
+                        <td>
+                            <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
+                            <input type="text" id="orderTotal" name="orderTotal" value="${{ i[-1] }}" readonly>
+                        </td>
+                        <td class="arrowStyle">
+                            <button class="showOrderDetails" onclick="showOrderDetails()"><i class="arrow down"
+                                                                                             id="arrowStyle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% for j in i[3] %}
+                        <tr>
+                            <td class='previousTran'>
+                                <div class="orderDetails" style="display: none;">
+                                    <img src="{{ j[3] }}" height="150px" width="100px" style="float: left;">
+                                    <span class="itemDesc"><p><span>
+                                            class="name">{{ j[0] }}</span><br>Quantity: {{ j[2] }} <br><br>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
             {% endfor %}
-        </table>
-      
-        {% endfor %}
         </div>
 
     </main>
-  <!-- page-content" -->
+    <!-- page-content" -->
 </div>
 <!-- page-wrapper -->
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js'></script>
-<script  src="../../static/js/admin.js"></script>
-
+<script src="../../static/js/admin.js"></script>
 
 
 </body>

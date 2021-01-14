@@ -1,287 +1,306 @@
 {% extends "includes/layout.html" %}
 {% block title %}{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <link rel="stylesheet" href="../../static/css/style.css">
     <style>
-        .container1 input[type=text], .container1 input[type=email],  .container1 input[type=password]{
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border-bottom: 1px solid#01E693;
-  border-radius: 3px;
-  background: none;
-  border-top:none;
-  border-right:none;
-  color: #01E693
-}
+        .container1 input[type=text], .container1 input[type=email], .container1 input[type=password] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border-bottom: 1px solid #01E693;
+            border-radius: 3px;
+            background: none;
+            border-top: none;
+            border-right: none;
+            color: #01E693
+        }
 
-.container1 input[type=file]{
-    padding:0px;
-    paddin-top:5px;
-    background:none;
-}
-.footer{
-    display: none;
-}
+        .container1 input[type=file] {
+            padding: 0px;
+            paddin-top: 5px;
+            background: none;
+        }
+
+        .footer {
+            display: none;
+        }
     </style>
 {% endblock %}
 {% block content %}
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
     {% endwith %}
-<div class="container1">
-<main id="mainContent">
-    <section id="facts">
-        <div class="container wow fadeIn">
-            <div class="section-header">
-                <div class="profileCard">
-                    <br>
-                    <img class="profile" src="{{ user[5] }}" alt="John">
-                    <br><br>
-                    <h3>{{name}}</h3>
-                    <br>
-                    <a href="#" class="btn" onclick="openCity(event, 'London')">My Account</a><br>
-                    <a href="/changePassword" class="btn" onclick="openCity(event, 'Korea')">Change Password</a><br>
-                    <a href="#" class="btn"  onclick="openCity(event, 'Paris')">My Orders</a><br>
-                    <a href="#" class="btn"  onclick="openCity(event, 'Tokyo')">My Addresses</a><br>
-                    <a href="#" class="btn"  onclick="openCity(event, 'Spain')">My Wallet</a><br>
-                    <!-- <a href="#" class="btn"  onclick="openCity(event, 'Italy')">My Reviews</a> -->
-                </div>
-                <div class="myAccount tabcontent" id="London">
-
-                    <div class="content-section">
-                        <div class="media">
-                          <img class="rounded-circle account-img" src="">
-                          <div class="media-body">
-
-                            <h2 class="account-heading">{{ user[7] }}</h2>
+    <div class="container1">
+        <main id="mainContent">
+            <section id="facts">
+                <div class="container wow fadeIn">
+                    <div class="section-header">
+                        <div class="profileCard">
+                            <br>
                             <img class="profile" src="{{ user[5] }}" alt="John">
-                            <p class="text-secondary">{{ email }}</p>
-                          </div>
+                            <br><br>
+                            <h3>{{ name }}</h3>
+                            <br>
+                            <a href="#" class="btn" onclick="openCity(event, 'London')">My Account</a><br>
+                            <a href="/changePassword" class="btn" onclick="openCity(event, 'Korea')">Change Password</a><br>
+                            <a href="#" class="btn" onclick="openCity(event, 'Paris')">My Orders</a><br>
+                            <a href="#" class="btn" onclick="openCity(event, 'Tokyo')">My Addresses</a><br>
+                            <a href="#" class="btn" onclick="openCity(event, 'Spain')">My Wallet</a><br>
+                            <!-- <a href="#" class="btn"  onclick="openCity(event, 'Italy')">My Reviews</a> -->
                         </div>
-                          <form method="POST" action="" enctype="multipart/form-data">
-                              {{ form.hidden_tag() }}
-                              <fieldset class="form-group">
-                                  <legend class="border-bottom mb-4">Account Info</legend>
-                                  <div class="form-group">
-                                      {{ form.fullname.label(class="form-control-label") }}
-                  
-                                      {% if form.fullname.errors %}
-                                          {{ form.fullname(class="form-control form-control-lg is-invalid") }}
-                                          <div class="invalid-feedback">
-                                              {% for error in form.fullname.errors %}
-                                                  <span>{{ error }}</span>
-                                              {% endfor %}
-                                          </div>
-                                      {% else %}
-                                          {{ form.fullname(placeholder="Ben Tan", value = user[7]) }}
-                                      {% endif %}
-                                  </div>
-                                  <div class="form-group">
-                                      {{ form.email.label(class="form-control-label") }}
-                                      {% if form.email.errors %}
-                                          {{ form.email(class="form-control form-control-lg is-invalid") }}
-                                          <div class="invalid-feedback">
-                                              {% for error in form.email.errors %}
-                                                  <span>{{ error }}</span>
-                                              {% endfor %}
-                                          </div>
-                                      {% else %}
-                                          {{ form.email(placeholder="ben@gmail.com", value=user[2]) }}
-                                      {% endif %}
-                                  </div>
-                                  <div class="form-group">
-                                      {{ form.picture.label() }}
-                                      <!-- {{ form.picture(class="form-control-file") }} -->
-                                      <input type="file" name="image" id="image" class="form-control-file">
-                                      {% if form.picture.errors %}
-                                          {% for error in form.picture.errors %}
-                                              <span class="text-danger">{{ error }}</span></br>
-                                          {% endfor %}
-                                      {% endif %}
-                                  </div>
-                              </fieldset>
-                              <div class="form-group">
-                                  {{ form.submit(class="btnRegister") }}
-                              </div>
-                          </form>
-                          <button style="background-color: #ff3333; width:80%; position:absolute; bottom:-60px" class="btnRegister disable">Disable Account</button>
+                        <div class="myAccount tabcontent" id="London">
 
-                        </div>
-                </div>
+                            <div class="content-section">
+                                <div class="media">
+                                    <img class="rounded-circle account-img" src="">
+                                    <div class="media-body">
 
-                <!-- Change password -->
-                <div class="myAccount tabcontent" id="Korea" style="display: none;">
-
-                    <div class="content-section">
-                    
-                          
-                              <!-- <fieldset class="form-group">
-                                  <legend class="border-bottom mb-4">Change Password</legend>
-                                  <div class="form-group" style="outline: none;">
-                                    <label for="current_password">Current Password</label>
-                                  <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Current Password">
-                                  
+                                        <h2 class="account-heading">{{ user[7] }}</h2>
+                                        <img class="profile" src="{{ user[5] }}" alt="John">
+                                        <p class="text-secondary">{{ email }}</p>
+                                    </div>
                                 </div>
-                                  <div class="form-group">
-                                      <label for="password">New Password</label>
-                                    <input type="password" style="outline:none" class="form-control" disabled name="password" id="password" placeholder="New Password">
-                                  </div>
-                                  <meter max="4" id="password-strength-meter"></meter>
-                                    <p id="password-strength-text"></p>
-                                  <div class="form-group">
-                                    <label for="confirm_password">Confirm Password</label>
-                                    <input type="password" class="form-control" name="confirm_password" disabled id="confirm_password" placeholder="Confirm New Password">
-                                  </div>
-                             
-                              </fieldset>
-                              <div class="form-group">
-                                  <button id="changepassword" class="btnRegister" disabled="true">Change Password</button>
-                              </div> -->
-                          
-                          
+                                <form method="POST" action="" enctype="multipart/form-data">
+                                    {{ form.hidden_tag() }}
+                                    <fieldset class="form-group">
+                                        <legend class="border-bottom mb-4">Account Info</legend>
+                                        <div class="form-group">
+                                            {{ form.fullname.label(class="form-control-label") }}
 
-                        </div>
-                </div>
+                                            {% if form.fullname.errors %}
+                                                {{ form.fullname(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.fullname.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.fullname(placeholder="Ben Tan", value = user[7]) }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form.email.label(class="form-control-label") }}
+                                            {% if form.email.errors %}
+                                                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.email.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.email(placeholder="ben@gmail.com", value=user[2]) }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form.picture.label() }}
+                                            <!-- {{ form.picture(class="form-control-file") }} -->
+                                            <input type="file" name="image" id="image" class="form-control-file">
+                                            {% if form.picture.errors %}
+                                                {% for error in form.picture.errors %}
+                                                    <span class="text-danger">{{ error }}</span></br>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </fieldset>
+                                    <div class="form-group">
+                                        {{ form.submit(class="btnRegister") }}
+                                    </div>
+                                </form>
+                                <button style="background-color: #ff3333; width:80%; position:absolute; bottom:-60px"
+                                        class="btnRegister disable">Disable Account
+                                </button>
 
-                <div class="myAccount tabcontent" id="Paris">
-                    <h2><strong>MY ORDERS</strong></h2>
-                    <p>Check the status of your orders or browse through your past purchases.</p>
-                    <hr>
-                    {% for i in transactions %}
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
-                                <input type="text" id="orderDate" class='tran_date' name="orderDate" value="{{ i[1] }}" readonly>
-                            </td>
-                            <td>
-                                <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
-                                <input type="text" id="order" name="order" value="#{{i[0]}}" style="width: 150px;" >
-                            </td>
-                            <td>
-                                <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
-                                <input type="text" id="orderStatus" name="orderStatus" value="{{i[2]}}" style="width: 150px;" readonly>
-                            </td>
-                            <td>
-                                <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
-                                <input type="text" id="orderTotal" name="orderTotal" value="${{i[4]}}" style="width: 150px;" readonly>
-                            </td>
-                            <div class="dlist">
-                            <td class="arrowStyle">
-                                <button class="showOrderDetails"><i class="arrow down" id="arrowStyle"></i></button>
-                            </td>
                             </div>
-                        </tr>
-                        {% for j in i[3] %}   
-                        <tr>
-                            <td class='previousTran'>
-                                <div class="orderDetails" style="display: none;">
-                                    <img src="{{ j[3] }}" width="100px" height="100px" style="float: left;">
-                                    <span class="itemDesc"><p><span class="name">{{ j[0] }}</span><br>Quantity: {{ j[2] }} <br><br></p></span>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+                        </div>
 
-        
-                    <hr class="lineBreak">
-                    {% endfor %}
-                   
-                </div>
+                        <!-- Change password -->
+                        <div class="myAccount tabcontent" id="Korea" style="display: none;">
 
-                <div class="myAccount tabcontent" id="Tokyo"> <!--NEW CHANGES TO THIS DIV-->
-                    <h2><strong>MY ADDRESSES</strong></h2>
-                    <p>Add or manage the addresses you use often.</p>
-                    <hr>
+                            <div class="content-section">
 
-                    {% for address in addresses %}
-                    {% if address[5] == 'True' %}
-                        <p class="default-add address padding">
-                    {% else %}
-                    <p class="address padding">
-                    {% endif %}
-                        <span style="display: none;">{{address[0]}}</span>
-                        <span class="userAddress">{{ address[1] }}</span><br>{{ address[2] }} {{ address[4] }}<br>{{ address[3] }}<br>
-                        <br><a href='/editAddress?address={{ address[0] }}' class='editAddress'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='removeAddress'>Remove</button><button class="setAsDefault">{{ 'Default Address' if (address[5] == 'True') else 'Set as Default address' }}</button></p>
-                     
-                    <hr class = "lineBreak">
-                    {% endfor %}
 
-                    <!-- <p class="address">Nanyang Polytechnic<br>Ang Mo Kio, 123456<br>Singapore<br>
-                        <br><a href="">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Remove</a><a href="#" class="setAsDefault">Set as default address</a></p>
-                    <hr class = "lineBreak"> -->
+                                <!-- <fieldset class="form-group">
+                                    <legend class="border-bottom mb-4">Change Password</legend>
+                                    <div class="form-group" style="outline: none;">
+                                      <label for="current_password">Current Password</label>
+                                    <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Current Password">
 
-                   
-                    <a href="{{ url_for('addAddress') }}" class="btnRegister" style="text-decoration:none;">Add Address</a>
-                    
-                </div>
-                <div class="myAccount tabcontent" id="Spain">
-                    <h2><strong>MY WALLET</strong></h2>
-                    <p>Save your credit or debit card details for future purchases.</p>
-                    <hr>
-                    {% for card in credit_cards %}
-                    
-                    {% if card[7] == 'True' %}
-                        <table class="default">
-                    {% else %}
-                        <table>
-                    {% endif %}
-                        <thead class = 'padding'>
+                                  </div>
+                                    <div class="form-group">
+                                        <label for="password">New Password</label>
+                                      <input type="password" style="outline:none" class="form-control" disabled name="password" id="password" placeholder="New Password">
+                                    </div>
+                                    <meter max="4" id="password-strength-meter"></meter>
+                                      <p id="password-strength-text"></p>
+                                    <div class="form-group">
+                                      <label for="confirm_password">Confirm Password</label>
+                                      <input type="password" class="form-control" name="confirm_password" disabled id="confirm_password" placeholder="Confirm New Password">
+                                    </div>
+
+                                </fieldset>
+                                <div class="form-group">
+                                    <button id="changepassword" class="btnRegister" disabled="true">Change Password</button>
+                                </div> -->
+
+
+                            </div>
+                        </div>
+
+                        <div class="myAccount tabcontent" id="Paris">
+                            <h2><strong>MY ORDERS</strong></h2>
+                            <p>Check the status of your orders or browse through your past purchases.</p>
+                            <hr>
+                            {% for i in transactions %}
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Date</label>
+                                            <input type="text" id="orderDate" class='tran_date' name="orderDate"
+                                                   value="{{ i[1] }}" readonly>
+                                        </td>
+                                        <td>
+                                            <label for="orderDate"><i class="fa"></i>&nbsp;&nbsp;Order</label>
+                                            <input type="text" id="order" name="order" value="#{{ i[0] }}"
+                                                   style="width: 150px;">
+                                        </td>
+                                        <td>
+                                            <label for="orderStatus"><i class="fa"></i>&nbsp;&nbsp;Status</label>
+                                            <input type="text" id="orderStatus" name="orderStatus" value="{{ i[2] }}"
+                                                   style="width: 150px;" readonly>
+                                        </td>
+                                        <td>
+                                            <label for="orderTotal"><i class="fa"></i>&nbsp;&nbsp;Total</label>
+                                            <input type="text" id="orderTotal" name="orderTotal" value="${{ i[4] }}"
+                                                   style="width: 150px;" readonly>
+                                        </td>
+                                        <div class="dlist">
+                                            <td>
+                                                <button class="showOrderDetails"><i
+                                                        class="fas fa-angle-double-down"></i>
+
+                                                </button>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                    {% for j in i[3] %}
+                                        <tr>
+                                            <td class='previousTran'>
+                                                <div class="orderDetails" style="display: none;">
+                                                    <img src="{{ j[3] }}" width="100px" height="150px"
+                                                         style="float: left;">
+                                                    <span class="itemDesc"><p><span class="name">{{ j[0] }}</span><br>Quantity: {{ j[2] }} <br><br></p></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+
+
+                                <hr class="lineBreak">
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="myAccount tabcontent" id="Tokyo"> <!--NEW CHANGES TO THIS DIV-->
+                            <h2><strong>MY ADDRESSES</strong></h2>
+                            <p>Add or manage the addresses you use often.</p>
+                            <hr>
+
+                            {% for address in addresses %}
+                                {% if address[5] == 'True' %}
+                                    <p class="default-add address padding">
+                                        {% else %}
+                                    <p class="address padding">
+                                {% endif %}
+                            <span style="display: none;">{{ address[0] }}</span>
+                            <span class="userAddress">{{ address[1] }}</span><br>{{ address[2] }} {{ address[4] }}
+                            <br>{{ address[3] }}<br>
+                            <br><a href='/editAddress?address={{ address[0] }}' class='editAddress'>Edit</a>&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <button class='removeAddress'>Remove</button>
+                            <button class="setAsDefault">{{ 'Default Address' if (address[5] == 'True') else 'Set as Default address' }}</button>
+                            </p>
+
+                                <hr class="lineBreak">
+                            {% endfor %}
+
+                            <!-- <p class="address">Nanyang Polytechnic<br>Ang Mo Kio, 123456<br>Singapore<br>
+                                <br><a href="">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Remove</a><a href="#" class="setAsDefault">Set as default address</a></p>
+                            <hr class = "lineBreak"> -->
+
+
+                            <a href="{{ url_for('addAddress') }}" class="btnRegister" style="text-decoration:none;">Add
+                                Address</a>
+
+                        </div>
+                        <div class="myAccount tabcontent" id="Spain">
+                            <h2><strong>MY WALLET</strong></h2>
+                            <p>Save your credit or debit card details for future purchases.</p>
+                            <hr>
+                            {% for card in credit_cards %}
+
+                                {% if card[7] == 'True' %}
+                                    <table class="default">
+                                {% else %}
+                                    <table>
+                                {% endif %}
+                            <thead class='padding'>
                             <td class="padding">Credit Card</td>
                             <td class="padding">Expiration Date</td>
                             <td></td>
-                        </thead>
-                        <tr>
-                            <td><br></td>
-                        </tr>
+                            </thead>
+                            <tr>
+                                <td><br></td>
+                            </tr>
 
-                        <tr>
-                            <td class="padding">
-                                <p class="walletDetails">
-                                    {% if card[3] == "MASTERCARD" %}
-                                        <i class="fab fa-cc-mastercard" style="color:rgb(255, 255, 255);"></i>
-                                    {% else %}
-                                        <i class="fab fa-cc-visa" aria-hidden="true"></i>
-                                    {% endif %}
-                                    &nbsp;&nbsp;{{ 'MasterCard' if (card[3] == "MASTERCARD") else 'Visa' }}</p>
+                            <tr>
+                                <td class="padding">
+                                    <p class="walletDetails">
+                                        {% if card[3] == "MASTERCARD" %}
+                                            <i class="fab fa-cc-mastercard" style="color:rgb(255, 255, 255);"></i>
+                                        {% else %}
+                                            <i class="fab fa-cc-visa" aria-hidden="true"></i>
+                                        {% endif %}
+                                        &nbsp;&nbsp;{{ 'MasterCard' if (card[3] == "MASTERCARD") else 'Visa' }}</p>
 
-                            </td>
-                            <td class="padding">
-                                <p class="walletDetails">{{card[4]}}/{{card[5]}}</p>
-                            </td>
-                            <td>
-                                <spans style="display:none;">{{card[0]}} </spans>
-                                <button class="setAsDefaultWallet">{{ 'Default card' if (card[7] == 'True') else 'Set as Default card' }}</button>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="padding">
+                                    <p class="walletDetails">{{ card[4] }}/{{ card[5] }}</p>
+                                </td>
+                                <td>
+                                    <spans style="display:none;">{{ card[0] }} </spans>
+                                    <button class="setAsDefaultWallet">{{ 'Default card' if (card[7] == 'True') else 'Set as Default card' }}</button>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td class="padding">
-                                <span style="display: none;">{{card[0]}}</span>
-                                <a href='/editCard?card={{card[0]}}' class='editWallet'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='removeWallet'>Remove</button>
-                            </td>
-                        </tr>
-                    </table>
-                
-                    <hr class="lineBreak">
-                    {% endfor %}
-                    
+                            <tr>
+                                <td class="padding">
+                                    <span style="display: none;">{{ card[0] }}</span>
+                                    <a href='/editCard?card={{ card[0] }}' class='editWallet'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
+                                        class='removeWallet'>Remove
+                                </button>
+                                </td>
+                            </tr>
+                            </table>
 
-                    <a href="{{ url_for('addCard') }}" class="btnRegister" style="text-decoration:none;">Add Card</a>
+                                <hr class="lineBreak">
+                            {% endfor %}
+
+
+                            <a href="{{ url_for('addCard') }}" class="btnRegister" style="text-decoration:none;">Add
+                                Card</a>
+                        </div>
+
+
+                    </div>
                 </div>
-
-               
-            </div>
-        </div>
-    </section>
-</main>
-</div>
+            </section>
+        </main>
+    </div>
 {% endblock %}
