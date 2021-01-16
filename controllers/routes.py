@@ -34,15 +34,24 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 
 
 # Database #
-def start_connection():
-    server = 'ispj-database.database.windows.net'
-    database = 'ISPJ Database'
-    username = 'Peter'
-    password = 'p@ssw0rd'
-    driver= '{ODBC Driver 17 for SQL Server}'
-    conn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+password)
-    cursor = conn.cursor()
-    return cursor, conn
+# def start_connection():
+#     server = 'ispj-database.database.windows.net'
+#     database = 'ISPJ Database'
+#     username = 'Peter'
+#     password = 'p@ssw0rd'
+#     driver= '{ODBC Driver 17 for SQL Server}'
+#     conn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+password)
+#     cursor = conn.cursor()
+#     return cursor, conn
+server = 'ispj-database.database.windows.net'
+database = 'ISPJ Database'
+username = 'Peter'
+password = 'p@ssw0rd'
+driver= '{ODBC Driver 17 for SQL Server}'
+conn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+password)
+cursor = conn.cursor()
+cursor.fast_executemany = True
+
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 ###Create Log file ###
@@ -94,7 +103,6 @@ def verify_reset_token(token):
 For insert, delete, update statements 
 """
 def constructAndExecuteQuery(query, *args):
-    cursor, conn = start_connection()
     cursor.execute(query, *args)
     conn.commit()
 
@@ -102,7 +110,6 @@ def constructAndExecuteQuery(query, *args):
 For select statements
 """
 def query(query, *args):
-    cursor, conn = start_connection()
     try:
         cursor.execute(query, *args)
         result = cursor.fetchall()
