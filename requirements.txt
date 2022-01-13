@@ -11,7 +11,7 @@ WTForms==2.2.1
 requests==2.25.1
 Flask_Mail==0.9.1
 Flask==1.1.1
-Pillow==8.0.1
+Pillow==9.0.0
 werkzeug==0.16.1
 rasa
 sentry_sdk
