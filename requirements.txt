@@ -10,7 +10,7 @@ Flask_CSV==1.2.0
 WTForms==2.2.1
 requests==2.25.1
 Flask_Mail==0.9.1
-Flask==1.1.1
+Flask==2.3.2
 Pillow==8.0.1
 werkzeug==0.16.1
 rasa
